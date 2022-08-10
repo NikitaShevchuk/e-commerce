@@ -1,0 +1,15 @@
+export interface ISize {
+    sizeName: string
+    isAvailable: boolean
+}
+
+export interface IProductCard {
+    id: number
+    addedAt: string
+    name: string
+    image: string
+    price: number
+    isNew: boolean
+    sizes: string[]
+    isFavorite: boolean
+}
