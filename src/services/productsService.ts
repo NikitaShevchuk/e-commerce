@@ -1,6 +1,6 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 import {IProductCard} from "../models/IProductCard";
-import {ICategories} from "../models/ICategories";
+import {ICategory} from "../models/ICategory";
 
 export const API_URL = 'https://62d8405090883139358e3103.mockapi.io'
 
@@ -13,15 +13,25 @@ export const productsAPI = createApi({
                 url: `/categories/${params}`
             })
         }),
-        getCategories: build.query<ICategories[], string>({
+        getCategories: build.query<ICategory[], string>({
             query: (params) => ({
                 url: `/categories${params}`
             })
         }),
-        getSingleCategory: build.query<ICategories, string>({
+        getSingleCategory: build.query<ICategory,string>({
             query: (categoryId) => ({
                 url: `/categories/${categoryId}`
-            })
+            }),
+            // async onQueryStarted({categoryId, patch}, { dispatch, queryFulfilled }) {
+            //     try {
+            //         const { data: updatedCategory } = await queryFulfilled
+            //         const patchResult = dispatch(
+            //             productsAPI.util.updateQueryData('getSingleCategory', {categoryId, patch}, (draft) => {
+            //                 Object.assign(draft, updatedCategory)
+            //             })
+            //         )
+            //     } catch {}
+            // }
         }),
     })
 })

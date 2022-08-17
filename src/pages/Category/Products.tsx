@@ -3,11 +3,9 @@ import ProductCard from '../../components/ProductCard'
 import CategoryProductCardLoader from '../../components/Loaders/Category/CategoryProductCardLoader'
 import {Grid} from '@mui/material'
 import {useGetProductCardsQuery} from "../../services/productsService";
-import {useNavigate} from "react-router-dom";
-import qs from "qs";
-import {useTypedDispatch, useTypedSelector} from "../../hooks/redux";
+import {useTypedSelector} from "../../hooks/redux";
 import {getFilters} from "../../store/selectors/filter";
-import {setQueryRequest} from "../../store/slices/filterSlice";
+import useUpdateQuery from "../../hooks/useUpdateQuery";
 
 interface Props {
 	categoryId: string | undefined,
@@ -15,22 +13,9 @@ interface Props {
 }
 
 const Products: FC<Props> = ({categoryId, categoryName}) => {
-	const {sizes, color, sort, requestQuery} = useTypedSelector(getFilters)
+	const {requestQuery, itemsLimit} = useTypedSelector(getFilters)
 	let isMounted = useRef(false)
-	const dispatch = useTypedDispatch()
-	const navigate = useNavigate()
-	React.useEffect(
-		() => {
-			const query = qs.stringify(
-				{sizes, color, sortBy: sort.property, order: sort.order},
-				{skipNulls: true, arrayFormat: 'comma'}
-			)
-			if (isMounted.current) navigate(`?${query}`)
-			dispatch(setQueryRequest(`${categoryId}/${categoryName}?${query}`))
-			isMounted.current = true
-		},
-		[sizes, color, sort, categoryName, categoryId]
-	)
+	useUpdateQuery(categoryId, categoryName, isMounted)
 	const {data: products, isLoading, isError} = useGetProductCardsQuery(requestQuery)
 	return (
 		<Grid
@@ -46,13 +31,14 @@ const Products: FC<Props> = ({categoryId, categoryName}) => {
 				))
 			}
 			{isLoading &&
-				Array.from(Array(8)).map((_, index) => (
+				Array.from(Array(itemsLimit)).map((_, index) => (
 					<Grid item xs={2} sm={3} md={3} key={index}>
 						<CategoryProductCardLoader />
 					</Grid>
 				))
 			}
 			{isError &&
+				// todo add error component
 				'Error component'
 			}
 		</Grid>

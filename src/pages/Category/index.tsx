@@ -2,21 +2,13 @@ import React from 'react';
 import {Container} from "@mui/material";
 import Products from './Products';
 import CategoryHeader from './CategoryHeader';
-import {useTypedDispatch} from "../../hooks/redux";
 import {useParams} from "react-router-dom";
-import qs from 'qs'
-import {setFilters} from "../../store/slices/filterSlice";
 import ProductsPagination from "./ProductsPagination";
+import useParseQueryParamsToState from "../../hooks/useParseQueryParamsToState";
 
 const Category = () => {
-	const dispatch = useTypedDispatch();
 	let {categoryId, categoryName} = useParams();
-	React.useEffect(() => {
-			if (window.location.search) {
-				const params = qs.parse(window.location.search.substring(1))
-				dispatch(setFilters(params))
-			}}, []
-	)
+	useParseQueryParamsToState()
     return (
         <Container 
 			maxWidth='xl' 

@@ -3,6 +3,7 @@ import { Stack, Typography } from '@mui/material'
 import React, { FC } from 'react'
 import {removeColor, removeSize, setColor, setSize, setSort} from "../../store/slices/filterSlice";
 import {useGetSingleCategoryQuery} from "../../services/productsService";
+import useAddDefaultSortType from "../../hooks/useAddDefaultSortType";
 
 interface Props {
 	categoryId: string | undefined
@@ -11,7 +12,9 @@ interface Props {
 
 const CategoryHeader: FC<Props> = ({categoryId, categoryName}) => {
 	if (!categoryId) categoryId = '0'
-	const {data: category, isLoading, isError} = useGetSingleCategoryQuery(categoryId)
+	let {data: category, isLoading, isError, isSuccess} = useGetSingleCategoryQuery(categoryId)
+	// Adding select menu item with default sort type
+	useAddDefaultSortType(categoryId, isSuccess)
 	return (
 		<>
 			<Typography 

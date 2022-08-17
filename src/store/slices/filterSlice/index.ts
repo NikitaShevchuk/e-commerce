@@ -52,13 +52,15 @@ const filterSlice = createSlice( {
         setFilters(state, action) {
             state.color = splitByComma(action.payload.color)
             state.sizes = splitByComma(action.payload.sizes)
+            if (action.payload.p) state.currentPage = action.payload.p
+            if (action.payload.l) state.itemsLimit = action.payload.l
             if (action.payload.sortBy && action.payload.order) {
                 state.sort.property = action.payload.sortBy
                 state.sort.order = action.payload.order
             }
         },
         setCurrentPage(state, action) {
-            state.currentPage = action.payload.currentPage
+            state.currentPage = action.payload
         },
         setQueryRequest(state, action) {
             state.requestQuery = action.payload
