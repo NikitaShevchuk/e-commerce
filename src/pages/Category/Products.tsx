@@ -1,16 +1,37 @@
-import React, {FC} from 'react'
+import React, {FC, useRef} from 'react'
 import ProductCard from '../../components/ProductCard'
 import CategoryProductCardLoader from '../../components/Loaders/Category/CategoryProductCardLoader'
 import {Grid} from '@mui/material'
-import { IProductCard } from '../../models/IProductCard'
+import {useGetProductCardsQuery} from "../../services/productsService";
+import {useNavigate} from "react-router-dom";
+import qs from "qs";
+import {useTypedDispatch, useTypedSelector} from "../../hooks/redux";
+import {getFilters} from "../../store/selectors/filter";
+import {setQueryRequest} from "../../store/slices/filterSlice";
 
 interface Props {
-    products: IProductCard[] | undefined
-	isLoading: boolean
-	isError: boolean
+	categoryId: string | undefined,
+	categoryName: string | undefined
 }
 
-const Products: FC<Props> = ({products, isLoading, isError}) => {
+const Products: FC<Props> = ({categoryId, categoryName}) => {
+	const {sizes, color, sort, requestQuery} = useTypedSelector(getFilters)
+	let isMounted = useRef(false)
+	const dispatch = useTypedDispatch()
+	const navigate = useNavigate()
+	React.useEffect(
+		() => {
+			const query = qs.stringify(
+				{sizes, color, sortBy: sort.property, order: sort.order},
+				{skipNulls: true, arrayFormat: 'comma'}
+			)
+			if (isMounted.current) navigate(`?${query}`)
+			dispatch(setQueryRequest(`${categoryId}/${categoryName}?${query}`))
+			isMounted.current = true
+		},
+		[sizes, color, sort, categoryName, categoryId]
+	)
+	const {data: products, isLoading, isError} = useGetProductCardsQuery(requestQuery)
 	return (
 		<Grid
 			container

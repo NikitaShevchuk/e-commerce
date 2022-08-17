@@ -1,12 +1,17 @@
-import Filter from './Filter'
+import Filter from './Filters/Filter'
 import { Stack, Typography } from '@mui/material'
 import React, { FC } from 'react'
-import {setColor, setSize} from "../../store/slices/filterSlice";
-import {categoryResponse} from "./index";
+import {removeColor, removeSize, setColor, setSize, setSort} from "../../store/slices/filterSlice";
+import {useGetSingleCategoryQuery} from "../../services/productsService";
 
-interface Props extends categoryResponse {}
+interface Props {
+	categoryId: string | undefined
+	categoryName: string | undefined
+}
 
-const CategoryHeader: FC<Props> = ({data}) => {
+const CategoryHeader: FC<Props> = ({categoryId, categoryName}) => {
+	if (!categoryId) categoryId = '0'
+	const {data: category, isLoading, isError} = useGetSingleCategoryQuery(categoryId)
 	return (
 		<>
 			<Typography 
@@ -17,7 +22,7 @@ const CategoryHeader: FC<Props> = ({data}) => {
 					my: 4
 				}} 
 			>
-				{data?.name}
+				{category?.name}
 			</Typography>
 
 			<Stack 
@@ -35,16 +40,26 @@ const CategoryHeader: FC<Props> = ({data}) => {
 					alignItems='center'
 				>
 					<Filter 
-						filterItems={data?.sizes}
-						title='Sizes'
-						filterAction={setSize}
+						filterItems={category?.sizes}
+						title='sizes'
+						addFilterProperty={setSize}
+						removeFilterProperty={removeSize}
+						filterType='checkbox'
 					/>
 					<Filter 
-						filterItems={data?.colors}
-						title='Colors'
-						filterAction={setColor}
+						filterItems={category?.colors}
+						title='color'
+						addFilterProperty={setColor}
+						removeFilterProperty={removeColor}
+						filterType='checkbox'
 					/>
 				</Stack>
+				<Filter
+					selectMenuItems={category?.sortBy}
+					title='sort'
+					addFilterProperty={setSort}
+					filterType='select'
+				/>
 			</Stack>
 		</>
 	)

@@ -3,5 +3,6 @@ export interface ICategories {
     name: string,
     image: string,
 	sizes: string[],
-	colors: string[]
+	colors: string[],
+    sortBy: Array<{property: string, order: 'asc' | 'desc'}>
 }

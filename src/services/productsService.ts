@@ -18,7 +18,12 @@ export const productsAPI = createApi({
                 url: `/categories${params}`
             })
         }),
+        getSingleCategory: build.query<ICategories, string>({
+            query: (categoryId) => ({
+                url: `/categories/${categoryId}`
+            })
+        }),
     })
 })
 
-export const  { useGetProductCardsQuery, useGetCategoriesQuery } = productsAPI;
+export const  { useGetProductCardsQuery, useGetCategoriesQuery, useGetSingleCategoryQuery } = productsAPI;
