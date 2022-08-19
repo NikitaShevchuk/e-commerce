@@ -157,3 +157,27 @@ a:hover {
 #root .product-card:hover .product-sizes__item {
   font-weight: 300;
 }
+.search-icon {
+  position: absolute;
+  display: block;
+  bottom: 10px;
+  right: 20px;
+  cursor: pointer;
+}
+#root .search-block {
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0);
+  position: absolute;
+  width: 100%;
+  top: -150vh;
+  opacity: 0;
+  transition: top .3s ease-in-out, background-color .2s ease-in-out .3s;
+}
+#root .search-block.active {
+  top: 100%;
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+.search-result-product {
+  margin: 10px 0;
+}

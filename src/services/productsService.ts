@@ -22,18 +22,13 @@ export const productsAPI = createApi({
             query: (categoryId) => ({
                 url: `/categories/${categoryId}`
             }),
-            // async onQueryStarted({categoryId, patch}, { dispatch, queryFulfilled }) {
-            //     try {
-            //         const { data: updatedCategory } = await queryFulfilled
-            //         const patchResult = dispatch(
-            //             productsAPI.util.updateQueryData('getSingleCategory', {categoryId, patch}, (draft) => {
-            //                 Object.assign(draft, updatedCategory)
-            //             })
-            //         )
-            //     } catch {}
-            // }
         }),
+        getProductsBySearch: build.query<IProductCard[], string | null>({
+            query: (searchRequestText) => ({
+                url: `/categories/1/men?search=${searchRequestText}`
+            })
+        })
     })
 })
 
-export const  { useGetProductCardsQuery, useGetCategoriesQuery, useGetSingleCategoryQuery } = productsAPI;
+export const  { useGetProductCardsQuery, useGetCategoriesQuery, useGetSingleCategoryQuery, useGetProductsBySearchQuery } = productsAPI;

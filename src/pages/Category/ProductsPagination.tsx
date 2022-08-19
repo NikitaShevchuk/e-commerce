@@ -27,7 +27,7 @@ const ProductsPagination = () => {
             count={+pagesCount}
             defaultPage={+currentPage}
             page={+currentPage}
-            sx={{mb: 6}}
+            sx={{mb: 6, mt: 3}}
             onChange={handleChange}
         />
     );
