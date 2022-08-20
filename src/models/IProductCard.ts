@@ -1,8 +1,3 @@
-export interface ISize {
-    sizeName: string
-    isAvailable: boolean
-}
-
 export interface IProductCard {
     id: number
     addedAt: string

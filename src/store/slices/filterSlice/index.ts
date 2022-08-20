@@ -10,6 +10,7 @@ interface InitialState {
     requestQuery: string
     currentPage: number
     itemsLimit: number
+    itemsCount: number
     sizes: string[] | null
     color: string[] | null
     sort: Sort
@@ -21,6 +22,7 @@ const initialState: InitialState = {
     currentPage: 1,
     sizes: null,
     color: null,
+    itemsCount: 0,
     sort: {
         property: null,
         order: null
@@ -66,12 +68,17 @@ const filterSlice = createSlice( {
             state.requestQuery = action.payload
         },
         setItemsLimit(state, action) {
-            state.itemsLimit = action.payload.itemsLimit
+            state.itemsLimit = action.payload
+        },
+        setItemsCount(state, action) {
+            state.itemsCount = action.payload
         }
     }
 } )
 
 export const {
-    setSize, setSort, setColor, setFilters, removeColor, removeSize, setCurrentPage, setQueryRequest
+    setSize, setSort, setColor, setFilters,
+    removeColor, removeSize, setCurrentPage,
+    setQueryRequest, setItemsCount, setItemsLimit
 } = filterSlice.actions
 export default filterSlice.reducer

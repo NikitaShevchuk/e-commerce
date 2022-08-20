@@ -7,14 +7,19 @@ import {NavLink} from "react-router-dom";
 interface Props {
     productName: string
     productColor: string
+    productId: number
 }
 
-const SearchResultProduct: FC<Props> = ({productName, productColor}) => {
+const SearchResultProduct: FC<Props> = ({productName, productColor, productId}) => {
     const dispatch = useTypedDispatch()
     const handleClick = () => dispatch(setIsSearchActive(false))
+    let productCategoryName = React.useMemo(
+        () => productId === 1 ? 'men' : 'women',
+        [productId]
+    )
     return (
         <NavLink
-            to={`/product/${productName}`}
+            to={`/${productId}/${productCategoryName}/${productName}`}
             className='search-result-product'
             onClick={handleClick}
         >

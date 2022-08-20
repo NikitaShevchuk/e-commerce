@@ -7,7 +7,7 @@ interface InitialState {
 
 const initialState: InitialState = {
     isSearchActive: false,
-    searchRequest: null
+    searchRequest: null,
 }
 
 export const searchSlice = createSlice( {

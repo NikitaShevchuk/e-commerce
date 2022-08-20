@@ -14,7 +14,7 @@ const HeaderSearch = () => {
     const {isSearchActive, searchRequest} = useTypedSelector(getSearchSlice)
     let [skip, setSkip] = React.useState(false)
     React.useEffect(
-        () => {setSkip(!searchRequest)},
+        () => {setSkip(!searchRequest)}, // skip the request if search field is empty
         [searchRequest]
     )
     const {
@@ -22,12 +22,18 @@ const HeaderSearch = () => {
     } = useGetProductsBySearchQuery(searchRequest, {skip})
     const dispatch = useTypedDispatch()
     const handleClick = () => dispatch(setIsSearchActive(false))
+    let searchBlockClassName = isSearchActive ? 'search-block active' : 'search-block'
     return (
-        <Paper className={`search-block ${isSearchActive ? 'active' : ''}`} >
+        <Paper className={searchBlockClassName} >
             <Paper sx={{backgroundColor: 'secondary', py: 6}} >
-                <Container maxWidth='md' sx={{position: 'relative'}} >
-                    <Stack justifyContent='space-between' direction='row'>
-                        <Typography>What are you looking for?</Typography>
+                <Container maxWidth='md'>
+                    <Stack
+                        justifyContent='space-between'
+                        direction='row'
+                    >
+                        <Typography>
+                            What are you looking for?
+                        </Typography>
                         <CloseIcon
                             sx={{cursor: 'pointer', mb: 5}}
                             onClick={handleClick}
@@ -46,6 +52,7 @@ const HeaderSearch = () => {
                             key={product.id}
                             productName={product.name}
                             productColor={product.color}
+                            productId={product.id}
                         />
                     )}
                     {isError &&

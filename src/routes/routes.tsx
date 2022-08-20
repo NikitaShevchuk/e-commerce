@@ -3,6 +3,7 @@ import MainPage from "../pages/Main";
 import {Navigate} from "react-router-dom";
 
 const Category = React.lazy(() => import('../pages/Category'))
+const Search = React.lazy(() => import('../pages/Search'))
 
 export interface IRoute {
     element: JSX.Element
@@ -18,6 +19,10 @@ export const publicRoutes: IRoute[] = [
     {
         path: '/categories/:categoryId/:categoryName',
         element: <Suspense fallback={'loading...'}><Category /></Suspense>
+    },
+    {
+        path: '/search/:categoryId/:categoryName',
+        element: <Suspense fallback={'loading...'}><Search /></Suspense>
     },
     {
         path: '*',

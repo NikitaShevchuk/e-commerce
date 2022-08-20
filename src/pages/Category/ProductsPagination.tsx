@@ -1,6 +1,6 @@
 import React from 'react';
 import {Pagination} from "@mui/material";
-import {setCurrentPage} from "../../store/slices/filterSlice";
+import {setCurrentPage, setItemsCount} from "../../store/slices/filterSlice";
 import {useTypedDispatch, useTypedSelector} from "../../hooks/redux";
 import {useGetProductCardsQuery} from "../../services/productsService";
 import {getFilters} from "../../store/selectors/filter";
@@ -12,12 +12,15 @@ const ProductsPagination = () => {
     const {data: productsArray} = useGetProductCardsQuery(
         requestQuery.replace( `p=${currentPage}&l=${itemsLimit}`, 'p=1&l=999' )
     )
+    const dispatch = useTypedDispatch()
     let [pagesCount, setPagesCount] = React.useState(1)
     React.useEffect( () => {
-        const totalPages = productsArray ? Math.ceil(productsArray.length / itemsLimit) : 1
-        setPagesCount( totalPages )
+        let amountOfProducts = productsArray ? productsArray.length : 1
+        const totalPages = Math.ceil( amountOfProducts / itemsLimit)
+        if (totalPages > 1) setPagesCount( totalPages )
+        dispatch(setItemsCount(amountOfProducts))
     }, [productsArray, itemsLimit] )
-    const dispatch = useTypedDispatch()
+
     const handleChange = ( e: React.ChangeEvent<unknown>, pageNumber: number ) => {
         dispatch(setCurrentPage(pageNumber))
     }

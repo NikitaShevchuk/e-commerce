@@ -25,7 +25,7 @@ export const productsAPI = createApi({
         }),
         getProductsBySearch: build.query<IProductCard[], string | null>({
             query: (searchRequestText) => ({
-                url: `/categories/1/men?search=${searchRequestText}`
+                url: `/categories/1/men?p=1&l=8&search=${searchRequestText}`
             })
         })
     })

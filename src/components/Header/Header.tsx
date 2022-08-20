@@ -15,7 +15,8 @@ const Header: FC = () => {
                     display: {xs: 'flex'},
                     justifyContent: 'center',
                     backgroundColor: 'white'
-            }}>
+                }}
+            >
                 <LeftMenu />
                 <Typography sx={{flex: 1}}>
                     <NavLink
