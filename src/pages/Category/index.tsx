@@ -14,8 +14,15 @@ const Category = () => {
 			maxWidth='xl' 
 			className='product-category__wrapper'
 		>
-            <CategoryHeader categoryId={categoryId} categoryName={categoryName}/>
-            <Products categoryId={categoryId} categoryName={categoryName}/>
+            <CategoryHeader
+				categoryId={categoryId}
+				categoryName={categoryName}
+			/>
+            <Products
+				categoryId={categoryId}
+				categoryName={categoryName}
+				clearSearchRequest={true}
+			/>
 			<ProductsPagination />
         </Container>
     );

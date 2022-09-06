@@ -2,17 +2,21 @@ import {combineReducers, configureStore} from "@reduxjs/toolkit";
 import {productsAPI} from "../services/productsService";
 import filterSlice from "./slices/filterSlice";
 import searchSlice from "./slices/searchSlice";
+import cartSlice from "./slices/cartSlice";
 
 const rootReducer = combineReducers({
     filterSlice,
     searchSlice,
-    [productsAPI.reducerPath]: productsAPI.reducer
+    cartSlice,
+    [productsAPI.reducerPath]: productsAPI.reducer,
 })
 
 export const setupStore = () => {
     return configureStore({
         reducer: rootReducer,
-        middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(productsAPI.middleware)
+        middleware: (getDefaultMiddleware) => {
+            return getDefaultMiddleware().concat(productsAPI.middleware)
+        }
     })
 }
 

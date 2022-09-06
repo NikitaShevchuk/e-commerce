@@ -5,9 +5,11 @@ import qs from "qs";
 import {setQueryRequest} from "../store/slices/filterSlice";
 import {getFilters} from "../store/selectors/filter";
 import {getSearchRequest} from "../store/selectors/search";
+import {setSearchRequest} from "../store/slices/searchSlice";
 
 const useUpdateQuery = (
-    categoryId: string | undefined, categoryName: string | undefined, isMounted: {current: boolean}
+    categoryId: string | undefined, categoryName: string | undefined, isMounted: {current: boolean},
+    clearSearchRequest: boolean = false
 ) => {
     const {sizes, color, sort, currentPage, itemsLimit} = useTypedSelector(getFilters)
     const search = useTypedSelector(getSearchRequest)
@@ -15,6 +17,8 @@ const useUpdateQuery = (
     const navigate = useNavigate()
     React.useEffect(
         () => {
+            // clear search request if it's not search page
+            if (clearSearchRequest) dispatch(setSearchRequest(null))
             const query = qs.stringify(
                 {
                     sizes,

@@ -74,8 +74,12 @@ const Filter: FC<Props> = ({
 					/>
 				)
 			}
-			{!filterItems && filterType === 'checkbox' && <FilterPreloader />}
-			{!selectMenuItems && filterType === 'select' && <FilterPreloader />}
+			{!filterItems && filterType === 'checkbox' &&
+				<FilterPreloader />
+			}
+			{!selectMenuItems && filterType === 'select' &&
+				<FilterPreloader />
+			}
 		</Menu>
 		</div>
 	);

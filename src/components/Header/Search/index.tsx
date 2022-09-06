@@ -1,7 +1,6 @@
 import React from 'react';
-import {Container, Paper, Stack, Typography} from "@mui/material";
-import CloseIcon from '@mui/icons-material/Close'
-import {useTypedDispatch, useTypedSelector} from "../../../hooks/redux";
+import {Container, Paper, Typography} from "@mui/material";
+import {useTypedSelector} from "../../../hooks/redux";
 import {setIsSearchActive} from "../../../store/slices/searchSlice";
 import {getSearchSlice} from "../../../store/selectors/search";
 import {useGetProductsBySearchQuery} from "../../../services/productsService";
@@ -9,6 +8,8 @@ import SearchResultProduct from "./SearchResultProduct";
 import SearchResultPreloader from "../../Loaders/SearchResultPreloader";
 import BasicPreloader from "../../Loaders/BasicPreloader";
 import SearchField from "./SearchField";
+import LoadingError from "../../LoadingError";
+import HeaderWithClose from "../../common/HeaderWithClose";
 
 const HeaderSearch = () => {
     const {isSearchActive, searchRequest} = useTypedSelector(getSearchSlice)
@@ -18,27 +19,18 @@ const HeaderSearch = () => {
         [searchRequest]
     )
     const {
-        data: products, isLoading, isError, isFetching
+        data: products, isLoading, isError, isFetching, refetch
     } = useGetProductsBySearchQuery(searchRequest, {skip})
-    const dispatch = useTypedDispatch()
-    const handleClick = () => dispatch(setIsSearchActive(false))
+
     let searchBlockClassName = isSearchActive ? 'search-block active' : 'search-block'
     return (
         <Paper className={searchBlockClassName} >
             <Paper sx={{backgroundColor: 'secondary', py: 6}} >
                 <Container maxWidth='md'>
-                    <Stack
-                        justifyContent='space-between'
-                        direction='row'
-                    >
-                        <Typography>
-                            What are you looking for?
-                        </Typography>
-                        <CloseIcon
-                            sx={{cursor: 'pointer', mb: 5}}
-                            onClick={handleClick}
-                        />
-                    </Stack>
+                    <HeaderWithClose
+                        title='What are you looking for?'
+                        handleClose={setIsSearchActive}
+                    />
                     <SearchField />
                     <BasicPreloader
                         isLoading={isLoading}
@@ -47,7 +39,7 @@ const HeaderSearch = () => {
                     >
                         <SearchResultPreloader />
                     </BasicPreloader>
-                    {!isFetching && products && products.map( product =>
+                    {!isError && !isFetching && products && products.map( product =>
                         <SearchResultProduct
                             key={product.id}
                             productName={product.name}
@@ -55,9 +47,11 @@ const HeaderSearch = () => {
                             productId={product.id}
                         />
                     )}
+                    {products && products.length < 1 &&
+                        <Typography>Nothing found(</Typography>
+                    }
                     {isError &&
-                        // todo add error component
-                        'Error component'
+                        <LoadingError reload={refetch} />
                     }
                 </Container>
             </Paper>

@@ -7,14 +7,14 @@ import {NavLink} from "react-router-dom";
 interface Props {
     productName: string
     productColor: string
-    productId: number
+    productId: string
 }
 
 const SearchResultProduct: FC<Props> = ({productName, productColor, productId}) => {
     const dispatch = useTypedDispatch()
     const handleClick = () => dispatch(setIsSearchActive(false))
     let productCategoryName = React.useMemo(
-        () => productId === 1 ? 'men' : 'women',
+        () => productId === '1' ? 'men' : 'women',
         [productId]
     )
     return (

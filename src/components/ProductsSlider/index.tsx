@@ -8,6 +8,7 @@ import {Swiper, SwiperSlide} from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import {NavLink} from "react-router-dom";
+import LoadingError from "../LoadingError";
 
 export interface CategorySliderProps {
     params: string
@@ -18,7 +19,7 @@ export interface CategorySliderProps {
 const ProductsSlider: FC<CategorySliderProps> = ({
     params, blockTitle, categoryLink
 }) => {
-    const {data, isLoading, error} = useGetProductCardsQuery(params)
+    const {data, isLoading, error, refetch} = useGetProductCardsQuery(params)
     return (<>
         <Container maxWidth='xl'>
             <Stack
@@ -46,14 +47,14 @@ const ProductsSlider: FC<CategorySliderProps> = ({
                             </SwiperSlide>
                         )}
                     {data &&
-                        data.map(item => (
-                            <SwiperSlide key={item.id}>
-                                <ProductCard {...item} />
+                        data.map(product => (
+                            <SwiperSlide key={product.id}>
+                                <ProductCard product={product} />
                             </SwiperSlide>
                         ))}
                 </Swiper>
             }
-            {error && 'An error'}
+            {error && <LoadingError reload={refetch} />}
         </>
     );
 };

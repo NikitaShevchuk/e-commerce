@@ -1,11 +1,10 @@
-export interface IProductCard {
+export interface CartProduct {
     id: string
     createdAt: string
     name: string
     color: string
     image: string
     price: number
-    isNew: boolean
-    sizes: string[]
-    isFavorite: boolean
+    size: string
+    count: number
 }

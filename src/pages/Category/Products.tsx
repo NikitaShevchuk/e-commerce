@@ -7,17 +7,21 @@ import {useTypedSelector} from "../../hooks/redux";
 import {getFilters} from "../../store/selectors/filter";
 import useUpdateQuery from "../../hooks/useUpdateQuery";
 import BasicPreloader from "../../components/Loaders/BasicPreloader";
+import LoadingError from "../../components/LoadingError";
 
 interface Props {
 	categoryId: string | undefined,
-	categoryName: string | undefined
+	categoryName: string | undefined,
+	clearSearchRequest?: boolean
 }
 
-const Products: FC<Props> = ({categoryId, categoryName}) => {
+const Products: FC<Props> = ({categoryId, categoryName, clearSearchRequest = false}) => {
 	const {requestQuery} = useTypedSelector(getFilters)
 	let isMounted = useRef(false)
-	useUpdateQuery(categoryId, categoryName, isMounted)
-	const {data: products, isLoading, isError, isFetching} = useGetProductCardsQuery(requestQuery)
+	useUpdateQuery(categoryId, categoryName, isMounted, clearSearchRequest)
+	const {
+		data: products, isLoading, isError, isFetching, refetch
+	} = useGetProductCardsQuery(requestQuery)
 	return (
 		<Grid
 			container spacing={{ xs: 2, md: 3 }}
@@ -26,7 +30,7 @@ const Products: FC<Props> = ({categoryId, categoryName}) => {
 			{!isFetching && !isError && products &&
 				products.map((product) => (
 					<Grid item xs={2} sm={3} md={3} key={product.id}>
-						<ProductCard {...product} />
+						<ProductCard product={product} />
 					</Grid>
 				))
 			}
@@ -38,8 +42,7 @@ const Products: FC<Props> = ({categoryId, categoryName}) => {
 				<CategoryProductCardLoader />
 			</BasicPreloader>
 			{isError &&
-				// todo add error component
-				'Error component'
+				<LoadingError reload={refetch} />
 			}
 		</Grid>
 	)

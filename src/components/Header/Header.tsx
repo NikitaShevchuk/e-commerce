@@ -5,6 +5,7 @@ import {StorefrontOutlined} from "@mui/icons-material";
 import RightMenu from "./RightMenu";
 import {NavLink} from "react-router-dom";
 import HeaderSearch from "./Search";
+import Cart from "../Cart";
 
 const Header: FC = () => {
     return (
@@ -35,6 +36,7 @@ const Header: FC = () => {
                 <RightMenu />
             </Toolbar>
             <HeaderSearch />
+            <Cart />
         </AppBar>
     );
 };

@@ -1,11 +1,46 @@
 import React, {FC} from 'react';
-import {Paper, Stack, Typography} from "@mui/material";
+import {Button, Paper, Stack, Typography} from "@mui/material";
 
 interface Props {
     sizes: string[]
+    setSelectedSize: (size: string) => void
+    selectedSize: string
+    addToCart: (e: React.MouseEvent<HTMLButtonElement>) => void
 }
 
-const ProductSizes: FC<Props> = ({sizes}) => {
+const ProductSizes: FC<Props> = ({sizes, setSelectedSize, selectedSize, addToCart}) => {
+    const handleSizeClick = (e: React.MouseEvent<HTMLDivElement>, size: string) => {
+        e.preventDefault()
+        if (size === selectedSize) {
+            setSelectedSize('')
+            return
+        }
+        setSelectedSize(size)
+    }
+    const mapProducts = (size: string, i: number) => {
+        let paperClassName = size === selectedSize
+            ? 'product-sizes__item active'
+            : 'product-sizes__item'
+        if (size) return (
+            <Paper
+                onClick={(e) => handleSizeClick(e, size)}
+                key={size}
+                className={paperClassName}
+            >
+                {size}
+            </Paper>
+        )
+        else return (
+            <Paper
+                key={i}
+                className='product-sizes__item inactive'
+            >
+                Not in stock
+            </Paper>
+        )
+
+    }
+    const sizeItems = sizes ? sizes.map(mapProducts) : null
     return (
         <div className='product-sizes'>
             <Stack
@@ -13,23 +48,27 @@ const ProductSizes: FC<Props> = ({sizes}) => {
                 justifyContent='center'
                 spacing={1}
             >
-                {sizes && sizes.map( (size, index) =>
-                    size
-                    ?<Paper key={size} className='product-sizes__item'>{size}</Paper>
-                    :<Paper key={index} className='product-sizes__item inactive'>Not in stock</Paper>
-                )}
-                {!sizes && 'There is no sizes available'}
+                <>{sizes ? sizeItems : 'No sizes available'}</>
             </Stack>
-            <Typography
-                variant='caption'
-                sx={{
-                    mt: '15px',
-                    textAlign: 'center'
-                }}
-                component='div'
-            >
-                Select a size
-            </Typography>
+            {selectedSize
+                ? <Button
+                      sx={{mt: 2}}
+                      variant='contained'
+                      size='small'
+                      onClick={addToCart}
+                  >
+                      Add to cart
+                  </Button>
+
+                : <Typography
+                      variant='caption'
+                      sx={{ mt: 2, textAlign: 'center'}}
+                      component='div'
+                  >
+                      Select a size
+                  </Typography>
+            }
+
         </div>
     );
 };

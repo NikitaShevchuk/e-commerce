@@ -3,9 +3,10 @@ import {Container, Typography} from "@mui/material";
 import {useGetCategoriesQuery} from "../../services/productsService";
 import {NavLink} from "react-router-dom";
 import CategoryLoader from "../Loaders/Category/CategoryLoader";
+import LoadingError from "../LoadingError";
 
 const CategoryBlock = () => {
-    const {data: categories, isLoading, error} = useGetCategoriesQuery('')
+    const {data: categories, isLoading, error, refetch} = useGetCategoriesQuery('')
     return (
         <Container
             maxWidth='xl'
@@ -32,7 +33,7 @@ const CategoryBlock = () => {
                         </Typography>
                 </NavLink>
             )}
-            {error && 'An error'}
+            {error && <LoadingError reload={refetch} />}
         </Container>
     );
 };

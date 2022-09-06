@@ -5,11 +5,10 @@ import debounce from "lodash.debounce";
 import {setIsSearchActive, setSearchRequest} from "../../../store/slices/searchSlice";
 import {useTypedDispatch, useTypedSelector} from "../../../hooks/redux";
 import {useNavigate} from "react-router-dom";
-import {getSearchRequest} from "../../../store/selectors/search";
 import {getFilters} from "../../../store/selectors/filter";
 
 const SearchField = () => {
-    let searchRequest = useTypedSelector(getSearchRequest)
+    let {searchRequest, isSearchActive} = useTypedSelector(state => state.searchSlice)
     if (!searchRequest) searchRequest = ''
     let [searchFieldValue, setSearchFieldValue] = React.useState(searchRequest)
     const {currentPage, itemsLimit} = useTypedSelector(getFilters)
@@ -18,6 +17,13 @@ const SearchField = () => {
                 setSearchFieldValue(searchRequest)
             }
         }, [searchRequest]
+    )
+    const textField = React.useRef<HTMLDivElement | null>(null)
+    React.useEffect(
+        () => {
+            let input = textField.current && textField.current.querySelector('input')
+            if (input) input.focus()
+        }, [isSearchActive]
     )
     const dispatch = useTypedDispatch()
     const updateSearchValue = React.useCallback(
@@ -43,6 +49,7 @@ const SearchField = () => {
             onChange={handleChange}
             placeholder='Search products'
             onKeyDown={handleKeyDown}
+            ref={textField}
             InputProps={{endAdornment: (
                     <InputAdornment position="end">
                         <SearchIcon fontSize='large'/>
