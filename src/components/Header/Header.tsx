@@ -9,27 +9,24 @@ import Cart from "../Cart";
 
 const Header: FC = () => {
     return (
-        <AppBar position='sticky' color='transparent' sx={{boxShadow: 0}}>
+        <AppBar
+            position='sticky'
+            color='transparent'
+            sx={{boxShadow: 0}}
+        >
             <Toolbar
                 disableGutters
-                sx={{
-                    display: {xs: 'flex'},
-                    justifyContent: 'center',
-                    backgroundColor: 'white'
-                }}
+                className='toolbar'
             >
                 <LeftMenu />
                 <Typography sx={{flex: 1}}>
                     <NavLink
                         to='/'
-                        style={{
-                            fontSize: 'inherit',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center'
-                        }}
+                        className='home-link'
                     >
-                        <StorefrontOutlined sx={{mr: 1, fontSize: 20}} />
+                        <StorefrontOutlined
+                            sx={{mr: 1, fontSize: 20}}
+                        />
                         E-commerce
                     </NavLink>
                 </Typography>

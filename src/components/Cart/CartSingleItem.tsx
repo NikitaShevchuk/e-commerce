@@ -2,9 +2,9 @@ import React, {FC} from 'react';
 import {Card, CardContent, CardMedia, Typography} from "@mui/material";
 import {CartProduct} from "../../models/CartProduct";
 import {NavLink} from "react-router-dom";
-import Index from "./CountModifier";
 import {useTypedSelector} from "../../hooks/redux";
 import {cartSelector} from "../../store/selectors/cart";
+import CountModifier from "./CountModifier";
 
 interface Props {
     cartItem: CartProduct
@@ -22,7 +22,9 @@ const CartSingleItem: FC<Props> = ({cartItem}) => {
     React.useEffect(
         // find out if current cart item id is in the array of items being in delete process
         () => {
-            let inProgress = removingIDs && removingIDs.find(removingID => removingID === cartItem.id)
+            let inProgress = removingIDs && removingIDs.find(
+                removingID => removingID === cartItem.id
+            )
             if (inProgress) {
                 setIsDeleteInProgress(true)
                 setCardClassName(CardClassName.translucent)
@@ -46,7 +48,7 @@ const CartSingleItem: FC<Props> = ({cartItem}) => {
                 />
             </NavLink>
             <CardContent className='cart-card'>
-                <Typography fontSize={13}>
+                <Typography component='div' fontSize={13}>
                     <span className='flex'>
                         <NavLink to={`/productName`}>{cartItem.name}</NavLink>
                         <span>${cartItem.price}</span>
@@ -57,7 +59,7 @@ const CartSingleItem: FC<Props> = ({cartItem}) => {
                     <span className='cart-features'>
                         Color: <span className="bold">{cartItem.color}</span>
                     </span>
-                    <Index {...cartItem} deleteInProgress={deleteInProgress} />
+                    <CountModifier {...cartItem} deleteInProgress={deleteInProgress} />
                 </Typography>
             </CardContent>
         </Card>

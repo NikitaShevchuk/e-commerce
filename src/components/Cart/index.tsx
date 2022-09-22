@@ -34,6 +34,18 @@ const Cart = () => {
               )
             : 0,
     [cartItems])
+    const items = React.useMemo(
+        () => {
+            if (cartItems) return cartItems.map( item =>
+                <CartSingleItem
+                    key={item.name + item.size}
+                    cartItem={item}
+                />
+            )
+            else return []
+        },
+        [cartItems]
+    )
     return (
         <Modal
             open={isCartModalOpened}
@@ -47,13 +59,8 @@ const Cart = () => {
                 />
 
                 <div className="cart-items-wrapper">
-                    {status.getCartItems === RequestStatus.fulfilled && cartItems &&
-                        cartItems.map( item =>
-                            <CartSingleItem
-                                key={item.name + item.size}
-                                cartItem={item}
-                            />
-                        )
+                    {status.getCartItems === RequestStatus.fulfilled &&
+                        <>{items}</>
                     }
                     {status.getCartItems === RequestStatus.error &&
                         <LoadingError reload={reload} />

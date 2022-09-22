@@ -19,7 +19,7 @@ export interface CategorySliderProps {
 const ProductsSlider: FC<CategorySliderProps> = ({
     params, blockTitle, categoryLink
 }) => {
-    const {data, isLoading, error, refetch} = useGetProductCardsQuery(params)
+    const {data: products, isLoading, error, refetch} = useGetProductCardsQuery(params)
     return (<>
         <Container maxWidth='xl'>
             <Stack
@@ -45,13 +45,15 @@ const ProductsSlider: FC<CategorySliderProps> = ({
                             <SwiperSlide key={index}>
                                 <ProductCardLoader />
                             </SwiperSlide>
-                        )}
-                    {data &&
-                        data.map(product => (
+                        )
+                    }
+                    {!isLoading && products &&
+                        products.map(product => (
                             <SwiperSlide key={product.id}>
                                 <ProductCard product={product} />
                             </SwiperSlide>
-                        ))}
+                        ))
+                    }
                 </Swiper>
             }
             {error && <LoadingError reload={refetch} />}

@@ -13,9 +13,7 @@ interface Props {
     product: IProductCard
 }
 
-const ProductCard: FC<Props> = ({
-    product
-}) => {
+const ProductCard: FC<Props> = ({product}) => {
     const [selectedSize, setSelectedSize] = React.useState('')
     const dispatch = useTypedDispatch()
     const addToCardOnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -36,11 +34,11 @@ const ProductCard: FC<Props> = ({
     let {categoryId} = useParams()
     const {requestQuery} = useTypedSelector(getFilters)
     const toggleFavorite = () => {
+        if (!categoryId) return
         const updatedProduct: IProductCard = {
             ...product,
             isFavorite: !product.isFavorite
         }
-        if (!categoryId) categoryId = '1'
         const modifierArgs = {
             filters: requestQuery, categoryId, updatedProduct
         }

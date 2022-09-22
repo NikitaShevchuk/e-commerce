@@ -5,16 +5,10 @@ import {NavLink} from "react-router-dom";
 
 const Banner = () => {
     return (
-        <Box sx={
-            {
-                width: '99.5vw',
-                height: '92vh',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                backgroundImage: `url(${mainBanner})`
-            }
-        }>
+        <Box
+            sx={{backgroundImage: `url(${mainBanner})`}}
+            className='banner-box'
+        >
             <Box>
                 <Typography
                     variant='h5'
@@ -36,7 +30,7 @@ const Banner = () => {
                 >
                     <NavLink
                         style={{fontSize: '12px'}}
-                        to='/categories/men'>
+                        to={`/categories/1/men`}>
                         Shop men's
                     </NavLink>
                 </Button>
@@ -47,7 +41,7 @@ const Banner = () => {
                 >
                     <NavLink
                         style={{fontSize: '12px'}}
-                        to='/categories/women'
+                        to={`/categories/2/women`}
                     >
                         Shop women's
                     </NavLink>

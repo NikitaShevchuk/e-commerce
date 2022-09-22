@@ -45,13 +45,13 @@ export const removeCartItem = createAsyncThunk(
 export const addToCart = createAsyncThunk(
     'cart/addToCart',
     async (selectedCartItem: SelectedCartItem, {getState, dispatch, rejectWithValue}) => {
+        dispatch(setIsCartModalOpened(true))
         const rootState = getState() as RootState
         const {cartItems, cartItemsCount} = cartSelector(rootState)
         const itemInCart = cartItems && cartItems.find( item =>
             item.name === selectedCartItem.newCartItem.name &&
             item.size === selectedCartItem.size
         )
-        dispatch(setIsCartModalOpened(true))
         if (itemInCart) { // increase the counter if item is already in the cart
             try {
                 let itemCount = itemInCart.count

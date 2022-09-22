@@ -28,15 +28,7 @@ const CategoryHeader: FC<Props> = ({categoryId, categoryName}) => {
 				{category?.name}
 			</Typography>
 
-			<Stack 
-				direction='row'
-				justifyContent='space-between'
-				alignItems='center'
-				py={1}
-				borderTop='1px solid #181818'
-				borderBottom='1px solid #181818'
-				mb={4}
-			>
+			<Stack className='filters-stack' direction='row' >
 				<Stack 
 					direction='row'
 					justifyContent='space-between'

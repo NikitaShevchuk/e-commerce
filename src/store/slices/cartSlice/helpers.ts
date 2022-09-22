@@ -21,10 +21,8 @@ export const changeCounter = (count: number, counterToChange: CounterToChange): 
             const numericValue = Number(value)
             if (numericValue > 10) return 0
             else return numericValue
-        } else {
-            return 0
         }
-    } else {
-        return itemCount
+        else return 0
     }
+    else return 0
 }

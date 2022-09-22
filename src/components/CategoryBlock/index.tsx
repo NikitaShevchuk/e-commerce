@@ -4,18 +4,20 @@ import {useGetCategoriesQuery} from "../../services/productsService";
 import {NavLink} from "react-router-dom";
 import CategoryLoader from "../Loaders/Category/CategoryLoader";
 import LoadingError from "../LoadingError";
+import BasicPreloader from "../Loaders/BasicPreloader";
 
 const CategoryBlock = () => {
-    const {data: categories, isLoading, error, refetch} = useGetCategoriesQuery('')
+    const {data: categories, isLoading, isError, refetch} = useGetCategoriesQuery('')
     return (
         <Container
             maxWidth='xl'
-            sx={{
-                display: 'flex',
-                justifyContent: 'space-between'
-            }}
+            className='category-container'
         >
-            {isLoading && [1, 2].map((_, index) => <CategoryLoader key={index} />)}
+            {isLoading && !isError &&
+                <BasicPreloader itemsToShow={2}>
+                    <CategoryLoader />
+                </BasicPreloader>
+            }
             {categories && categories.map( category =>
                 <NavLink
                     key={`${category.id}`}
@@ -25,15 +27,15 @@ const CategoryBlock = () => {
                         background: `center / contain no-repeat url(${category.image})`
                     }}
                 >
-                        <Typography
-                            variant='h5'
-                            component='span'
-                        >
-                            {category.name}
-                        </Typography>
+                    <Typography
+                        variant='h5'
+                        component='span'
+                    >
+                        {category.name}
+                    </Typography>
                 </NavLink>
             )}
-            {error && <LoadingError reload={refetch} />}
+            {isError && <LoadingError reload={refetch} />}
         </Container>
     );
 };

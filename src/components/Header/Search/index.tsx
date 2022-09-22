@@ -22,7 +22,21 @@ const HeaderSearch = () => {
         data: products, isLoading, isError, isFetching, refetch
     } = useGetProductsBySearchQuery(searchRequest, {skip})
 
-    let searchBlockClassName = isSearchActive ? 'search-block active' : 'search-block'
+    const searchBlockClassName = isSearchActive ? 'search-block active' : 'search-block'
+    const mappedProducts = React.useMemo(
+        () => {
+            if (products) return products.map(product =>
+                <SearchResultProduct
+                    key={product.id}
+                    productName={product.name}
+                    productColor={product.color}
+                    productId={product.id}
+                />
+            )
+            else return []
+        },
+        [products]
+    )
     return (
         <Paper className={searchBlockClassName} >
             <Paper sx={{backgroundColor: 'secondary', py: 6}} >
@@ -39,14 +53,9 @@ const HeaderSearch = () => {
                     >
                         <SearchResultPreloader />
                     </BasicPreloader>
-                    {!isError && !isFetching && products && products.map( product =>
-                        <SearchResultProduct
-                            key={product.id}
-                            productName={product.name}
-                            productColor={product.color}
-                            productId={product.id}
-                        />
-                    )}
+                    {!isError && !isFetching &&
+                        <>{mappedProducts}</>
+                    }
                     {products && products.length < 1 &&
                         <Typography>Nothing found(</Typography>
                     }

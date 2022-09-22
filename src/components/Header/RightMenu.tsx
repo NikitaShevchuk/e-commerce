@@ -11,28 +11,29 @@ const RightMenu = () => {
     const dispatch = useTypedDispatch()
     const handleSearchClick = () => dispatch(setIsSearchActive(!isSearchActive))
     const handleCartClick = () => dispatch(setIsCartModalOpened(!isCartModalOpened))
+    const linkWeight = React.useMemo(
+        () => isSearchActive ? '700' : '400',
+        [isSearchActive]
+    )
     return (
         <Box sx={{display: {xs: 'none', md: 'flex'}, px: 2, flex: 1, justifyContent: 'right'}}>
             <Link
                 underline="none"
-                sx={{
-                    mx: 2,
-                    fontWeight: `${isSearchActive ? '700' : '400'}`,
-                    cursor: 'pointer'
-                }}
+                sx={{fontWeight: linkWeight}}
+                className='link'
                 onClick={handleSearchClick}
             >
                 Search
             </Link>
             <NavLink
-                style={{margin: '0px 15px'}}
-                className='link' to='/account'
+                className='link'
+                to='/account'
             >
                 Account
             </NavLink>
             <Link
-                sx={{margin: '0px 15px', cursor: 'pointer'}}
                 underline="none"
+                className='link'
                 onClick={handleCartClick}
             >
                 Cart({cartItemsCount})

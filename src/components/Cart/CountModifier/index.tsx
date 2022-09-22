@@ -15,7 +15,7 @@ interface Props {
     deleteInProgress: boolean
 }
 
-const Index: FC<Props> = ({id, count, deleteInProgress}) => {
+const CountModifier: FC<Props> = ({id, count, deleteInProgress}) => {
     const {itemsIsUpdating: loadingIDs} = useTypedSelector(cartSelector).status
     const [inputValue, setInputValue] = React.useState<string>(String(count))
     const [counterIsInactive, setIsCounterInactive] = React.useState<boolean>(false)
@@ -84,4 +84,4 @@ const Index: FC<Props> = ({id, count, deleteInProgress}) => {
     </>);
 };
 
-export default Index;
+export default CountModifier;

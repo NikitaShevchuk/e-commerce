@@ -232,6 +232,10 @@ a:hover {
 .bold {
   font-weight: bold;
 }
+body .link {
+  margin: 0 15px;
+  cursor: pointer;
+}
 .link-style {
   cursor: pointer;
   transition: all .3s ease-in-out;
@@ -325,4 +329,35 @@ body .try-again {
   margin-top: 20px;
   justify-content: center;
   align-items: center;
+}
+body .banner-box {
+  width: 99.5vw;
+  height: 92vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.toolbar {
+  display: flex;
+  justify-content: center;
+  background-color: white;
+}
+.home-link {
+  font-size: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+body .category-container {
+  justify-content: space-between;
+  display: flex;
+}
+body .filters-stack {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-top: 1px solid #181818;
+  border-bottom: 1px solid #181818;
+  margin-bottom: 32px;
 }

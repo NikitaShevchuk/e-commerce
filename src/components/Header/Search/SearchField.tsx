@@ -10,8 +10,7 @@ import {getFilters} from "../../../store/selectors/filter";
 const SearchField = () => {
     let {searchRequest, isSearchActive} = useTypedSelector(state => state.searchSlice)
     if (!searchRequest) searchRequest = ''
-    let [searchFieldValue, setSearchFieldValue] = React.useState(searchRequest)
-    const {currentPage, itemsLimit} = useTypedSelector(getFilters)
+    const [searchFieldValue, setSearchFieldValue] = React.useState(searchRequest)
     React.useEffect(() => {
             if (searchFieldValue === '' && searchRequest) {
                 setSearchFieldValue(searchRequest)
@@ -35,9 +34,11 @@ const SearchField = () => {
         setSearchFieldValue(value)
         if (value.length > 1) updateSearchValue(value)
     }
+    const {currentPage, itemsLimit} = useTypedSelector(getFilters)
     const navigate = useNavigate()
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter' && searchFieldValue.length > 2) {
+        const shouldNavigate = e.key === 'Enter' && searchFieldValue.length > 2
+        if (shouldNavigate) {
             navigate(`/search/1/men?p=${currentPage}&${itemsLimit}&search=${searchRequest}`)
             dispatch(setIsSearchActive(false))
         }

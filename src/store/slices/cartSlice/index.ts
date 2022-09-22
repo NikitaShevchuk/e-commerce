@@ -22,7 +22,6 @@ export enum ErrorsAlert {
     valueIsNotValid = 'Please enter valid number no greater than 10'
 }
 
-
 export type LoadingIDs = string[]
 
 export interface CartInitialState {
@@ -35,7 +34,7 @@ export interface CartInitialState {
         itemsIsRemoving: LoadingIDs
         itemsIsUpdating: LoadingIDs
     },
-    errors: ThunkError[] | null
+    errors: ThunkError[]
 }
 
 const initialState: CartInitialState = {
@@ -48,7 +47,7 @@ const initialState: CartInitialState = {
         itemsIsUpdating: [],
         itemsIsRemoving: []
     },
-    errors: null
+    errors: []
 }
 
 export enum CountAction {
@@ -73,7 +72,7 @@ const cartSlice = createSlice({
         .addCase(getCartItems.fulfilled, (state, action) => {
             state.cartItems = action.payload
             state.cartItemsCount = action.payload ? action.payload.length : 0
-            state.errors = null
+            state.errors = []
             state.status.getCartItems = RequestStatus.fulfilled
         })
         .addCase(getCartItems.rejected, (state, action) => {
@@ -83,6 +82,7 @@ const cartSlice = createSlice({
             else state.errors = [newError]
             state.status.getCartItems = RequestStatus.error
         })
+
         .addCase(addToCart.pending, (state) => {
             state.status.addCartItem = RequestStatus.loading
         })
@@ -106,7 +106,9 @@ const cartSlice = createSlice({
             } else if (action.payload.updatedCartItem) {
                 const itemIndex = state.cartItems && state.cartItems.findIndex(
                     item => {
-                        if (action.payload.updatedCartItem) return item.id === action.payload.updatedCartItem.id
+                        if (action.payload.updatedCartItem) {
+                            return item.id === action.payload.updatedCartItem.id
+                        }
                         else return false
                     }
                 )
@@ -140,6 +142,7 @@ const cartSlice = createSlice({
                 state.status.addCartItem = RequestStatus.error
             }
         })
+
         .addCase(modifyCartItemCount.pending, (state, action) => {
             const cartItemId = action.meta.arg.id
             state.status.itemsIsUpdating.push(cartItemId)
@@ -168,7 +171,7 @@ const cartSlice = createSlice({
             const shouldUpdateItem = itemIndex !== null && itemIndex !== -1
             if (state.cartItems && shouldUpdateItem) {
                 // remove item modifier error from errors array
-                if (state.errors) state.errors = state.errors.filter(
+                if (state.errors[0]) state.errors = state.errors.filter(
                     err => {
                         return err.body !== ErrorsAlert.modifyCartItemCount
                             && err.body !== ErrorsAlert.valueIsNotValid
@@ -177,31 +180,28 @@ const cartSlice = createSlice({
                 state.cartItems[itemIndex].count = action.payload.updatedCount
             } else {
                 const newError: ThunkError = {body: ErrorsAlert.modifyCartItemCount, alertType: 'warning'}
-                if (state.errors) state.errors.push(newError)
-                else state.errors = [newError]
+                state.errors.push(newError)
             }
         })
         .addCase(removeCartItem.pending, (state, action) => {
-            if (state.status.itemsIsRemoving) state.status.itemsIsRemoving.push(action.meta.arg)
-            else state.status.itemsIsRemoving = [action.meta.arg]
+            state.status.itemsIsRemoving.push(action.meta.arg)
         })
         .addCase(removeCartItem.rejected, (state, action) => {
-            if (state.status.itemsIsRemoving) {
+            if (state.status.itemsIsRemoving[0]) {
                 state.status.itemsIsRemoving = state.status.itemsIsRemoving.filter(
                     id => id !== action.meta.arg // remove item id from array if removing items IDs
                 )
             }
             const newError: ThunkError = {body: ErrorsAlert.removeCartItem, alertType: 'error'}
-            if (state.errors) state.errors.push(newError)
-            else state.errors = [newError]
+            state.errors.push(newError)
         })
         .addCase(removeCartItem.fulfilled, (state, action) => {
-            if (state.status.itemsIsRemoving) {
+            if (state.status.itemsIsRemoving[0]) {
                 state.status.itemsIsRemoving = state.status.itemsIsRemoving.filter(
                     id => id !== action.meta.arg // remove item id from array of items currently being removed
                 )
             }
-            if (state.errors) state.errors = state.errors.filter(
+            if (state.errors[0]) state.errors = state.errors.filter(
                 err => filterByErrorBody(err, ErrorsAlert.removeCartItem)
             )
             if (state.cartItems) {

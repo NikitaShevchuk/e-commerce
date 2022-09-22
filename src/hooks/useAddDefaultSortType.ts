@@ -8,8 +8,11 @@ const useAddDefaultSortType = (categoryId: string, isSuccess: boolean) => {
     useEffect( () => {
         if (isSuccess) dispatch(
             productsAPI.util.updateQueryData('getSingleCategory', categoryId, (draft: ICategory) => {
-                if (!draft.sortBy.find( sort => sort.property === null )) {    // Find out if there is a default sort type
-                    draft.sortBy.unshift({property: null, order: null}) // Adding first menu item with default sort type
+                // Find out if there is a default sort type
+                const defaultSortType = !draft.sortBy.find( sort => sort.property === null )
+                if (defaultSortType) {
+                    // Adding first menu item with default sort type
+                    draft.sortBy.unshift({property: null, order: null})
                 }
             })
         )

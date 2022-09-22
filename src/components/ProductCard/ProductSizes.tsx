@@ -11,14 +11,11 @@ interface Props {
 const ProductSizes: FC<Props> = ({sizes, setSelectedSize, selectedSize, addToCart}) => {
     const handleSizeClick = (e: React.MouseEvent<HTMLDivElement>, size: string) => {
         e.preventDefault()
-        if (size === selectedSize) {
-            setSelectedSize('')
-            return
-        }
+        if (size === selectedSize) return setSelectedSize('')
         setSelectedSize(size)
     }
     const mapProducts = (size: string, i: number) => {
-        let paperClassName = size === selectedSize
+        const paperClassName = size === selectedSize
             ? 'product-sizes__item active'
             : 'product-sizes__item'
         if (size) return (
@@ -40,7 +37,10 @@ const ProductSizes: FC<Props> = ({sizes, setSelectedSize, selectedSize, addToCar
         )
 
     }
-    const sizeItems = sizes ? sizes.map(mapProducts) : null
+    const sizeItems = React.useMemo(
+        () => sizes ? sizes.map(mapProducts) : [],
+        [sizes, selectedSize]
+    )
     return (
         <div className='product-sizes'>
             <Stack
