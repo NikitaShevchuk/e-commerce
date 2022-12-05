@@ -1,57 +1,23 @@
 import React, {FC} from 'react';
 import {Card, CardContent, CardMedia, Typography} from "@mui/material";
-import {NavLink, useParams} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import {IProductCard} from "../../models/IProductCard";
 import ProductCardHeader from "./ProductCardHeader";
-import ProductSizes from "./ProductSizes";
-import {useTypedDispatch, useTypedSelector} from "../../hooks/redux";
-import {addToCart, SelectedCartItem} from "../../store/slices/cartSlice/cartThunk";
-import {useModifyFavoriteMutation} from "../../services/productsService";
-import {getFilters} from "../../store/selectors/filter";
+import ProductSizes from "../../features/ProductSizes";
 
 interface Props {
     product: IProductCard
+    queryParams: string
 }
 
-const ProductCard: FC<Props> = ({product}) => {
-    const [selectedSize, setSelectedSize] = React.useState('')
-    const dispatch = useTypedDispatch()
-    const addToCardOnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault()
-        const selectedCartItem: SelectedCartItem = {
-            newCartItem: {
-                name: product.name,
-                price: product.price,
-                image: product.image,
-                color: product.color,
-                createdAt: product.createdAt
-            },
-            size: selectedSize
-        }
-        dispatch(addToCart(selectedCartItem))
-    }
-    const [modifyFavorite, {isLoading}] = useModifyFavoriteMutation()
-    let {categoryId} = useParams()
-    const {requestQuery} = useTypedSelector(getFilters)
-    const toggleFavorite = () => {
-        if (!categoryId) return
-        const updatedProduct: IProductCard = {
-            ...product,
-            isFavorite: !product.isFavorite
-        }
-        const modifierArgs = {
-            filters: requestQuery, categoryId, updatedProduct
-        }
-        if (!isLoading) modifyFavorite(modifierArgs)
-    }
+const ProductCard: FC<Props> = ({product, queryParams}) => {
     return (
         <Card className='product-card'>
             <ProductCardHeader
-                isNew={product.isNew}
-                isFavorite={product.isFavorite}
-                toggleFavorite={toggleFavorite}
+                product={product}
+                queryParams={queryParams}
             />
-            <NavLink to={`/productName`} >
+            <NavLink to={`/product/${product.categoryId}/${product.id}`}>
                 <div className="image-wrapper">
                     <CardMedia
                         component='img'
@@ -59,10 +25,10 @@ const ProductCard: FC<Props> = ({product}) => {
                         alt='product card'
                     />
                     <ProductSizes
-                        sizes={product.sizes}
-                        setSelectedSize={setSelectedSize}
-                        selectedSize={selectedSize}
-                        addToCart={addToCardOnClick}
+                        sizesPosition='absolute'
+                        colorVariant='dark'
+                        product={product}
+                        queryParams={queryParams}
                     />
                 </div>
                 <CardContent sx={{px: 0}}>

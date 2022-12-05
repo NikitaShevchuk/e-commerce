@@ -1,8 +1,7 @@
 import React from 'react';
-import './App.css';
-import Header from "./components/Header/Header";
-import SaleBlock from "./components/Header/SaleBlock";
-import {publicRoutes} from "./routes/routes";
+import Header from "../Header/Header";
+import SaleBlock from "../Header/SaleBlock";
+import {publicRoutes} from "../../routes/routes";
 import {Route, Routes} from "react-router-dom";
 
 function App() {

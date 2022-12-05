@@ -11,22 +11,22 @@ import {NavLink} from "react-router-dom";
 import LoadingError from "../LoadingError";
 
 export interface CategorySliderProps {
-    params: string
+    queryParams: string
     blockTitle: string
     categoryLink?: string
 }
 
 const ProductsSlider: FC<CategorySliderProps> = ({
-    params, blockTitle, categoryLink
+    queryParams, blockTitle, categoryLink
 }) => {
-    const {data: products, isLoading, error, refetch} = useGetProductCardsQuery(params)
+    const {data: products, isLoading, error, refetch} = useGetProductCardsQuery(queryParams)
     return (<>
         <Container maxWidth='xl'>
             <Stack
                 direction='row'
                 justifyContent='space-between'
             >
-                <Typography variant='h4'>
+                <Typography variant='h4' sx={{marginTop: 4}}>
                     {blockTitle}
                 </Typography>
                 {categoryLink &&
@@ -50,7 +50,10 @@ const ProductsSlider: FC<CategorySliderProps> = ({
                     {!isLoading && products &&
                         products.map(product => (
                             <SwiperSlide key={product.id}>
-                                <ProductCard product={product} />
+                                <ProductCard 
+                                    product={product} 
+                                    queryParams={queryParams}
+                                />
                             </SwiperSlide>
                         ))
                     }

@@ -12,7 +12,7 @@ export interface SelectedCartItem {
         name: string
         image: string
         createdAt: string
-        price: number
+        price: string
         color: string
     },
     size: string
@@ -48,21 +48,21 @@ export const addToCart = createAsyncThunk(
         dispatch(setIsCartModalOpened(true))
         const rootState = getState() as RootState
         const {cartItems, cartItemsCount} = cartSelector(rootState)
-        const itemInCart = cartItems && cartItems.find( item =>
+        const itemIsInCart = cartItems && cartItems.find( item =>
             item.name === selectedCartItem.newCartItem.name &&
             item.size === selectedCartItem.size
         )
-        if (itemInCart) { // increase the counter if item is already in the cart
+        if (itemIsInCart) { // increase the counter if item is already in the cart
             try {
-                let itemCount = itemInCart.count
-                const updatedCartItem: CartProduct = {...itemInCart, count: ++itemCount}
+                let itemCount = itemIsInCart.count
+                const updatedCartItem: CartProduct = {...itemIsInCart, count: ++itemCount}
                 const response = await cartApi.modifyCartItem(updatedCartItem)
                 return {response, updatedCartItem}
             } catch (error) {
                 const err = error as AxiosError
                 return rejectWithValue(err.response?.data)
             }
-        } else { // otherwise, if item is not already in cart, add new item to the cart
+        } else { // otherwise, if item is not already in cart, add new item to the cart todo refactor
             try {
                 let itemsCount = cartItemsCount
                 // set id by cart item order

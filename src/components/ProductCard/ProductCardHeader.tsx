@@ -1,37 +1,27 @@
 import React, {FC} from 'react';
-import {IconButton, Typography} from "@mui/material";
-import {Favorite, FavoriteBorderOutlined} from "@mui/icons-material";
+import {Typography} from "@mui/material";
+import ToggleFavorite from '../../features/ToggleFavorite';
+import {IProductCard} from '../../models/IProductCard';
+import {ProductQueryParams} from '../../pages/ProductPage';
 
 interface Props {
-    isNew: boolean,
-    isFavorite: boolean
-    toggleFavorite: () => void
+    product: IProductCard | undefined
+    queryParams: string | ProductQueryParams
 }
 
-const ProductCardHeader: FC<Props> = ({isNew, isFavorite, toggleFavorite}) => {
+const ProductCardHeader: FC<Props> = ({product, queryParams}) => {
     return (
         <div className='product-card__header'>
-            {isNew &&
-                <Typography
-                    sx={{fontWeight: '400', fontSize: '14px'}}
-                >
+            {product?.isNew &&
+                <Typography className='product-card__header-item __new'>
                     New
                 </Typography>
             }
-            <IconButton onClick={toggleFavorite}>
-                {isFavorite &&
-                    <Favorite
-                        sx={{color: '#181818'}}
-                        fontSize='small'
-                    />
-                }
-                {!isFavorite &&
-                    <FavoriteBorderOutlined
-                        sx={{color: '#181818'}}
-                        fontSize='small'
-                    />
-                }
-            </IconButton>
+            <ToggleFavorite
+                product={product}
+                queryParams={queryParams}
+                colorVariant='dark'
+            />
         </div>
     );
 };

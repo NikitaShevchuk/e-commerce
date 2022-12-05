@@ -9,7 +9,7 @@ const MainPage = () => {
             <Banner />
             <ProductsSlider
                 blockTitle='New collection'
-                params='/1/men?isNew=true'
+                queryParams='1/1?isNew=true'
             />
             <CategoryBlock />
         </>

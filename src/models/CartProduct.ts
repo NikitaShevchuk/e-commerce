@@ -4,7 +4,7 @@ export interface CartProduct {
     name: string
     color: string
     image: string
-    price: number
+    price: string
     size: string
     count: number
 }

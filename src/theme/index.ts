@@ -30,8 +30,7 @@ export const theme = createTheme({
         h4: {
             fontWeight: 700,
             fontSize: 26,
-            marginTop: 30,
-            textAlign: 'left'
+            textAlign: 'left',
         },
         h5: {
             fontWeight: 700,

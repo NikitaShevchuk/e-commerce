@@ -7,7 +7,8 @@ import ProductsPagination from "./ProductsPagination";
 import useParseQueryParamsToState from "../../hooks/useParseQueryParamsToState";
 
 const Category = () => {
-	let {categoryId, categoryName} = useParams();
+    let categoryId = useParams().categoryId
+    if (!categoryId) categoryId = '0'
 	useParseQueryParamsToState()
     return (
         <Container 
@@ -15,14 +16,12 @@ const Category = () => {
 			className='product-category__wrapper'
 		>
             <CategoryHeader
-				categoryId={categoryId}
-				categoryName={categoryName}
-			/>
+                categoryId={categoryId}
+            />
             <Products
-				categoryId={categoryId}
-				categoryName={categoryName}
-				clearSearchRequest={true}
-			/>
+                clearSearchRequest={true}
+                categoryId={categoryId}
+            />
 			<ProductsPagination />
         </Container>
     );

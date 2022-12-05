@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {addToCart, getCartItems, modifyCartItemCount, removeCartItem} from "./cartThunk";
+import {addToCart, getCartItems, modifyCartItemCount, removeCartItem} from "./cart-thunks";
 import {CartProduct} from "../../../models/CartProduct";
 import {filterByErrorBody, findByErrorBody} from "./helpers";
 

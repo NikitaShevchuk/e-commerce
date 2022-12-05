@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {useTypedDispatch, useTypedSelector} from "../../../hooks/redux";
-import {modifyCartItemCount, removeCartItem} from "../../../store/slices/cartSlice/cartThunk";
+import {modifyCartItemCount, removeCartItem} from "../../../store/slices/cartSlice/cart-thunks";
 import {CountAction} from "../../../store/slices/cartSlice";
 import {cartSelector} from "../../../store/selectors/cart";
 import debounce from 'lodash.debounce'

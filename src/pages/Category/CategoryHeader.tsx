@@ -1,19 +1,16 @@
 import Filter from './Filters/Filter'
 import { Stack, Typography } from '@mui/material'
-import React, { FC } from 'react'
+import React, {FC} from 'react'
 import {removeColor, removeSize, setColor, setSize, setSort} from "../../store/slices/filterSlice";
 import {useGetSingleCategoryQuery} from "../../services/productsService";
 import useAddDefaultSortType from "../../hooks/useAddDefaultSortType";
 
 interface Props {
-	categoryId: string | undefined
-	categoryName: string | undefined
+	categoryId: string
 }
 
-const CategoryHeader: FC<Props> = ({categoryId, categoryName}) => {
-	if (!categoryId) categoryId = '0'
-	let {data: category, isLoading, isError, isSuccess} = useGetSingleCategoryQuery(categoryId)
-	// Adding select menu item with default sort type
+const CategoryHeader: FC<Props> = ({categoryId}) => {
+	const {data: category, isLoading, isError, isSuccess} = useGetSingleCategoryQuery(categoryId)
 	useAddDefaultSortType(categoryId, isSuccess)
 	return (
 		<>

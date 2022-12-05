@@ -1,7 +1,7 @@
 import {Sort} from "../store/slices/filterSlice";
 
 export interface ICategory {
-    id: number,
+    id: string,
     name: string,
     image: string,
 	sizes: string[],

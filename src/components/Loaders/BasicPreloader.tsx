@@ -7,7 +7,9 @@ interface Props {
     children: React.ReactNode
 }
 
-const BasicPreloader: FC<Props> = React.memo(({isLoading = true, isFetching= true, itemsToShow, ...props}) =>  {
+const BasicPreloader: FC<Props> = React.memo(({
+    isLoading = true, isFetching= true, itemsToShow, ...props
+}) =>  {
     return (<>{isLoading || isFetching
         ? Array.from(Array(itemsToShow)).map(() => (props.children))
         : ''

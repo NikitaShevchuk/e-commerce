@@ -8,8 +8,9 @@ import {getSearchRequest} from "../store/selectors/search";
 import {setSearchRequest} from "../store/slices/searchSlice";
 
 const useUpdateQuery = (
-    categoryId: string | undefined, categoryName: string | undefined, isMounted: {current: boolean},
-    clearSearchRequest: boolean = false
+    categoryId: string | undefined,
+    isMounted: {current: boolean},
+    shouldClearSearchRequest: boolean = false
 ) => {
     const {sizes, color, sort, currentPage, itemsLimit} = useTypedSelector(getFilters)
     const search = useTypedSelector(getSearchRequest)
@@ -17,25 +18,16 @@ const useUpdateQuery = (
     const navigate = useNavigate()
     React.useEffect(
         () => {
-            // clear search request if it's not search page
-            if (clearSearchRequest) dispatch(setSearchRequest(null))
+            if (shouldClearSearchRequest) dispatch(setSearchRequest(null))
             const query = qs.stringify(
-                {
-                    sizes,
-                    color,
-                    p: currentPage,
-                    l: itemsLimit,
-                    sortBy: sort.property,
-                    order: sort.order,
-                    search
-                },
+                {sizes, color, p: currentPage, l: itemsLimit, sortBy: sort.property, order: sort.order, search},
                 {skipNulls: true, arrayFormat: 'comma'}
             )
             if (isMounted.current) navigate(`?${query}`)
-            dispatch(setQueryRequest(`${categoryId}/${categoryName}?${query}`))
+            dispatch(setQueryRequest(`${categoryId}/${categoryId}?${query}`))
             isMounted.current = true
         },
-        [sizes, color, sort, categoryName, categoryId, currentPage, itemsLimit, search]
+        [sizes, color, sort, categoryId, currentPage, itemsLimit, search]
     )
 }
 export default useUpdateQuery

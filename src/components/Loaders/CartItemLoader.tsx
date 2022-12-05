@@ -8,8 +8,8 @@ const CartItemLoader = () => {
             width={470}
             height={100}
             viewBox="0 0 470 100"
-            backgroundColor="#f3f3f3"
-            foregroundColor="#ecebeb"
+            backgroundColor="#d7d7d7"
+            foregroundColor="#f6f6f6"
         >
             <rect x="0" y="0" rx="0" ry="0" width="80" height="100" />
             <rect x="100" y="0" rx="0" ry="0" width="160" height="20" />

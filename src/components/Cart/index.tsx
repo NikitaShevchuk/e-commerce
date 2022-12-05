@@ -7,7 +7,7 @@ import LoadingError from "../LoadingError";
 import CartSingleItem from "./CartSingleItem";
 import CartIsEmpty from "./CartIsEmpty";
 import {cartSelector} from "../../store/selectors/cart";
-import {getCartItems} from "../../store/slices/cartSlice/cartThunk";
+import {getCartItems} from "../../store/slices/cartSlice/cart-thunks";
 import CartError from "./CartError";
 import BasicPreloader from "../Loaders/BasicPreloader";
 import CartItemLoader from "../Loaders/CartItemLoader";

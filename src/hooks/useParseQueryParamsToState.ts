@@ -10,7 +10,7 @@ const useParseQueryParamsToState = () => {
         if (window.location.search) {
             const params = qs.parse(window.location.search.substring(1))
             dispatch(setFilters(params))
-            if (params.search) dispatch(setSearchRequest(params.search))
+            if (params.search) dispatch(setSearchRequest(params.search as string))
         }}, []
     )
 }
