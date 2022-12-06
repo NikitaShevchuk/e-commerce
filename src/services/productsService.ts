@@ -47,7 +47,7 @@ export const productsAPI = createApi({
             })
         }),
         addToFavorite: build.mutation<IProductCard, AddToFavoriteParams>({
-            query: ({categoryId, updatedProduct, filters}) => ({
+            query: ({categoryId, updatedProduct}) => ({
                 url: `/categories/${categoryId}/${categoryId}/${updatedProduct.id}`,
                 method: 'PUT',
                 body: updatedProduct
@@ -58,12 +58,29 @@ export const productsAPI = createApi({
                         'getProductCards',
                         filters,
                         (draft) => {
-                            const productIndex = draft.findIndex( item => item.id === updatedProduct.id )
+                            const productIndex = draft.findIndex( 
+                                item => item.id === updatedProduct.id 
+                            )
                             if (productIndex === -1) return
                             draft[productIndex].isFavorite = updatedProduct.isFavorite
                     })
                 )
-                queryFulfilled.catch(updateProductCard.undo)
+                const updateSingleProduct = dispatch(
+                    productsAPI.util.updateQueryData(
+                        'getSingleProduct',
+                        {
+                            categoryId: updatedProduct.categoryId, 
+                            productId: updatedProduct.id
+                        },
+                        (draft) => {
+                            draft.isFavorite = updatedProduct.isFavorite
+                        }
+                    )  
+                )
+                queryFulfilled.catch( () => {
+                    updateProductCard.undo()
+                    updateSingleProduct.undo()
+                })
             }
         })
     })

@@ -32,13 +32,12 @@ const CartSingleItem: FC<Props> = ({cartItem}) => {
                 setIsDeleteInProgress(false)
                 setCardClassName(CardClassName.empty)
             }
-        },
-        [removingIDs]
+        }, [removingIDs]
     )
     return (
         <Card className={`cart-card__wrapper ${cardClassName}`}>
             <NavLink
-                to={`/productName`}
+                to={`/product/${cartItem.categoryId}/${cartItem.productId}`}
                 className="cart-img__wrapper"
             >
                 <CardMedia
@@ -50,7 +49,9 @@ const CartSingleItem: FC<Props> = ({cartItem}) => {
             <CardContent className='cart-card'>
                 <Typography component='div' fontSize={13}>
                     <span className='flex'>
-                        <NavLink to={`/productName`}>{cartItem.name}</NavLink>
+                        <NavLink to={`/product/${cartItem.categoryId}/${cartItem.productId}`}>
+                            {cartItem.name}
+                        </NavLink>
                         <span>${cartItem.price}</span>
                     </span>
                     <span className='cart-features'>
@@ -59,7 +60,10 @@ const CartSingleItem: FC<Props> = ({cartItem}) => {
                     <span className='cart-features'>
                         Color: <span className="bold">{cartItem.color}</span>
                     </span>
-                    <CountModifier {...cartItem} deleteInProgress={deleteInProgress} />
+                    <CountModifier 
+                        {...cartItem}
+                        deleteInProgress={deleteInProgress} 
+                    />
                 </Typography>
             </CardContent>
         </Card>

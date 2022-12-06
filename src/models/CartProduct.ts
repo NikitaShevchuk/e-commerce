@@ -1,5 +1,7 @@
 export interface CartProduct {
     id: string
+    categoryId: string
+    productId: string
     createdAt: string
     name: string
     color: string

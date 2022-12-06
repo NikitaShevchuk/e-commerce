@@ -2,11 +2,10 @@ import React, {FC} from 'react';
 import {Typography} from "@mui/material";
 import ToggleFavorite from '../../features/ToggleFavorite';
 import {IProductCard} from '../../models/IProductCard';
-import {ProductQueryParams} from '../../pages/ProductPage';
 
 interface Props {
     product: IProductCard | undefined
-    queryParams: string | ProductQueryParams
+    queryParams: string
 }
 
 const ProductCardHeader: FC<Props> = ({product, queryParams}) => {

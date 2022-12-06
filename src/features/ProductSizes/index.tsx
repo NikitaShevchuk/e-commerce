@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {Button, Stack, Typography} from "@mui/material";
+import {Stack, Typography} from "@mui/material";
 import {useGetSizeItems} from '../../components/ProductCard/useGetSizeItems';
 import AddToCartButton, {ColorVariant} from './AddToCartButton';
 import classNames from 'classnames'
@@ -7,7 +7,6 @@ import {useTypedDispatch} from '../../hooks/redux';
 import {addToCart, SelectedCartItem} from '../../store/slices/cartSlice/cart-thunks';
 import {IProductCard} from '../../models/IProductCard';
 import ToggleFavorite from '../ToggleFavorite';
-import {ProductQueryParams} from '../../pages/ProductPage';
 
 type SizesPosition = 'static' | 'absolute'
 
@@ -15,7 +14,7 @@ interface Props {
     sizesPosition: SizesPosition
     colorVariant: ColorVariant
     product: IProductCard | undefined
-    queryParams: string | ProductQueryParams
+    queryParams: string
 }
 
 const ProductSizes: FC<Props> = ({
@@ -33,7 +32,9 @@ const ProductSizes: FC<Props> = ({
                 price: product.price,
                 image: product.image,
                 color: product.color,
-                createdAt: product.createdAt
+                createdAt: product.createdAt,
+                productId: product.id,
+                categoryId: product.categoryId
             },
             size: selectedSize
         }
@@ -71,11 +72,13 @@ const ProductSizes: FC<Props> = ({
                           Select a size
                       </Typography>
                 }
-                <ToggleFavorite
-                    product={product}
-                    colorVariant={colorVariant}
-                    queryParams={queryParams}
-                />
+                {colorVariant === 'gold' &&
+                    <ToggleFavorite
+                        product={product}
+                        colorVariant={selectedSize ? colorVariant : 'dark'}
+                        queryParams={queryParams}
+                    />
+                }
             </div>
         </div>
     );

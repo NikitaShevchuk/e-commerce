@@ -58,7 +58,7 @@ const ProductPage = () => {
                     product={product}
                     sizesPosition='static'
                     colorVariant='gold'
-                    queryParams={productQueryParams}
+                    queryParams=''
                 />
             </div>
         </Card>

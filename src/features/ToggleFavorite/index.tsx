@@ -4,12 +4,11 @@ import {Favorite, FavoriteBorderOutlined} from '@mui/icons-material';
 import {IProductCard} from '../../models/IProductCard';
 import {ColorVariant} from '../ProductSizes/AddToCartButton';
 import {useAddToFavoriteMutation} from '../../services/productsService';
-import {ProductQueryParams} from '../../pages/ProductPage';
 
 interface Props {
     product: IProductCard | undefined
     colorVariant: ColorVariant
-    queryParams: string | ProductQueryParams
+    queryParams: string
 }
 
 const ToggleFavorite: FC<Props> = ({product, colorVariant, queryParams}) => {
@@ -44,7 +43,6 @@ const ToggleFavorite: FC<Props> = ({product, colorVariant, queryParams}) => {
             }
 
             {colorVariant === 'dark' &&
-
                 <IconButton
                     onClick={toggleFavorite}
                     className='product-card__header-item'
@@ -56,7 +54,6 @@ const ToggleFavorite: FC<Props> = ({product, colorVariant, queryParams}) => {
                         <FavoriteBorderOutlined fontSize='small'/>
                     }
                 </IconButton>
-
             }
 
         </div>
