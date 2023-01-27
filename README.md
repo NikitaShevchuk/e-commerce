@@ -1,46 +1,100 @@
-# Getting Started with Create React App
+<img src="./images/logo.sample.png" alt="Logo of the project" align="right">
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Name of the project &middot; [![Build Status](https://img.shields.io/travis/npm/npm/latest.svg?style=flat-square)](https://travis-ci.org/npm/npm) [![npm](https://img.shields.io/npm/v/npm.svg?style=flat-square)](https://www.npmjs.com/package/npm) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/your/your-project/blob/master/LICENSE)
+> Additional information or tag line
 
-## Available Scripts
+A brief description of your project, what it is used for.
 
-In the project directory, you can run:
+## Installing / Getting started
 
-### `npm start`
+A quick introduction of the minimal setup you need to get a hello world up &
+running.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```shell
+commands here
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Here you should say what actually happens when you execute the code above.
 
-### `npm test`
+## Developing
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Built With
+List main libraries, frameworks used including versions (React, Angular etc...)
 
-### `npm run build`
+### Prerequisites
+What is needed to set up the dev environment. For instance, global dependencies or any other tools. include download links.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Setting up Dev
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Here's a brief intro about what a developer must do in order to start developing
+the project further:
 
-### `npm run eject`
+```shell
+git clone https://github.com/your/your-project.git
+cd your-project/
+packagemanager install
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+And state what happens step-by-step. If there is any virtual environment, local server or database feeder needed, explain here.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Building
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+If your project needs some additional steps for the developer to build the
+project after some code changes, state them here. for example:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```shell
+./configure
+make
+make install
+```
 
-## Learn More
+Here again you should state what actually happens when the code above gets
+executed.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Deploying / Publishing
+give instructions on how to build and release a new version
+In case there's some step you have to take that publishes this project to a
+server, this is the right time to state it.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```shell
+packagemanager deploy your-project -s server.com -u username -p password
+```
+
+And again you'd need to tell what the previous code actually does.
+
+## Versioning
+
+We can maybe use [SemVer](http://semver.org/) for versioning. For the versions available, see the [link to tags on this repository](/tags).
+
+
+## Configuration
+
+Here you should write what are all of the configurations a user can enter when using the project.
+
+## Tests
+
+Describe and show how to run the tests with code examples.
+Explain what these tests test and why.
+
+```shell
+Give an example
+```
+
+## Style guide
+
+Explain your code style and show how to check it.
+
+## Api Reference
+
+If the api is external, link to api documentation. If not describe your api including authentication methods as well as explaining all the endpoints with their required parameters.
+
+
+## Database
+
+Explaining what database (and version) has been used. Provide download links.
+Documents your database design and schemas, relations etc... 
+
+## Licensing
+
+State what the license is and how to find the text version of the license.
