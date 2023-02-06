@@ -1,5 +1,5 @@
-import React from 'react'
-import ContentLoader from 'react-content-loader'
+import React from "react";
+import ContentLoader from "react-content-loader";
 
 const ProductCardLoader = () => (
     <ContentLoader
@@ -14,6 +14,6 @@ const ProductCardLoader = () => (
         <rect x="1" y="415" rx="0" ry="0" width="320" height="15" />
         <rect x="0" y="437" rx="0" ry="0" width="35" height="18" />
     </ContentLoader>
-)
+);
 
-export default ProductCardLoader
+export default ProductCardLoader;

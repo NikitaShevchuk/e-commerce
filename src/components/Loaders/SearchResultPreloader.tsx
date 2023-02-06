@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
 import ContentLoader from "react-content-loader";
-import {Stack} from "@mui/material";
+import { Stack } from "@mui/material";
 
 const SearchResultPreloader = () => {
     return (
-        <Stack >
+        <Stack>
             <ContentLoader
                 speed={2}
                 width={350}
@@ -18,8 +18,7 @@ const SearchResultPreloader = () => {
                 <rect x="255" y="10" rx="0" ry="0" width="50" height="27" />
             </ContentLoader>
         </Stack>
-    )
-}
-
+    );
+};
 
 export default SearchResultPreloader;

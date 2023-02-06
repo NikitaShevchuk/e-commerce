@@ -1,6 +1,6 @@
 import React from "react";
-import {Grid} from "@mui/material";
-import {IProductCard} from "../../../models/IProductCard";
+import { Grid } from "@mui/material";
+import { IProductCard } from "../../../models/IProductCard";
 import ProductCard from "../../../components/ProductCard";
 
 export const useMapProducts = (
@@ -8,20 +8,14 @@ export const useMapProducts = (
     isFetching: boolean,
     products: IProductCard[] | undefined,
     queryParams: string
-) => React.useMemo(
-    () => {
-        const shouldMapProducts = !isFetching && !isError && products
-        if (shouldMapProducts) return (
-            products.map((product) => (
+) =>
+    React.useMemo(() => {
+        const shouldMapProducts = !isFetching && !isError && products;
+        if (shouldMapProducts)
+            return products.map((product) => (
                 <Grid item xs={2} sm={3} md={3} key={product.id}>
-                    <ProductCard 
-                        product={product} 
-                        queryParams={queryParams}
-                    />
+                    <ProductCard product={product} queryParams={queryParams} />
                 </Grid>
-            ))
-        )
-        else return []
-    },
-    [products, isFetching, isError]
-)
+            ));
+        else return [];
+    }, [products, isFetching, isError]);

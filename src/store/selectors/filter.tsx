@@ -1,3 +1,3 @@
-import {RootState} from "../store";
+import { RootState } from "../store";
 
-export const getFilters = (state: RootState) => state.filterSlice
+export const getFilters = (state: RootState) => state.filterSlice;

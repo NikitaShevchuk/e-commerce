@@ -1,46 +1,46 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme } from "@mui/material/styles";
 
 export const theme = createTheme({
     palette: {
-        mode: 'light',
+        mode: "light",
         primary: {
-            main: '#181818',
+            main: "#181818"
         },
         secondary: {
-            main: '#fff',
+            main: "#fff"
         },
         text: {
-            primary: '#181818',
-            secondary: '#fff',
-            disabled: '#999'
+            primary: "#181818",
+            secondary: "#fff",
+            disabled: "#999"
         },
         background: {
-            paper: '#f4f3f3',
-        },
+            paper: "#f4f3f3"
+        }
     },
     typography: {
-        fontFamily: 'Space Mono',
+        fontFamily: "Space Mono",
         htmlFontSize: 14,
         fontSize: 14,
         h3: {
             fontWeight: 700,
             fontSize: 14,
-            textAlign: 'left'
+            textAlign: "left"
         },
         h4: {
             fontWeight: 700,
             fontSize: 26,
-            textAlign: 'left',
+            textAlign: "left"
         },
         h5: {
             fontWeight: 700,
             fontSize: 40,
-            color: 'white'
+            color: "white"
         },
         caption: {
             fontWeight: 300,
             fontSize: 14,
-            textAlign: 'left'
+            textAlign: "left"
         }
     },
     shape: {

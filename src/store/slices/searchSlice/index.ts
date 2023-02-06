@@ -1,34 +1,34 @@
-import {createSlice} from "@reduxjs/toolkit";
-import {ICategory} from "../../../models/ICategory";
+import { createSlice } from "@reduxjs/toolkit";
+import { ICategory } from "../../../models/ICategory";
 
 interface InitialState {
-    isSearchActive: boolean
-    searchRequestText: string | null
-    selectedSearchCategory: ICategory | null
+    isSearchActive: boolean;
+    searchRequestText: string | null;
+    selectedSearchCategory: ICategory | null;
 }
 
 const initialState: InitialState = {
     isSearchActive: false,
-    searchRequestText: '',
+    searchRequestText: "",
     selectedSearchCategory: null
-}
+};
 
-export const searchSlice = createSlice( {
-    name: 'search',
+export const searchSlice = createSlice({
+    name: "search",
     initialState,
     reducers: {
         setIsSearchActive(state, action: { payload: boolean }) {
-            state.isSearchActive = action.payload
+            state.isSearchActive = action.payload;
         },
         setSearchRequest(state, action: { payload: string | null }) {
-            state.searchRequestText = action.payload
+            state.searchRequestText = action.payload;
         },
         setSelectedCategory(state, action: { payload: ICategory | null }) {
-            state.selectedSearchCategory = action.payload
+            state.selectedSearchCategory = action.payload;
         }
     }
-} )
+});
 
-export const {setIsSearchActive, setSearchRequest, setSelectedCategory} = searchSlice.actions
+export const { setIsSearchActive, setSearchRequest, setSelectedCategory } = searchSlice.actions;
 
-export default searchSlice.reducer
+export default searchSlice.reducer;

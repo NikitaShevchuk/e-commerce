@@ -1,35 +1,29 @@
-import React, {FC} from 'react';
-import {ActionCreatorWithPayload} from "@reduxjs/toolkit";
+import React, { FC } from "react";
+import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import MenuItem from "@mui/material/MenuItem";
-import {Sort} from "../../../store/slices/filterSlice";
-import DoneIcon from '@mui/icons-material/Done'
-import {useTypedDispatch, useTypedSelector} from "../../../hooks/redux";
+import { Sort } from "../../../store/slices/filterSlice";
+import DoneIcon from "@mui/icons-material/Done";
+import { useTypedDispatch, useTypedSelector } from "../../../hooks/redux";
 
 interface Props {
-    selectMenuItem: Sort
-    addFilterProperty: ActionCreatorWithPayload<any>
+    selectMenuItem: Sort;
+    addFilterProperty: ActionCreatorWithPayload<any>;
 }
 
-const SortSelect: FC<Props> = ({selectMenuItem, addFilterProperty}) => {
-    let sort = useTypedSelector( state => state.filterSlice.sort )
+const SortSelect: FC<Props> = ({ selectMenuItem, addFilterProperty }) => {
+    let sort = useTypedSelector((state) => state.filterSlice.sort);
     const dispatch = useTypedDispatch();
-    const handleClick = () => dispatch(addFilterProperty(selectMenuItem))
+    const handleClick = () => dispatch(addFilterProperty(selectMenuItem));
     return (
-        <MenuItem
-            sx={{pr: 3, pl: 1}}
-            disableRipple
-            onClick={handleClick}
-        >
-            {sort.property === selectMenuItem.property && sort.order === selectMenuItem.order &&
-                <DoneIcon/>
-            }
+        <MenuItem sx={{ pr: 3, pl: 1 }} disableRipple onClick={handleClick}>
+            {sort.property === selectMenuItem.property && sort.order === selectMenuItem.order && (
+                <DoneIcon />
+            )}
             {selectMenuItem.property
                 ? `${selectMenuItem.property} (${selectMenuItem.order})`
-                : 'By default'
-            }
+                : "By default"}
         </MenuItem>
     );
 };
 
 export default SortSelect;
-

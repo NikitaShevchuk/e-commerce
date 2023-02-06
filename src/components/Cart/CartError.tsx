@@ -1,26 +1,29 @@
-import React from 'react';
-import {Alert} from "@mui/material";
-import {useTypedSelector} from "../../hooks/redux";
-import {cartSelector} from "../../store/selectors/cart";
+import React from "react";
+import { Alert } from "@mui/material";
+import { useTypedSelector } from "../../hooks/redux";
+import { cartSelector } from "../../store/selectors/cart";
 
 const CartError = () => {
-    const {errors} = useTypedSelector(cartSelector)
-    let [showAlert, setShowAlert] = React.useState(true)
-    const handleAlertClose = () => setShowAlert(false)
+    const { errors } = useTypedSelector(cartSelector);
+    let [showAlert, setShowAlert] = React.useState(true);
+    const handleAlertClose = () => setShowAlert(false);
     return (
         <div className="alert">
-            {showAlert && errors && errors[0] && errors.map( err =>
-                <Alert
-                    className='alert-item'
-                    onClose={handleAlertClose}
-                    severity={err.alertType}
-                    key={err.body}
-                >
-                    {err.body}
-                </Alert>
-            )}
+            {showAlert &&
+                errors &&
+                errors[0] &&
+                errors.map((err) => (
+                    <Alert
+                        className="alert-item"
+                        onClose={handleAlertClose}
+                        severity={err.alertType}
+                        key={err.body}
+                    >
+                        {err.body}
+                    </Alert>
+                ))}
         </div>
     );
 };
 
-export default CartError
+export default CartError;

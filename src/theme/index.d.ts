@@ -1,54 +1,54 @@
-import { Theme, ThemeOptions } from '@mui/material/styles';
+import { Theme, ThemeOptions } from "@mui/material/styles";
 
-declare module '@mui/material/styles' {
+declare module "@mui/material/styles" {
     interface CustomTheme extends Theme {
         palette: {
-            type: 'light',
+            type: "light";
             primary: {
-                main: string,
-            },
+                main: string;
+            };
             secondary: {
-                main: string,
-            },
+                main: string;
+            };
             text: {
-                primary: string,
-                secondary: string,
-                disabled: string,
-                hint: string,
-            },
+                primary: string;
+                secondary: string;
+                disabled: string;
+                hint: string;
+            };
             background: {
-                paper: string,
-            },
-        },
+                paper: string;
+            };
+        };
         typography: {
-            fontFamily: string,
-            htmlFontSize: number,
-        }
+            fontFamily: string;
+            htmlFontSize: number;
+        };
     }
     // allow configuration using `createTheme`
     interface CustomThemeOptions extends ThemeOptions {
         palette?: {
-            type?: 'light',
+            type?: "light";
             primary?: {
-                main?: string,
-            },
+                main?: string;
+            };
             secondary?: {
-                main?: string,
-            },
+                main?: string;
+            };
             text?: {
-                primary?: string,
-                secondary?: string,
-                disabled?: string,
-                hint?: string,
-            },
+                primary?: string;
+                secondary?: string;
+                disabled?: string;
+                hint?: string;
+            };
             background?: {
-                paper?: string,
-            },
-        },
+                paper?: string;
+            };
+        };
         typography?: {
-            fontFamily?: string,
-            htmlFontSize?: number,
-        }
+            fontFamily?: string;
+            htmlFontSize?: number;
+        };
     }
     export function createTheme(options?: CustomThemeOptions): CustomTheme;
 }

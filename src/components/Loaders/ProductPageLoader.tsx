@@ -1,12 +1,12 @@
-import React from 'react';
-import ContentLoader from 'react-content-loader';
+import React from "react";
+import ContentLoader from "react-content-loader";
 
 const ProductPageLoader = () => {
     return (
         <ContentLoader
             speed={2}
-            width='100%'
-            height='91vh'
+            width="100%"
+            height="91vh"
             backgroundColor="#d7d7d7"
             foregroundColor="#f6f6f6"
         >
