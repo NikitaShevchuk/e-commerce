@@ -27,6 +27,8 @@ yarn-error.log*
 #Build generated
 dist/
 build/
+.node_repl_history
+.next/
 
 # Serverless generated files
 .serverless/

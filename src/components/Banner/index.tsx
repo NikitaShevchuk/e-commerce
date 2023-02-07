@@ -1,7 +1,7 @@
-import React from "react";
 import { Box, Button, Typography } from "@mui/material";
-import mainBanner from "../../assets/img/banners/main-page-image.webp";
+import React from "react";
 import { NavLink } from "react-router-dom";
+import mainBanner from "../../assets/img/banners/main-page-image.webp";
 
 const Banner = () => {
     return (
@@ -15,12 +15,12 @@ const Banner = () => {
                 </Typography>
                 <Button variant="contained" sx={{ mr: 2 }} color="secondary" size="large">
                     <NavLink style={{ fontSize: "12px" }} to={`/categories/1/men`}>
-                        Shop men's
+                        Shop men&apos;s
                     </NavLink>
                 </Button>
                 <Button variant="contained" color="secondary" size="large">
                     <NavLink style={{ fontSize: "12px" }} to={`/categories/2/women`}>
-                        Shop women's
+                        Shop women&apos;s
                     </NavLink>
                 </Button>
             </Box>

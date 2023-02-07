@@ -1,5 +1,5 @@
-import React from "react";
 import { Container, Typography } from "@mui/material";
+import React from "react";
 import ProductsSearch from "../../components/Header/Search/ProductsSearch";
 import { useTypedSelector } from "../../hooks/redux";
 
@@ -10,7 +10,7 @@ const SearchPageHeader = () => {
         <Container maxWidth="md" sx={{ py: 6 }}>
             <Typography sx={{ pb: 4 }}>
                 {`${itemsCount} `}
-                results for "{searchRequest}"
+                results for &quot;{searchRequest}&quot;
             </Typography>
             <ProductsSearch />
         </Container>

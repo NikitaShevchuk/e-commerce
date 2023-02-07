@@ -1,6 +1,5 @@
 import React, { Suspense } from "react";
 import MainPage from "../pages/Main";
-import { Navigate } from "react-router-dom";
 import BasicPreloader from "../components/Loaders/BasicPreloader";
 import CategoryProductCardLoader from "../components/Loaders/Category/CategoryProductCardLoader";
 import ProductPage from "../pages/ProductPage";
@@ -55,9 +54,5 @@ export const publicRoutes: IRoute[] = [
                 <ProductPage />
             </Suspense>
         )
-    },
-    {
-        path: "*",
-        element: <Navigate to="/" />
     }
 ];
