@@ -1,8 +1,8 @@
-import React, { FC } from "react";
 import { Typography } from "@mui/material";
+import Link from "next/link";
+import React, { FC } from "react";
 import { useTypedDispatch } from "../../../../hooks/redux";
 import { setIsSearchActive } from "../../../../store/slices/searchSlice";
-import { NavLink } from "react-router-dom";
 
 interface Props {
     productName: string;
@@ -15,15 +15,15 @@ const SingleProduct: FC<Props> = ({ productName, productColor, productId, catego
     const dispatch = useTypedDispatch();
     const handleClick = () => dispatch(setIsSearchActive(false));
     return (
-        <NavLink
-            to={`/${categoryId}/${productId}`}
+        <Link
+            href={`/${categoryId}/${productId}`}
             className="search-result-product"
             onClick={handleClick}
         >
             <Typography textAlign="left" sx={{ py: 1 }}>
                 {productName} - {productColor}
             </Typography>
-        </NavLink>
+        </Link>
     );
 };
 

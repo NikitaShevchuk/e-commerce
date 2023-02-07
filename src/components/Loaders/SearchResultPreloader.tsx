@@ -1,22 +1,12 @@
+import { Skeleton, Stack } from "@mui/material";
 import React from "react";
-import ContentLoader from "react-content-loader";
-import { Stack } from "@mui/material";
 
 const SearchResultPreloader = () => {
     return (
-        <Stack>
-            <ContentLoader
-                speed={2}
-                width={350}
-                height={47}
-                viewBox="0 0 350 47"
-                backgroundColor="#d7d7d7"
-                foregroundColor="#f6f6f6"
-            >
-                <rect x="10" y="10" rx="0" ry="0" width="200" height="27" />
-                <rect x="222" y="19" rx="0" ry="0" width="20" height="10" />
-                <rect x="255" y="10" rx="0" ry="0" width="50" height="27" />
-            </ContentLoader>
+        <Stack sx={{ width: "100%", marginTop: "30px" }} alignItems="center" direction="row">
+            <Skeleton variant="text" sx={{ fontSize: '16px', width: "100px" }} />
+            <Skeleton variant="text" sx={{ fontSize: '10px', margin: "0 10px", width: "20px", height: "10px" }} />
+            <Skeleton variant="text" sx={{ fontSize: '16px', width: "200px" }} />
         </Stack>
     );
 };

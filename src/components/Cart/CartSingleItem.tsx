@@ -1,8 +1,8 @@
-import React, { FC } from "react";
 import { Card, CardContent, CardMedia, Typography } from "@mui/material";
-import { CartProduct } from "../../models/CartProduct";
-import { NavLink } from "react-router-dom";
+import Link from "next/link";
+import React, { FC } from "react";
 import { useTypedSelector } from "../../hooks/redux";
+import { CartProduct } from "../../models/CartProduct";
 import { cartSelector } from "../../store/selectors/cart";
 import CountModifier from "./CountModifier";
 
@@ -36,18 +36,18 @@ const CartSingleItem: FC<Props> = ({ cartItem }) => {
     );
     return (
         <Card className={`cart-card__wrapper ${cardClassName}`}>
-            <NavLink
-                to={`/product/${cartItem.categoryId}/${cartItem.productId}`}
+            <Link
+                href={`/product/${cartItem.categoryId}/${cartItem.productId}`}
                 className="cart-img__wrapper"
             >
                 <CardMedia component="img" image={cartItem.image} alt="product card" />
-            </NavLink>
+            </Link>
             <CardContent className="cart-card">
                 <Typography component="div" fontSize={13}>
                     <span className="flex">
-                        <NavLink to={`/product/${cartItem.categoryId}/${cartItem.productId}`}>
+                        <Link href={`/product/${cartItem.categoryId}/${cartItem.productId}`}>
                             {cartItem.name}
-                        </NavLink>
+                        </Link>
                         <span>${cartItem.price}</span>
                     </span>
                     <span className="cart-features">

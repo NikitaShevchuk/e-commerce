@@ -1,16 +1,16 @@
-import React, { FC } from "react";
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material";
+import React, { FC } from "react";
 import { useTypedDispatch } from "../../../hooks/redux";
-import { setSelectedCategory } from "../../../store/slices/searchSlice";
-import { useGetCategoriesQuery } from "../../../services/productsService";
 import { ICategory } from "../../../models/ICategory";
+import { useGetCategoriesQuery } from "../../../services/productsService";
+import { setSelectedCategory } from "../../../store/slices/searchSlice";
 
 interface Props {
     selectedSearchCategory: ICategory | null;
 }
 
 const CategorySelect: FC<Props> = ({ selectedSearchCategory }) => {
-    const { data: categories, isLoading, isError } = useGetCategoriesQuery("");
+    const { data: categories, isLoading } = useGetCategoriesQuery("");
     const dispatch = useTypedDispatch();
     const handleChange = (event: SelectChangeEvent) => {
         const filteredById =

@@ -1,12 +1,12 @@
+import { Typography } from "@mui/material";
 import React from "react";
+import { useTypedSelector } from "../../../../hooks/redux";
 import { useGetProductsBySearchQuery } from "../../../../services/productsService";
-import { useMapSearchResultProducts } from "../hooks/useMapSearchResultProducts";
+import { getSearchSlice } from "../../../../store/selectors/search";
 import BasicPreloader from "../../../Loaders/BasicPreloader";
 import SearchResultPreloader from "../../../Loaders/SearchResultPreloader";
-import { Typography } from "@mui/material";
 import LoadingError from "../../../LoadingError";
-import { useTypedSelector } from "../../../../hooks/redux";
-import { getSearchSlice } from "../../../../store/selectors/search";
+import { useMapSearchResultProducts } from "../hooks/useMapSearchResultProducts";
 
 const SearchResults = () => {
     const { searchRequestText, selectedSearchCategory } = useTypedSelector(getSearchSlice);
@@ -16,14 +16,16 @@ const SearchResults = () => {
         setSkipSearchRequest(skipRequest);
     }, [searchRequestText]);
 
-    const categoryId = selectedSearchCategory ? selectedSearchCategory.id : "1";
     const {
         data: products,
         isLoading,
         isError,
         isFetching,
         refetch
-    } = useGetProductsBySearchQuery({ searchRequestText, categoryId }, { skip: skipSearchRequest });
+    } = useGetProductsBySearchQuery(
+        { searchRequestText, categoryId: selectedSearchCategory?.id || "1" },
+        { skip: skipSearchRequest }
+    );
     const mappedProducts = useMapSearchResultProducts(products);
     return (
         <div>

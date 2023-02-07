@@ -1,11 +1,11 @@
-import React, { FC } from "react";
-import { AppBar, Toolbar, Typography } from "@mui/material";
-import LeftMenu from "./LeftMenu";
 import { StorefrontOutlined } from "@mui/icons-material";
-import RightMenu from "./RightMenu";
-import { NavLink } from "react-router-dom";
-import HeaderSearch from "./Search";
+import { AppBar, Toolbar, Typography } from "@mui/material";
+import Link from "next/link";
+import React, { FC } from "react";
 import Cart from "../Cart";
+import LeftMenu from "./LeftMenu";
+import RightMenu from "./RightMenu";
+import HeaderSearch from "./Search";
 
 const Header: FC = () => {
     return (
@@ -13,15 +13,15 @@ const Header: FC = () => {
             <Toolbar disableGutters className="toolbar">
                 <LeftMenu />
                 <Typography sx={{ flex: 1 }}>
-                    <NavLink to="/" className="home-link">
+                    <Link href="/" className="home-link">
                         <StorefrontOutlined sx={{ mr: 1, fontSize: 20 }} />
                         E-commerce
-                    </NavLink>
+                    </Link>
                 </Typography>
                 <RightMenu />
             </Toolbar>
             <HeaderSearch />
-            <Cart />
+            {/* <Cart /> */}
         </AppBar>
     );
 };

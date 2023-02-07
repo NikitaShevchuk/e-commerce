@@ -1,10 +1,10 @@
-import React from "react";
 import { Container, Paper } from "@mui/material";
+import React from "react";
 import { useTypedSelector } from "../../../hooks/redux";
-import { setIsSearchActive } from "../../../store/slices/searchSlice";
 import { getSearchSlice } from "../../../store/selectors/search";
-import ProductsSearch from "./ProductsSearch";
+import { setIsSearchActive } from "../../../store/slices/searchSlice";
 import HeaderWithClose from "../../common/HeaderWithClose";
+import ProductsSearch from "./ProductsSearch";
 import SearchResults from "./SearchResults";
 
 const HeaderSearch = () => {
