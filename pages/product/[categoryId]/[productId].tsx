@@ -1,9 +1,9 @@
-import React from "react";
+import ProductPageLoader from "@/components/Loaders/ProductPageLoader";
+import ProductSizes from "@/features/ProductSizes";
+import { useGetSingleProductQuery } from "@/services/productsService";
 import { Card, CardMedia, Divider, Typography } from "@mui/material";
-import { useParams } from "react-router-dom";
-import { useGetSingleProductQuery } from "../../services/productsService";
-import ProductSizes from "../../features/ProductSizes";
-import ProductPageLoader from "../../components/Loaders/ProductPageLoader";
+import { useRouter } from "next/router";
+import React from "react";
 
 export interface ProductQueryParams {
     productId: string;
@@ -11,10 +11,10 @@ export interface ProductQueryParams {
 }
 
 const ProductPage = () => {
-    const { categoryId, productId } = useParams();
+    const { categoryId, productId } = useRouter().query;
     const productQueryParams: ProductQueryParams = {
-        categoryId: categoryId ? categoryId : "1",
-        productId: productId ? productId : "1"
+        categoryId: categoryId ? categoryId as string : "1",
+        productId: productId ? productId as string : "1"
     };
     const { data: product, isLoading } = useGetSingleProductQuery(productQueryParams);
     if (isLoading) return <ProductPageLoader />;

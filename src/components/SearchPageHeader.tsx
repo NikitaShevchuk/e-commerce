@@ -1,7 +1,7 @@
 import { Container, Typography } from "@mui/material";
 import React from "react";
-import ProductsSearch from "../../components/Header/Search/ProductsSearch";
-import { useTypedSelector } from "../../hooks/redux";
+import ProductsSearch from "./Header/Search/ProductsSearch";
+import { useTypedSelector } from "../hooks/redux";
 
 const SearchPageHeader = () => {
     const searchRequest = useTypedSelector((state) => state.searchSlice.searchRequestText);

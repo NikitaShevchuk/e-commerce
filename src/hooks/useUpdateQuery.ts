@@ -1,11 +1,11 @@
-import { useTypedDispatch, useTypedSelector } from "./redux";
-import { useNavigate } from "react-router-dom";
-import React from "react";
+import { useRouter } from "next/router";
 import qs from "qs";
-import { setQueryRequest } from "../store/slices/filterSlice";
+import React from "react";
 import { getFilters } from "../store/selectors/filter";
 import { getSearchRequest } from "../store/selectors/search";
+import { setQueryRequest } from "../store/slices/filterSlice";
 import { setSearchRequest } from "../store/slices/searchSlice";
+import { useTypedDispatch, useTypedSelector } from "./redux";
 
 const useUpdateQuery = (
     categoryId: string | undefined,
@@ -15,7 +15,7 @@ const useUpdateQuery = (
     const { sizes, color, sort, currentPage, itemsLimit } = useTypedSelector(getFilters);
     const search = useTypedSelector(getSearchRequest);
     const dispatch = useTypedDispatch();
-    const navigate = useNavigate();
+    const router = useRouter();
     React.useEffect(() => {
         if (shouldClearSearchRequest) dispatch(setSearchRequest(null));
         const query = qs.stringify(
@@ -30,7 +30,7 @@ const useUpdateQuery = (
             },
             { skipNulls: true, arrayFormat: "comma" }
         );
-        if (isMounted.current) navigate(`?${query}`);
+        if (isMounted.current) router.push(`${categoryId}?${query}`);
         dispatch(setQueryRequest(`${categoryId}/${categoryId}?${query}`));
         isMounted.current = true;
     }, [sizes, color, sort, categoryId, currentPage, itemsLimit, search]);

@@ -1,15 +1,15 @@
-import * as React from "react";
+import FilterPreloader from "@/components/Loaders/Category/Filter/FilterPreloader";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import { FC } from "react";
-import FilterPreloader from "../../../components/Loaders/Category/Filter/FilterPreloader";
-import FilterCheckbox from "./FilterCheckbox";
-import { useTypedSelector } from "../../../hooks/redux";
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
+import * as React from "react";
+import { FC } from "react";
+import { useTypedSelector } from "../../../hooks/redux";
 import { getFilters } from "../../../store/selectors/filter";
-import SortSelect from "./SortSelect";
 import { Sort } from "../../../store/slices/filterSlice";
+import FilterCheckbox from "./FilterCheckbox";
+import SortSelect from "./SortSelect";
 
 interface Props {
     filterItems?: string[];

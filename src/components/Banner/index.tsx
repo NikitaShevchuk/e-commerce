@@ -1,11 +1,11 @@
+import mainBanner from "@/assets/img/banners/main-page-image.webp";
 import { Box, Button, Typography } from "@mui/material";
+import Link from "next/link";
 import React from "react";
-import { NavLink } from "react-router-dom";
-import mainBanner from "../../assets/img/banners/main-page-image.webp";
 
 const Banner = () => {
     return (
-        <Box sx={{ backgroundImage: `url(${mainBanner})` }} className="banner-box">
+        <Box sx={{ backgroundImage: `url(${mainBanner.src})` }} className="banner-box">
             <Box>
                 <Typography variant="h5" sx={{ mb: 1 }}>
                     New Autumn Styles
@@ -14,14 +14,14 @@ const Banner = () => {
                     Out now!
                 </Typography>
                 <Button variant="contained" sx={{ mr: 2 }} color="secondary" size="large">
-                    <NavLink style={{ fontSize: "12px" }} to={`/categories/1/men`}>
+                    <Link style={{ fontSize: "12px" }} href={`/categories/1/men`}>
                         Shop men&apos;s
-                    </NavLink>
+                    </Link>
                 </Button>
                 <Button variant="contained" color="secondary" size="large">
-                    <NavLink style={{ fontSize: "12px" }} to={`/categories/2/women`}>
+                    <Link style={{ fontSize: "12px" }} href={`/categories/2/women`}>
                         Shop women&apos;s
-                    </NavLink>
+                    </Link>
                 </Button>
             </Box>
         </Box>

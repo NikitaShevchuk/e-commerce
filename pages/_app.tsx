@@ -1,3 +1,5 @@
+import Header from "@/components/Header/Header";
+import SaleBlock from "@/components/Header/SaleBlock";
 import { setupStore } from "@/store/store";
 import "@/styles/globals.css";
 import theme from "@/theme";
@@ -11,7 +13,11 @@ export default function App({ Component, pageProps }: AppProps) {
     return (
         <Provider store={store}>
             <ThemeProvider theme={theme}>
-                <Component {...pageProps} />
+                <div id="root">
+                    <Header />
+                    <SaleBlock />
+                    <Component {...pageProps} />
+                </div>
             </ThemeProvider>
         </Provider>
     );

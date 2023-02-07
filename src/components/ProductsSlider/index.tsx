@@ -1,13 +1,13 @@
+import { Container, Stack, Typography } from "@mui/material";
 import React, { FC } from "react";
-import ProductCard from "../ProductCard";
 import { useGetProductCardsQuery } from "../../services/productsService";
 import ProductCardLoader from "../Loaders/ProductCardLoader";
-import { Container, Stack, Typography } from "@mui/material";
+import ProductCard from "../ProductCard";
 // Import Swiper
-import { Swiper, SwiperSlide } from "swiper/react";
+import Link from "next/link";
 import "swiper/css";
 import "swiper/css/pagination";
-import { NavLink } from "react-router-dom";
+import { Swiper, SwiperSlide } from "swiper/react";
 import LoadingError from "../LoadingError";
 
 export interface CategorySliderProps {
@@ -25,7 +25,7 @@ const ProductsSlider: FC<CategorySliderProps> = ({ queryParams, blockTitle, cate
                     <Typography variant="h4" sx={{ marginTop: 4 }}>
                         {blockTitle}
                     </Typography>
-                    {categoryLink && <NavLink to={categoryLink}>View all</NavLink>}
+                    {categoryLink && <Link href={categoryLink}>View all</Link>}
                 </Stack>
             </Container>
             {!error && (

@@ -1,9 +1,9 @@
-import React, { FC } from "react";
 import { Card, CardContent, CardMedia, Typography } from "@mui/material";
-import { NavLink } from "react-router-dom";
+import Link from "next/link";
+import React, { FC } from "react";
+import ProductSizes from "../../features/ProductSizes";
 import { IProductCard } from "../../models/IProductCard";
 import ProductCardHeader from "./ProductCardHeader";
-import ProductSizes from "../../features/ProductSizes";
 
 interface Props {
     product: IProductCard;
@@ -14,7 +14,7 @@ const ProductCard: FC<Props> = ({ product, queryParams }) => {
     return (
         <Card className="product-card">
             <ProductCardHeader product={product} queryParams={queryParams} />
-            <NavLink to={`/product/${product.categoryId}/${product.id}`}>
+            <Link href={`/product/${product.categoryId}/${product.id}`}>
                 <div className="image-wrapper">
                     <CardMedia component="img" image={product.image} alt="product card" />
                     <ProductSizes
@@ -32,7 +32,7 @@ const ProductCard: FC<Props> = ({ product, queryParams }) => {
                         ${product.price}
                     </Typography>
                 </CardContent>
-            </NavLink>
+            </Link>
         </Card>
     );
 };

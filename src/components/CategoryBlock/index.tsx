@@ -1,10 +1,10 @@
-import React from "react";
 import { Container, Typography } from "@mui/material";
+import Link from "next/link";
+import React from "react";
 import { useGetCategoriesQuery } from "../../services/productsService";
-import { NavLink } from "react-router-dom";
+import BasicPreloader from "../Loaders/BasicPreloader";
 import CategoryLoader from "../Loaders/Category/CategoryLoader";
 import LoadingError from "../LoadingError";
-import BasicPreloader from "../Loaders/BasicPreloader";
 
 const CategoryBlock = () => {
     const { data: categories, isLoading, isError, refetch } = useGetCategoriesQuery("");
@@ -17,10 +17,10 @@ const CategoryBlock = () => {
             )}
             {categories &&
                 categories.map((category) => (
-                    <NavLink
+                    <Link
                         key={`${category.id}`}
                         className="category-link"
-                        to={`/categories/${category.id}/${category.name}`}
+                        href={`/category/${category.id}`}
                         style={{
                             background: `center / contain no-repeat url(${category.image})`
                         }}
@@ -28,7 +28,7 @@ const CategoryBlock = () => {
                         <Typography variant="h5" component="span">
                             {category.name}
                         </Typography>
-                    </NavLink>
+                    </Link>
                 ))}
             {isError && <LoadingError reload={refetch} />}
         </Container>
