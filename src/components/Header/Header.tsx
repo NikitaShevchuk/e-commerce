@@ -21,7 +21,7 @@ const Header: FC = () => {
                 <RightMenu />
             </Toolbar>
             <HeaderSearch />
-            {/* <Cart /> */}
+            <Cart />
         </AppBar>
     );
 };

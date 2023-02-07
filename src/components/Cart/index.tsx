@@ -1,53 +1,42 @@
-import React from "react";
 import { Modal, Paper } from "@mui/material";
-import HeaderWithClose from "../common/HeaderWithClose";
+import React from "react";
 import { useTypedDispatch, useTypedSelector } from "../../hooks/redux";
-import { RequestStatus, setIsCartModalOpened } from "../../store/slices/cartSlice";
-import LoadingError from "../LoadingError";
-import CartSingleItem from "./CartSingleItem";
-import CartIsEmpty from "./CartIsEmpty";
 import { cartSelector } from "../../store/selectors/cart";
+import { RequestStatus, setIsCartModalOpened } from "../../store/slices/cartSlice";
 import { getCartItems } from "../../store/slices/cartSlice/cart-thunks";
-import CartError from "./CartError";
+import HeaderWithClose from "../common/HeaderWithClose";
 import BasicPreloader from "../Loaders/BasicPreloader";
 import CartItemLoader from "../Loaders/CartItemLoader";
+import LoadingError from "../LoadingError";
+import CartError from "./CartError";
 import CartFooter from "./CartFooter";
+import CartIsEmpty from "./CartIsEmpty";
+import { useFetchCartItems } from "./hooks/useFetchCartItems";
+import { useGetCartProducts } from "./hooks/useGetCartProducts";
+import { useGetTotal } from "./hooks/useGetTotal";
 
 const Cart = () => {
-    const { isCartModalOpened } = useTypedSelector((state) => state.cartSlice);
-    const { cartItems, status, cartItemsCount } = useTypedSelector(cartSelector);
-    const dispatch = useTypedDispatch();
-    React.useEffect(() => {
-        dispatch(getCartItems());
-    }, []);
-    const handleClose = () => dispatch(setIsCartModalOpened(false));
+    const { cartItems, status, cartItemsCount, isCartModalOpened } = useTypedSelector(cartSelector);
+
+    useFetchCartItems()
+
+    const title = status.getCartItems === RequestStatus.loading
+        ? "Loading your shopping cart"
+        : `${cartItemsCount} items in your cart`
+    const total = useGetTotal(cartItems);
+    const cartProducts = useGetCartProducts(cartItems);
+
     const reload = () => dispatch(getCartItems());
-    const title = React.useMemo(
-        () =>
-            status.getCartItems === RequestStatus.loading
-                ? "Loading your shopping cart"
-                : `${cartItemsCount} items in your cart`,
-        [cartItemsCount, status.getCartItems]
-    );
-    const total = React.useMemo(
-        () =>
-            cartItems ? cartItems.reduce((prev, current) => prev + Number(current.price), 0) : 0,
-        [cartItems]
-    );
-    const items = React.useMemo(() => {
-        if (cartItems)
-            return cartItems.map((item) => (
-                <CartSingleItem key={item.name + item.size} cartItem={item} />
-            ));
-        else return [];
-    }, [cartItems]);
+    const dispatch = useTypedDispatch();
+    const handleClose = () => dispatch(setIsCartModalOpened(false));
+
     return (
         <Modal open={isCartModalOpened} onClose={handleClose} keepMounted>
             <Paper className="modal-window">
                 <HeaderWithClose title={title} handleClose={setIsCartModalOpened} />
 
                 <div className="cart-items-wrapper">
-                    {status.getCartItems === RequestStatus.fulfilled && <>{items}</>}
+                    {status.getCartItems === RequestStatus.fulfilled && <>{cartProducts}</>}
                     {status.getCartItems === RequestStatus.error && (
                         <LoadingError reload={reload} />
                     )}
