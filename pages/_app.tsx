@@ -1,22 +1,22 @@
+
 import Header from "@/components/Header/Header";
 import SaleBlock from "@/components/Header/SaleBlock";
-import { setupStore } from "@/store/store";
+import { wrapper } from "@/store/store";
 import "@/styles/globals.css";
 import theme from "@/theme";
 import { ThemeProvider } from "@mui/material";
 import type { AppProps } from "next/app";
 import { Provider } from "react-redux";
 
-const store = setupStore();
-
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({ Component, ...rest }: AppProps) {
+    const { store, props } = wrapper.useWrappedStore(rest)
     return (
         <Provider store={store}>
             <ThemeProvider theme={theme}>
                 <div id="root">
                     <Header />
                     <SaleBlock />
-                    <Component {...pageProps} />
+                    <Component {...props.pageProps} />
                 </div>
             </ThemeProvider>
         </Provider>
