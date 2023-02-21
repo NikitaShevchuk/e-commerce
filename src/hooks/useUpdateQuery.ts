@@ -8,7 +8,7 @@ import { setSearchRequest } from "../store/slices/searchSlice";
 import { useTypedDispatch, useTypedSelector } from "./redux";
 
 const useUpdateQuery = (
-    categoryId: string | undefined,
+    categoryId: string | string[] | undefined,
     isMounted: { current: boolean },
     shouldClearSearchRequest: boolean = false
 ) => {

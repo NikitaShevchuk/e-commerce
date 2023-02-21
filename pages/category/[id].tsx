@@ -1,22 +1,18 @@
-import React from "react";
-import { Container } from "@mui/material";
-import { useRouter } from "next/router";
-import CategoryHeader from "@/components/Category/CategoryHeader";
-import Products from "@/components/Category/Products";
-import ProductsPagination from "@/components/Category/ProductsPagination";
-import useParseQueryParamsToState from "@/hooks/useParseQueryParamsToState";
+import CategoryPage from "@/pages/CategoryPage";
+import { getCategories, getRunningQueriesThunk, getSingleCategory } from "@/services/productsService";
+import { wrapper } from "@/store/store";
 
-const Category = () => {
-    let categoryId = useRouter().query.id as string;
-    if (!categoryId) categoryId = "1";
-    useParseQueryParamsToState();
-    return (
-        <Container maxWidth="xl" className="product-category__wrapper">
-            <CategoryHeader categoryId={categoryId} />
-            <Products clearSearchRequest={true} categoryId={categoryId} />
-            <ProductsPagination />
-        </Container>
-    );
-};
+export default CategoryPage
 
-export default Category;
+export const getServerSideProps = wrapper.getServerSideProps((store) => async (context) => {
+    const categoryId = context.query?.categoryId;
+    const productId = context.query?.productId;
+
+    if (typeof categoryId === 'string' && typeof productId === 'string') {
+        store.dispatch(getSingleCategory.initiate(categoryId))
+        store.dispatch(getCategories.initiate(""))
+    }
+
+    await Promise.all(store.dispatch(getRunningQueriesThunk()));
+    return { props: {} }
+})

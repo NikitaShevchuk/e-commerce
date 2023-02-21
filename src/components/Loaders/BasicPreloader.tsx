@@ -19,4 +19,6 @@ const BasicPreloader: FC<Props> = React.memo(
     }
 );
 
+BasicPreloader.displayName = "BasicPreloader";
+
 export default BasicPreloader;

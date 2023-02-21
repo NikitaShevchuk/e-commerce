@@ -14,11 +14,10 @@ export interface ProductQueryParams {
 export function ProductPage() {
     const router = useRouter()
     const { categoryId, productId } = router.query;
-    const productQueryParams: ProductQueryParams =
-        { categoryId, productId } as { categoryId: string, productId: string };
+    const productQueryParams = { categoryId, productId } as ProductQueryParams;
 
 
-    const { data: product, isLoading, isFetching } = useGetSingleProductQuery(
+    const { data: product, isLoading } = useGetSingleProductQuery(
         (
             typeof categoryId === 'string' &&
             typeof productId === 'string'

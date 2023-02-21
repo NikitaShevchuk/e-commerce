@@ -3,10 +3,10 @@ import { ICategory } from "../models/ICategory";
 import { productsAPI } from "../services/productsService";
 import { useTypedDispatch } from "./redux";
 
-const useAddDefaultSortType = (categoryId: string, isSuccess: boolean) => {
+const useAddDefaultSortType = (categoryId: string | string[] | undefined, isSuccess: boolean) => {
     const dispatch = useTypedDispatch();
     useEffect(() => {
-        if (isSuccess)
+        if (isSuccess && typeof categoryId === "string") {
             dispatch(
                 productsAPI.util.updateQueryData(
                     "getSingleCategory",
@@ -22,6 +22,7 @@ const useAddDefaultSortType = (categoryId: string, isSuccess: boolean) => {
                     }
                 )
             );
+        }
     }, [isSuccess]);
 };
 

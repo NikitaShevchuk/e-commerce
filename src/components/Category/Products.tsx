@@ -1,33 +1,17 @@
-import React, { FC, useRef } from "react";
-import CategoryProductCardLoader from "../../components/Loaders/Category/CategoryProductCardLoader";
+import BasicPreloader from "@/components/Loaders/BasicPreloader";
+import CategoryProductCardLoader from "@/components/Loaders/Category/CategoryProductCardLoader";
+import LoadingError from "@/components/LoadingError";
 import { Grid } from "@mui/material";
-import { useGetProductCardsQuery } from "../../services/productsService";
-import { useTypedSelector } from "../../hooks/redux";
-import { getFilters } from "../../store/selectors/filter";
-import useUpdateQuery from "../../hooks/useUpdateQuery";
-import BasicPreloader from "../../components/Loaders/BasicPreloader";
-import LoadingError from "../../components/LoadingError";
-import { useMapProducts } from "./hooks/useMapProducts";
+import React, { FC } from "react";
+import { useGetProducts } from "./hooks/useGetProducts";
 
-interface Props {
-    categoryId: string;
+export interface ProductsProps {
     clearSearchRequest?: boolean;
 }
 
-const Products: FC<Props> = ({ categoryId, clearSearchRequest = false }) => {
-    const { requestQuery } = useTypedSelector(getFilters);
-    let isMounted = useRef(false);
-    useUpdateQuery(categoryId, isMounted, clearSearchRequest);
+const Products: FC<ProductsProps> = (props) => {
 
-    const {
-        data: products,
-        isLoading,
-        isError,
-        isFetching,
-        refetch
-    } = useGetProductCardsQuery(requestQuery);
-
-    const mappedProducts = useMapProducts(isError, isFetching, products, requestQuery);
+    const { mappedProducts, isError, isFetching, isLoading, refetch } = useGetProducts(props);
 
     return (
         <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
