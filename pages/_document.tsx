@@ -4,9 +4,9 @@ export default function Document() {
     return (
         <Html lang="en">
             <Head>
-                <link rel="icon" href="favicon.svg" />
-                <meta name="theme-color" content="#000000" />
-                <meta name="description" content="Web site created using create-react-app" />
+                <link rel="icon" href="/favicon.svg" />
+                <meta name="theme-color" content="#ffffff" />
+                <meta name="description" content="Web site created using Next.js" />
                 <link rel="manifest" href="/manifest.json" />
             </Head>
             <body>

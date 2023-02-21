@@ -1,12 +1,12 @@
-import React, { FC } from "react";
 import { Stack, Typography } from "@mui/material";
-import { useGetSizeItems } from "../../components/ProductCard/useGetSizeItems";
-import AddToCartButton, { ColorVariant } from "./AddToCartButton";
 import classNames from "classnames";
+import React, { FC } from "react";
+import { useGetSizeItems } from "../../components/ProductCard/useGetSizeItems";
 import { useTypedDispatch } from "../../hooks/redux";
-import { addToCart, SelectedCartItem } from "../../store/slices/cartSlice/cart-thunks";
 import { IProductCard } from "../../models/IProductCard";
+import { addToCart, SelectedCartItem } from "../../store/slices/cartSlice/cart-thunks";
 import ToggleFavorite from "../ToggleFavorite";
+import AddToCartButton, { ColorVariant } from "./AddToCartButton";
 
 type SizesPosition = "static" | "absolute";
 

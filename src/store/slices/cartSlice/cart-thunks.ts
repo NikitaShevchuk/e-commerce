@@ -1,11 +1,13 @@
+import { IProductCard } from "@/models/IProductCard";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { cartApi } from "../../../services/cartService";
-import { RootState } from "../../store";
-import { cartSelector } from "../../selectors/cart";
-import { ErrorsAlert, setIsCartModalOpened } from "./index";
 import { AxiosError } from "axios";
 import { CartProduct } from "../../../models/CartProduct";
+import { cartApi } from "../../../services/cartService";
+import { cartSelector } from "../../selectors/cart";
+import { RootState } from "../../store";
 import { changeCounter, CounterToChange } from "./helpers";
+import { setIsCartModalOpened } from "./index";
+import { ErrorsAlert } from "./Types";
 
 export interface SelectedCartItem {
     newCartItem: {
@@ -44,6 +46,27 @@ export const removeCartItem = createAsyncThunk(
     }
 );
 
+const increaseExistingCartItemCount = async (itemIsInCart: CartProduct) => {
+    let itemCount = itemIsInCart.count;
+    const updatedCartItem: CartProduct = { ...itemIsInCart, count: ++itemCount };
+    const response = await cartApi.modifyCartItem(updatedCartItem);
+    return { response, updatedCartItem };
+};
+
+const addNewCartItem = async (cartItemsCount: number, selectedCartItem: SelectedCartItem) => {
+    let itemsCount = cartItemsCount;
+    // set id by cart item order
+    let idInPayload = itemsCount > 0 ? String(++itemsCount) : "1";
+    const newCartItem: CartProduct = {
+        ...selectedCartItem.newCartItem,
+        size: selectedCartItem.size,
+        id: idInPayload,
+        count: 1
+    };
+    const response = await cartApi.addCartItem(newCartItem);
+    return { response, newCartItem };
+};
+
 export const addToCart = createAsyncThunk(
     "cart/addToCart",
     async (selectedCartItem: SelectedCartItem, { getState, dispatch, rejectWithValue }) => {
@@ -57,35 +80,12 @@ export const addToCart = createAsyncThunk(
                     item.name === selectedCartItem.newCartItem.name &&
                     item.size === selectedCartItem.size
             );
-        if (itemIsInCart) {
-            // increase the counter if item is already in the cart
-            try {
-                let itemCount = itemIsInCart.count;
-                const updatedCartItem: CartProduct = { ...itemIsInCart, count: ++itemCount };
-                const response = await cartApi.modifyCartItem(updatedCartItem);
-                return { response, updatedCartItem };
-            } catch (error) {
-                const err = error as AxiosError;
-                return rejectWithValue(err.response?.data);
-            }
-        } else {
-            // otherwise, if item is not already in cart, add new item to the cart todo refactor
-            try {
-                let itemsCount = cartItemsCount;
-                // set id by cart item order
-                let idInPayload = itemsCount > 0 ? String(++itemsCount) : "1";
-                const newCartItem: CartProduct = {
-                    ...selectedCartItem.newCartItem,
-                    size: selectedCartItem.size,
-                    id: idInPayload,
-                    count: 1
-                };
-                const response = await cartApi.addCartItem(newCartItem);
-                return { response, newCartItem };
-            } catch (error) {
-                const err = error as AxiosError;
-                return rejectWithValue(err.response?.data);
-            }
+        try {
+            if (itemIsInCart) return await increaseExistingCartItemCount(itemIsInCart);
+            else return await addNewCartItem(cartItemsCount, selectedCartItem);
+        } catch (error) {
+            const err = error as AxiosError;
+            return rejectWithValue(err.response?.data);
         }
     }
 );

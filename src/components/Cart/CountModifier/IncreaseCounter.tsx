@@ -1,6 +1,6 @@
-import React, { FC } from "react";
 import { AddBox } from "@mui/icons-material";
-import { CountAction } from "../../../store/slices/cartSlice";
+import React, { FC } from "react";
+import { CountAction } from "../../../store/slices/cartSlice/Types";
 
 interface Props {
     modifyCounter: (countAction: CountAction) => void;

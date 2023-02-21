@@ -1,7 +1,7 @@
 import React, { Dispatch, FC, SetStateAction } from "react";
-import { CountAction, ErrorsAlert } from "../../../store/slices/cartSlice";
 import { useTypedSelector } from "../../../hooks/redux";
 import { cartSelector } from "../../../store/selectors/cart";
+import { CountAction, ErrorsAlert } from "../../../store/slices/cartSlice/Types";
 
 interface Props {
     count: number;

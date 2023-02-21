@@ -1,13 +1,13 @@
+import debounce from "lodash.debounce";
 import React, { FC } from "react";
 import { useTypedDispatch, useTypedSelector } from "../../../hooks/redux";
-import { modifyCartItemCount, removeCartItem } from "../../../store/slices/cartSlice/cart-thunks";
-import { CountAction } from "../../../store/slices/cartSlice";
 import { cartSelector } from "../../../store/selectors/cart";
-import debounce from "lodash.debounce";
-import IncreaseCounter from "./IncreaseCounter";
-import DecreaseCounter from "./DecreaseCounter";
-import CounterInput from "./CounterInput";
+import { modifyCartItemCount, removeCartItem } from "../../../store/slices/cartSlice/cart-thunks";
 import { CounterToChange } from "../../../store/slices/cartSlice/helpers";
+import { CountAction } from "../../../store/slices/cartSlice/Types";
+import CounterInput from "./CounterInput";
+import DecreaseCounter from "./DecreaseCounter";
+import IncreaseCounter from "./IncreaseCounter";
 
 interface Props {
     count: number;
