@@ -39,3 +39,16 @@ export enum CountAction {
     decrease = "decrease",
     replace = "replace"
 }
+
+export interface SelectedCartItem {
+    newCartItem: {
+        name: string;
+        image: string;
+        createdAt: string;
+        price: string;
+        color: string;
+        productId: string;
+        categoryId: string;
+    };
+    size: string;
+}
