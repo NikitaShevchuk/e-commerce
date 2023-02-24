@@ -21,7 +21,7 @@ export const searchSlice = createSlice({
             state.isSearchActive = action.payload;
         },
         setSearchRequest(state, action: { payload: string | null }) {
-            state.searchRequestText = action.payload;
+            if (action.payload) state.searchRequestText = action.payload;
         },
         setSelectedCategory(state, action: { payload: ICategory | null }) {
             state.selectedSearchCategory = action.payload;

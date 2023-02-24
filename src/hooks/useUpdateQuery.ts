@@ -9,30 +9,35 @@ import { useTypedDispatch, useTypedSelector } from "./redux";
 
 const useUpdateQuery = (
     categoryId: string | string[] | undefined,
-    isMounted: { current: boolean },
+    isMounted: { current: boolean } = { current: false },
     shouldClearSearchRequest: boolean = false
 ) => {
     const { sizes, color, sort, currentPage, itemsLimit } = useTypedSelector(getFilters);
     const search = useTypedSelector(getSearchRequest);
     const dispatch = useTypedDispatch();
     const router = useRouter();
+
     React.useEffect(() => {
-        if (shouldClearSearchRequest) dispatch(setSearchRequest(null));
-        const query = qs.stringify(
+        if (shouldClearSearchRequest && router.query.search && search) {
+            dispatch(setSearchRequest(null));
+        }
+        let query = qs.stringify(
             {
                 sizes,
                 color,
                 p: currentPage,
                 l: itemsLimit,
                 sortBy: sort.property,
-                order: sort.order,
-                search
+                order: sort.order
             },
             { skipNulls: true, arrayFormat: "comma" }
         );
-        if (isMounted.current) router.push(`${categoryId}?${query}`);
+        if (search) query += search;
+        if (isMounted.current) {
+            router.push(`${categoryId}?${query}`);
+        }
         dispatch(setQueryRequest(`${categoryId}/${categoryId}?${query}`));
-        isMounted.current = true;
+        if (typeof categoryId === "string" && categoryId !== "undefined") isMounted.current = true;
     }, [sizes, color, sort, categoryId, currentPage, itemsLimit, search]);
 };
 export default useUpdateQuery;

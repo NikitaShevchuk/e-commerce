@@ -52,8 +52,8 @@ const filterSlice = createSlice({
             state.sort.order = action.payload.order;
         },
         setFilters(state, action) {
-            state.color = splitByComma(action.payload.color);
-            state.sizes = splitByComma(action.payload.sizes);
+            if (action.payload.color) state.color = splitByComma(action.payload.color);
+            if (action.payload.sizes) state.sizes = splitByComma(action.payload.sizes);
             if (action.payload.p) state.currentPage = action.payload.p;
             if (action.payload.l) state.itemsLimit = action.payload.l;
             if (action.payload.sortBy && action.payload.order) {

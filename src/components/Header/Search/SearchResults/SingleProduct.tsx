@@ -16,7 +16,7 @@ const SingleProduct: FC<Props> = ({ productName, productColor, productId, catego
     const handleClick = () => dispatch(setIsSearchActive(false));
     return (
         <Link
-            href={`/${categoryId}/${productId}`}
+            href={`product/${categoryId}/${productId}`}
             className="search-result-product"
             onClick={handleClick}
         >

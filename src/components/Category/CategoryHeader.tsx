@@ -16,7 +16,7 @@ import Filter from "./Filters/Filter";
 
 const CategoryHeader = () => {
     const router = useRouter();
-    const categoryId = router.query.id;
+    const categoryId = router.query.categoryId;
     const queryParam = typeof categoryId === "string" ? categoryId : skipToken;
 
     const { data: category, isSuccess } = useGetSingleCategoryQuery(queryParam, { skip: router.isFallback });

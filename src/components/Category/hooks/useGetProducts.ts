@@ -10,7 +10,7 @@ import { useMapProducts } from "./useMapProducts";
 
 export const useGetProducts = ({ clearSearchRequest = false }: ProductsProps) => {
     const router = useRouter();
-    const categoryId = router.query.id;
+    const categoryId = router.query.categoryId;
     const { requestQuery } = useTypedSelector(getFilters);
     const queryParam = typeof categoryId === "string" ? requestQuery : skipToken;
 
