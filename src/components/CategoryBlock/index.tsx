@@ -1,5 +1,7 @@
 import { Container, Typography } from "@mui/material";
+import { skipToken } from "@reduxjs/toolkit/dist/query/react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
 import { useGetCategoriesQuery } from "../../services/productsService";
 import BasicPreloader from "../Loaders/BasicPreloader";
@@ -7,7 +9,10 @@ import CategoryLoader from "../Loaders/Category/CategoryLoader";
 import LoadingError from "../LoadingError";
 
 const CategoryBlock = () => {
-    const { data: categories, isLoading, isError, refetch } = useGetCategoriesQuery("");
+    const router = useRouter();
+    const { data: categories, isLoading, isError, refetch } = useGetCategoriesQuery(
+        router.query ? "" : skipToken, { skip: router.isFallback }
+    );
     return (
         <Container maxWidth="xl" className="category-container">
             {isLoading && !isError && (

@@ -1,40 +1,23 @@
-import React, { FC } from "react";
-import { InputAdornment, TextField } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import { useTypedDispatch } from "../../hooks/redux";
-import debounce from "lodash.debounce";
+import { InputAdornment, TextField } from "@mui/material";
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
+import React, { FC } from "react";
+import { useInitializeSearchField } from "./hooks/useInitializeSearchField";
 
-interface Props {
+export interface SearchFieldProps {
     onEnterPress: () => void;
     searchFieldTextInState: string | null;
     isSearchActive: boolean;
     updateSearchTextInState: ActionCreatorWithPayload<string | null, string>;
 }
 
-const SearchField: FC<Props> = ({
-    onEnterPress,
-    searchFieldTextInState,
-    isSearchActive,
-    updateSearchTextInState
-}) => {
-    const [searchFieldValue, setSearchFieldValue] = React.useState(searchFieldTextInState);
-    React.useEffect(() => {
-        if (searchFieldValue === "" && searchFieldTextInState) {
-            setSearchFieldValue(searchFieldTextInState);
-        }
-    }, [searchFieldTextInState]);
-    const textField = React.useRef<HTMLDivElement | null>(null);
-    React.useEffect(() => {
-        const input = textField.current && textField.current.querySelector("input");
-        if (input) input.focus();
-    }, [isSearchActive]);
-
-    const dispatch = useTypedDispatch();
-    const updateSearchValue = React.useCallback(
-        debounce((value) => dispatch(updateSearchTextInState(value)), 250),
-        []
-    );
+const SearchField: FC<SearchFieldProps> = (props) => {
+    const {
+        searchFieldValue,
+        setSearchFieldValue,
+        textFieldRef,
+        updateSearchValue
+    } = useInitializeSearchField(props)
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
@@ -44,10 +27,10 @@ const SearchField: FC<Props> = ({
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         const shouldMakeRequest =
             e.key === "Enter" && searchFieldValue && searchFieldValue.length > 1;
-        if (shouldMakeRequest) onEnterPress();
+        if (shouldMakeRequest) props.onEnterPress();
     };
     const handleSearchClick = () => {
-        if (searchFieldValue && searchFieldValue.length > 1) onEnterPress();
+        if (searchFieldValue && searchFieldValue.length > 1) props.onEnterPress();
     };
     return (
         <TextField
@@ -58,7 +41,7 @@ const SearchField: FC<Props> = ({
             onChange={handleChange}
             placeholder="Search products"
             onKeyDown={handleKeyDown}
-            ref={textField}
+            ref={textFieldRef}
             InputProps={{
                 endAdornment: (
                     <InputAdornment position="end">

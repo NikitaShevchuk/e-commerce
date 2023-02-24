@@ -32,7 +32,7 @@ const useUpdateQuery = (
             },
             { skipNulls: true, arrayFormat: "comma" }
         );
-        if (search) query += search;
+        if (search) query += `&search=${search}`;
         if (isMounted.current) {
             router.push(`${categoryId}?${query}`);
         }

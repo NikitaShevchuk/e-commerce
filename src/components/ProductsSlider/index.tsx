@@ -4,7 +4,9 @@ import { useGetProductCardsQuery } from "../../services/productsService";
 import ProductCardLoader from "../Loaders/ProductCardLoader";
 import ProductCard from "../ProductCard";
 // Import Swiper
+import { skipToken } from "@reduxjs/toolkit/dist/query/react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -17,7 +19,10 @@ export interface CategorySliderProps {
 }
 
 const ProductsSlider: FC<CategorySliderProps> = ({ queryParams, blockTitle, categoryLink }) => {
-    const { data: products, isLoading, error, refetch } = useGetProductCardsQuery(queryParams);
+    const router = useRouter();
+    const { data: products, isLoading, error, refetch } = useGetProductCardsQuery(
+        router.query ? queryParams : skipToken, { skip: router.isFallback }
+    );
     return (
         <>
             <Container maxWidth="xl">
