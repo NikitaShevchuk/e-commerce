@@ -21,8 +21,12 @@ export interface CategorySliderProps {
 const ProductsSlider: FC<CategorySliderProps> = ({ queryParams, blockTitle, categoryLink }) => {
     const router = useRouter();
     const { data: products, isLoading, error, refetch } = useGetProductCardsQuery(
-        router.query ? queryParams : skipToken, { skip: router.isFallback }
+        queryParams
     );
+    console.log(products)
+    // const { data: products, isLoading, error, refetch } = useGetProductCardsQuery(
+    //     router.query ? queryParams : skipToken, { skip: router.isFallback }
+    // );
     return (
         <>
             <Container maxWidth="xl">

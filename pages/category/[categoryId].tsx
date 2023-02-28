@@ -12,7 +12,6 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (c
 
     if (typeof categoryId === 'string') {
         store.dispatch(getSingleCategory.initiate(categoryId))
-        store.dispatch(getCategories.initiate(""))
         store.dispatch(getProductCards.initiate(`${categoryId}/${categoryId}?p=1&l=999`))
         store.dispatch(setFilters(context.query));
 
@@ -24,6 +23,8 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (c
         store.dispatch(setQueryRequest(`${categoryId}/${categoryId}?${queryParams}`))
         store.dispatch(getProductCards.initiate(`${categoryId}/${categoryId}?${queryParams}`))
     }
+
+    store.dispatch(getCategories.initiate(""))
 
     await Promise.all(store.dispatch(getRunningQueriesThunk()));
     return { props: {} }

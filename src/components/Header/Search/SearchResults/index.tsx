@@ -10,12 +10,8 @@ import { useMapSearchResultProducts } from "../hooks/useMapSearchResultProducts"
 
 const SearchResults = () => {
     const { searchRequestText, selectedSearchCategory } = useTypedSelector(getSearchSlice);
-    const [skipSearchRequest, setSkipSearchRequest] = React.useState(false);
-    React.useEffect(() => {
-        const skipRequest = searchRequestText ? searchRequestText.length < 2 : true;
-        setSkipSearchRequest(skipRequest);
-    }, [searchRequestText]);
 
+    const skipRequest = searchRequestText ? searchRequestText.length < 2 : true;
     const {
         data: products,
         isLoading,
@@ -24,7 +20,7 @@ const SearchResults = () => {
         refetch
     } = useGetProductsBySearchQuery(
         { searchRequestText, categoryId: selectedSearchCategory?.id || "1" },
-        { skip: skipSearchRequest }
+        { skip: skipRequest }
     );
     const mappedProducts = useMapSearchResultProducts(products);
     return (
