@@ -15,10 +15,7 @@ export const useProductsPagination = () => {
     // API doesn't return the amount of products
     const queryParam =
         typeof categoryId === "string"
-            ? requestQuery
-                  .replace(`p=${currentPage}&l=${itemsLimit}`, "p=1&l=999")
-                  .replace("&search=", "")
-                  .replace("&search=null", "")
+            ? requestQuery.replace(`p=${currentPage}&l=${itemsLimit}`, "p=1&l=999")
             : skipToken;
     const { data: productsArray } = useGetProductCardsQuery(queryParam, {
         skip: router.isFallback

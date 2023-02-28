@@ -18,7 +18,7 @@ const useUpdateQuery = (
     const router = useRouter();
 
     React.useEffect(() => {
-        if (shouldClearSearchRequest && router.query.search && search) {
+        if (shouldClearSearchRequest && search) {
             dispatch(setSearchRequest(null));
         }
         let query = qs.stringify(
@@ -32,7 +32,8 @@ const useUpdateQuery = (
             },
             { skipNulls: true, arrayFormat: "comma" }
         );
-        if (search) query += `&search=${search}`;
+        if (search && !shouldClearSearchRequest) query += `&search=${search}`;
+        if (shouldClearSearchRequest) query = query.replace(`&search=${search}`, "");
         if (isMounted.current) {
             router.push(`${categoryId}?${query}`);
         }

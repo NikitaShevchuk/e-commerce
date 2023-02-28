@@ -10,10 +10,10 @@ export default SearchPage
 export const getServerSideProps = wrapper.getServerSideProps((store) => async (context) => {
     const categoryId = context.query?.categoryId;
 
+    store.dispatch(getCategories.initiate(""))
     if (typeof categoryId === 'string') {
         store.dispatch(getSingleCategory.initiate(categoryId))
-        store.dispatch(getCategories.initiate(""))
-        store.dispatch(getProductCards.initiate(`${categoryId}/${categoryId}?p=1&l=999`))
+
 
         if (context.query?.search) store.dispatch(setSearchRequest(context.query?.search as string));
         if (!context.query?.p) context.query.p = String(store.getState().filterSlice.currentPage);
@@ -21,8 +21,20 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (c
 
         store.dispatch(setFilters(context.query));
         const queryParams = getQueryParams(context.query, categoryId)
-        store.dispatch(setQueryRequest(`${categoryId}/${categoryId}?${queryParams}`))
-        store.dispatch(getProductCards.initiate(`${categoryId}/${categoryId}?${queryParams}`))
+
+        if (queryParams) {
+            const queryParamsWithoutLimit = queryParams
+                .replace(`p=${context.query.p}`, "p=1")
+                .replace(`l=${context.query.l}`, "l=999")
+
+
+            if (context.query?.p && context.query?.l) {
+                store.dispatch(getProductCards.initiate(`${categoryId}/${categoryId}?${queryParamsWithoutLimit}`))
+            }
+
+            store.dispatch(setQueryRequest(`${categoryId}/${categoryId}?${queryParams}`))
+            store.dispatch(getProductCards.initiate(`${categoryId}/${categoryId}?${queryParams}`))
+        }
     }
 
     await Promise.all(store.dispatch(getRunningQueriesThunk()));

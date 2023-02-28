@@ -20,6 +20,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (c
         if (!context.query?.l) context.query.l = String(store.getState().filterSlice.itemsLimit);
 
         const queryParams = getQueryParams(context.query, categoryId)
+
         store.dispatch(setQueryRequest(`${categoryId}/${categoryId}?${queryParams}`))
         store.dispatch(getProductCards.initiate(`${categoryId}/${categoryId}?${queryParams}`))
     }
