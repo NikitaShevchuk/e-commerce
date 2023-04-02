@@ -3,7 +3,7 @@ import { skipToken } from "@reduxjs/toolkit/dist/query/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
-import { useGetCategoriesQuery } from "../../services/productsService";
+import { API_URL, useGetCategoriesQuery } from "../../services/productsService";
 import BasicPreloader from "../Loaders/BasicPreloader";
 import CategoryLoader from "../Loaders/Category/CategoryLoader";
 import LoadingError from "../LoadingError";
@@ -21,17 +21,17 @@ const CategoryBlock = () => {
                 </BasicPreloader>
             )}
             {categories &&
-                categories.map((category) => (
+                categories.data.map((category) => (
                     <Link
-                        key={`${category.id}`}
+                        key={`${category._id}`}
                         className="category-link"
-                        href={`/category/${category.id}`}
+                        href={`/category/${category.title}`}
                         style={{
-                            background: `center / contain no-repeat url(${category.image})`
+                            background: `center / contain no-repeat url(${API_URL}${category.image})`
                         }}
                     >
                         <Typography variant="h5" component="span">
-                            {category.name}
+                            {category.title}
                         </Typography>
                     </Link>
                 ))}

@@ -2,7 +2,7 @@ import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 import Link from "next/link";
 import React, { FC } from "react";
 import { useTypedSelector } from "../../hooks/redux";
-import { CartProduct } from "../../models/CartProduct";
+import { CartProduct } from "../../types/CartProduct";
 import { cartSelector } from "../../store/selectors/cart";
 import CountModifier from "./CountModifier";
 

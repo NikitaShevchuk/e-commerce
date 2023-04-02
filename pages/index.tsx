@@ -6,7 +6,7 @@ import { wrapper } from "@/store/store";
 import Head from "next/head";
 import { FC } from "react";
 
-const mainPageSliderParams = "1/1?isNew=true"
+const mainPageSliderParams = ""
 
 interface Props {
     mainPageSliderParams: string

@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { Button, IconButton } from "@mui/material";
 import { Favorite, FavoriteBorderOutlined } from "@mui/icons-material";
-import { IProductCard } from "../../models/IProductCard";
+import { IProductCard } from "../../types/IProductCard";
 import { ColorVariant } from "../ProductSizes/AddToCartButton";
 import { useAddToFavoriteMutation } from "../../services/productsService";
 

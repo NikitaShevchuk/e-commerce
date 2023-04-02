@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { ICategory } from "../models/ICategory";
+import { ICategory } from "../types/ICategory";
 import { productsAPI } from "../services/productsService";
 import { useTypedDispatch } from "./redux";
 

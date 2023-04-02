@@ -33,32 +33,33 @@ const CategoryHeader = () => {
                     my: 4
                 }}
             >
-                {category?.name}
+                {category?.data.title}
             </Typography>
 
             <Stack className="filters-stack" direction="row">
                 <Stack direction="row" justifyContent="space-between" alignItems="center">
                     <Filter
-                        filterItems={category?.sizes}
+                        filterItems={category?.data.sizes}
                         title="sizes"
                         addFilterProperty={setSize}
                         removeFilterProperty={removeSize}
                         filterType="checkbox"
                     />
                     <Filter
-                        filterItems={category?.colors}
+                        filterItems={category?.data.colors}
                         title="color"
                         addFilterProperty={setColor}
                         removeFilterProperty={removeColor}
                         filterType="checkbox"
                     />
                 </Stack>
-                <Filter
-                    selectMenuItems={category?.sortBy}
+                {/* <Filter 
+                    // TODO: Make filters work
+                    selectMenuItems={category?.data.sortBy}
                     title="sort"
                     addFilterProperty={setSort}
                     filterType="select"
-                />
+                /> */}
             </Stack>
         </>
     );

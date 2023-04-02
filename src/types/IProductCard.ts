@@ -1,14 +1,15 @@
+import { ICategory } from "./ICategory";
+
 export interface IProductCard {
-    id: string;
-    createdAt: string;
-    name: string;
+    _id: string;
+    title: string;
     description: string;
     color: string;
     image: string;
     price: string;
-    isNew: boolean;
+    productIsNew: boolean;
     sizes: string[];
     isFavorite: boolean;
-    categoryId: string;
+    category: ICategory;
     type: string;
 }

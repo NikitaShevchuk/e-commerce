@@ -1,6 +1,6 @@
 import React from "react";
 import { Grid } from "@mui/material";
-import { IProductCard } from "../../../models/IProductCard";
+import { IProductCard } from "../../../types/IProductCard";
 import ProductCard from "../../../components/ProductCard";
 
 export const useMapProducts = (
@@ -13,7 +13,7 @@ export const useMapProducts = (
         const shouldMapProducts = !isFetching && !isError && products;
         if (shouldMapProducts)
             return products.map((product) => (
-                <Grid item xs={2} sm={3} md={3} key={product.id}>
+                <Grid item xs={2} sm={3} md={3} key={product._id}>
                     <ProductCard product={product} queryParams={queryParams} />
                 </Grid>
             ));

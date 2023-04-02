@@ -25,7 +25,7 @@ export const useGetProducts = ({ clearSearchRequest = false }: ProductsProps) =>
         refetch
     } = useGetProductCardsQuery(queryParam, { skip: router.isFallback });
 
-    const mappedProducts = useMapProducts(isError, isFetching, products, requestQuery);
+    const mappedProducts = useMapProducts(isError, isFetching, products?.data, requestQuery);
 
     return {
         mappedProducts,

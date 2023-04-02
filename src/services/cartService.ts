@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CartProduct } from "../models/CartProduct";
+import { CartProduct } from "../types/CartProduct";
 
 const cartInstance = axios.create({
     baseURL: "https://62d8405090883139358e3103.mockapi.io/"

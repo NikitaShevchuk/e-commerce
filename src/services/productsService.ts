@@ -1,9 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { HYDRATE } from "next-redux-wrapper";
-import { ICategory } from "../models/ICategory";
-import { IProductCard } from "../models/IProductCard";
+import { ICategory } from "../types/ICategory";
+import { IProductCard } from "../types/IProductCard";
+import { DefaultResponse } from "@/types/Response";
 
-export const API_URL = "https://62d8405090883139358e3103.mockapi.io";
+export const API_URL = "http://localhost:5000/api";
 
 interface AddToFavoriteParams {
     updatedProduct: IProductCard;
@@ -14,6 +15,8 @@ interface AddToFavoriteParams {
 interface SearchParams {
     searchRequestText: string | null;
     categoryId: string;
+    page: string;
+    limit: string;
 }
 
 export const productsAPI = createApi({
@@ -25,56 +28,55 @@ export const productsAPI = createApi({
         }
     },
     endpoints: (build) => ({
-        getProductCards: build.query<IProductCard[], string>({
+        getProductCards: build.query<DefaultResponse<IProductCard[]>, string>({
             query: (params) => ({
-                url: `/categories/${params}`
+                url: `/product${params}`
             })
         }),
-        getSingleProduct: build.query<IProductCard, { categoryId: string; productId: string }>({
-            query: ({ categoryId, productId }) => ({
-                url: `/categories/${categoryId}/${categoryId}/${productId}`
+        getSingleProduct: build.query<DefaultResponse<IProductCard>, { productId: string }>({
+            query: ({ productId }) => ({
+                url: `/product/${productId}`
             })
         }),
-        getCategories: build.query<ICategory[], string>({
+        getCategories: build.query<DefaultResponse<ICategory[]>, string>({
             query: (params) => ({
-                url: `/categories${params}`
+                url: `/category${params}`
             })
         }),
-        getSingleCategory: build.query<ICategory, string>({
+        getSingleCategory: build.query<DefaultResponse<ICategory>, string>({
             query: (categoryId) => ({
-                url: `/categories/${categoryId}`
+                url: `/category/${categoryId}`
             })
         }),
-        getProductsBySearch: build.query<IProductCard[], SearchParams>({
-            query: ({ searchRequestText, categoryId }) => ({
-                url: `/categories/${categoryId}/${categoryId}?p=1&l=8&search=${searchRequestText}`
+        getProductsBySearch: build.query<DefaultResponse<IProductCard[]>, SearchParams>({
+            query: ({ searchRequestText, page, limit }) => ({
+                url: `/product?page=${page}&limit=${limit}&title=${searchRequestText}`
             })
         }),
         addToFavorite: build.mutation<IProductCard, AddToFavoriteParams>({
             query: ({ categoryId, updatedProduct }) => ({
-                url: `/categories/${categoryId}/${categoryId}/${updatedProduct.id}`,
+                url: `/category/${categoryId}/${categoryId}/${updatedProduct._id}`,
                 method: "PUT",
                 body: updatedProduct
             }),
             onQueryStarted({ filters, updatedProduct }, { dispatch, queryFulfilled }) {
                 const updateProductCard = dispatch(
                     productsAPI.util.updateQueryData("getProductCards", filters, (draft) => {
-                        const productIndex = draft.findIndex(
-                            (item) => item.id === updatedProduct.id
+                        const productIndex = draft.data.findIndex(
+                            (item) => item._id === updatedProduct._id
                         );
                         if (productIndex === -1) return;
-                        draft[productIndex].isFavorite = updatedProduct.isFavorite;
+                        draft.data[productIndex].isFavorite = updatedProduct.isFavorite;
                     })
                 );
                 const updateSingleProduct = dispatch(
                     productsAPI.util.updateQueryData(
                         "getSingleProduct",
                         {
-                            categoryId: updatedProduct.categoryId,
-                            productId: updatedProduct.id
+                            productId: updatedProduct._id
                         },
                         (draft) => {
-                            draft.isFavorite = updatedProduct.isFavorite;
+                            draft.data.isFavorite = updatedProduct.isFavorite;
                         }
                     )
                 );

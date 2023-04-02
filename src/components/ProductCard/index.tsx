@@ -2,8 +2,9 @@ import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 import Link from "next/link";
 import React, { FC } from "react";
 import ProductSizes from "../../features/ProductSizes";
-import { IProductCard } from "../../models/IProductCard";
+import { IProductCard } from "../../types/IProductCard";
 import ProductCardHeader from "./ProductCardHeader";
+import { API_URL } from "@/services/productsService";
 
 interface Props {
     product: IProductCard;
@@ -14,9 +15,9 @@ const ProductCard: FC<Props> = ({ product, queryParams }) => {
     return (
         <Card className="product-card">
             <ProductCardHeader product={product} queryParams={queryParams} />
-            <Link href={`/product/${product.categoryId}/${product.id}`}>
+            <Link href={`/product/${product._id}`}>
                 <div className="image-wrapper">
-                    <CardMedia component="img" image={product.image} alt="product card" />
+                    <CardMedia component="img" image={API_URL + product.image} alt="product card" />
                     <ProductSizes
                         sizesPosition="absolute"
                         colorVariant="dark"
@@ -26,7 +27,7 @@ const ProductCard: FC<Props> = ({ product, queryParams }) => {
                 </div>
                 <CardContent sx={{ px: 0 }}>
                     <Typography component="div" gutterBottom variant="h3">
-                        {product.name}
+                        {product.title}
                     </Typography>
                     <Typography component="div" variant="caption">
                         ${product.price}

@@ -1,7 +1,7 @@
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import React, { FC } from "react";
 import { useTypedDispatch } from "../../../hooks/redux";
-import { ICategory } from "../../../models/ICategory";
+import { ICategory } from "../../../types/ICategory";
 import { setSelectedCategory } from "../../../store/slices/searchSlice";
 import { useGetCategories } from "./hooks/useGetCategories";
 
@@ -16,12 +16,12 @@ const CategorySelect: FC<Props> = ({ selectedSearchCategory }) => {
     const handleChange = (event: SelectChangeEvent) => {
         const filteredById =
             categories &&
-            categories.filter((singleCategory) => singleCategory.name === event.target.value);
+            categories.data.filter((singleCategory) => singleCategory.title === event.target.value);
         dispatch(setSelectedCategory(filteredById ? filteredById[0] : null));
     };
 
-    const defaultCategory = categories ? categories[0].name : "";
-    const value = selectedSearchCategory ? selectedSearchCategory.name : defaultCategory;
+    const defaultCategory = categories ? categories.data[0].title : "";
+    const value = selectedSearchCategory ? selectedSearchCategory.title : defaultCategory;
 
     return (
         <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
@@ -37,9 +37,9 @@ const CategorySelect: FC<Props> = ({ selectedSearchCategory }) => {
             >
                 {isLoading && <MenuItem value={defaultCategory}>{defaultCategory}</MenuItem>}
                 {categories &&
-                    categories.map((singleCategory) => (
-                        <MenuItem key={singleCategory.id} value={singleCategory.name}>
-                            {singleCategory.name}
+                    categories.data.map((singleCategory) => (
+                        <MenuItem key={singleCategory._id} value={singleCategory.title}>
+                            {singleCategory.title}
                         </MenuItem>
                     ))}
             </Select>

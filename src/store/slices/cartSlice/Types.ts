@@ -1,4 +1,4 @@
-import { CartProduct } from "../../../models/CartProduct";
+import { CartProduct } from "../../../types/CartProduct";
 
 export enum RequestStatus {
     loading = "loading",

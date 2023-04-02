@@ -1,4 +1,4 @@
-import { CartProduct } from "@/models/CartProduct";
+import { CartProduct } from "@/types/CartProduct";
 import React from "react";
 
 export const useGetTotal = (cartItems: CartProduct[] | null) =>

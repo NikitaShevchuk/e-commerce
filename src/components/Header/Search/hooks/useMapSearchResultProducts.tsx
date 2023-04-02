@@ -1,6 +1,6 @@
 import React from "react";
 import SingleProduct from "../SearchResults/SingleProduct";
-import { IProductCard } from "../../../../models/IProductCard";
+import { IProductCard } from "../../../../types/IProductCard";
 
 export const useMapSearchResultProducts = (products: IProductCard[] | undefined) =>
     React.useMemo(() => {

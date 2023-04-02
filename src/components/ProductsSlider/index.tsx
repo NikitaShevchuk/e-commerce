@@ -43,8 +43,8 @@ const ProductsSlider: FC<CategorySliderProps> = ({ queryParams, blockTitle, cate
                         ))}
                     {!isLoading &&
                         products &&
-                        products.map((product) => (
-                            <SwiperSlide key={product.id}>
+                        products.data.map((product) => (
+                            <SwiperSlide key={product._id}>
                                 <ProductCard product={product} queryParams={queryParams} />
                             </SwiperSlide>
                         ))}

@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { CartProduct } from "../../../models/CartProduct";
+import { CartProduct } from "../../../types/CartProduct";
 import { cartApi } from "../../../services/cartService";
 import { cartSelector } from "../../selectors/cart";
 import { RootState } from "../../store";

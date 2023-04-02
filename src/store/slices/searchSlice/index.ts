@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ICategory } from "../../../models/ICategory";
+import { ICategory } from "../../../types/ICategory";
 
 interface InitialState {
     isSearchActive: boolean;
