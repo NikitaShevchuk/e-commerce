@@ -1,5 +1,5 @@
 import { useTypedSelector } from "@/hooks/redux";
-import useUpdateQuery from "@/hooks/useUpdateQuery";
+import useUpdateQuery from "@/hooks/query/useUpdateQuery";
 import { useGetProductCardsQuery } from "@/services/productsService";
 import { getFilters } from "@/store/selectors/filter";
 import { skipToken } from "@reduxjs/toolkit/dist/query/react";
@@ -12,7 +12,6 @@ export const useGetProducts = ({ clearSearchRequest = false }: ProductsProps) =>
     const router = useRouter();
     const categoryTitle = router.query.categoryTitle;
     const { requestQuery } = useTypedSelector(getFilters);
-    console.log(requestQuery);
     const queryParam = typeof categoryTitle === "string" ? requestQuery : skipToken;
 
     const isMounted = React.useRef(false);

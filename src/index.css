@@ -212,6 +212,7 @@ a:hover {
     height: 50vh;
     flex-direction: column;
 }
+
 .modal-window {
     position: absolute;
     top: 0;

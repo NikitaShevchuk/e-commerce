@@ -29,7 +29,10 @@ const CategoryBlock = () => {
                 <Link
                     key={`${category._id}`}
                     className="category-link"
-                    href={`/category/${category.title}`}
+                    href={{
+                        pathname: `/category/[categoryTitle]`,
+                        query: { categoryTitle: category.title }
+                    }}
                     style={{
                         background: `center / contain no-repeat url(${API_URL}${category.image})`
                     }}
