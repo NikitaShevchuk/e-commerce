@@ -1,8 +1,8 @@
 import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 import Link from "next/link";
-import React, { FC } from "react";
+import React, { type FC } from "react";
 import { useTypedSelector } from "../../hooks/redux";
-import { CartProduct } from "../../types/CartProduct";
+import { type CartProduct } from "../../types/CartProduct";
 import { cartSelector } from "../../store/selectors/cart";
 import CountModifier from "./CountModifier";
 
@@ -22,7 +22,7 @@ const CartSingleItem: FC<Props> = ({ cartItem }) => {
     React.useEffect(
         // find out if current cart item id is in the array of items being in delete process
         () => {
-            let inProgress =
+            const inProgress =
                 removingIDs && removingIDs.find((removingID) => removingID === cartItem.id);
             if (inProgress) {
                 setIsDeleteInProgress(true);

@@ -2,7 +2,7 @@ import { useTypedDispatch } from "@/hooks/redux";
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import debounce from "lodash.debounce";
 import React from "react";
-import { SearchFieldProps } from "../SearchField";
+import { type SearchFieldProps } from "../SearchField";
 
 export const useInitializeSearchField = ({
     searchFieldTextInState,
@@ -17,8 +17,8 @@ export const useInitializeSearchField = ({
     }, [searchFieldTextInState]);
     const textFieldRef = React.useRef<HTMLDivElement | null>(null);
     React.useEffect(() => {
-        const input = textFieldRef.current && textFieldRef.current.querySelector("input");
-        if (input) input.focus();
+        const input = textFieldRef.current != null && textFieldRef.current.querySelector("input");
+        if (input != null) input.focus();
     }, [isSearchActive]);
 
     const dispatch = useTypedDispatch();

@@ -9,7 +9,7 @@ const ProductsPagination = () => {
     const handleChange = (_: React.ChangeEvent<unknown>, pageNumber: number) => {
         dispatch(setCurrentPage(pageNumber));
     };
-    const { currentPage, pagesCount } = useProductsPagination()
+    const { currentPage, pagesCount } = useProductsPagination();
 
     if (pagesCount < 2) return <span></span>;
 

@@ -1,9 +1,9 @@
 import debounce from "lodash.debounce";
-import React, { FC } from "react";
+import React, { type FC } from "react";
 import { useTypedDispatch, useTypedSelector } from "../../../hooks/redux";
 import { cartSelector } from "../../../store/selectors/cart";
 import { modifyCartItemCount, removeCartItem } from "../../../store/slices/cartSlice/cart-thunks";
-import { CounterToChange } from "../../../store/slices/cartSlice/helpers";
+import { type CounterToChange } from "../../../store/slices/cartSlice/helpers";
 import { CountAction } from "../../../store/slices/cartSlice/Types";
 import CounterInput from "./CounterInput";
 import DecreaseCounter from "./DecreaseCounter";
@@ -23,7 +23,7 @@ const CountModifier: FC<Props> = ({ id, count, deleteInProgress }) => {
     React.useEffect(
         // find out if current cart item id is in the array of items being loaded
         () => {
-            let isLoading = loadingIDs && loadingIDs.find((loadingID) => loadingID === id);
+            const isLoading = loadingIDs && loadingIDs.find((loadingID) => loadingID === id);
             isLoading ? setIsCounterInactive(true) : setIsCounterInactive(false);
         },
         [loadingIDs]

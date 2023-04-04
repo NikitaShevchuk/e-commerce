@@ -2,7 +2,7 @@ import BasicPreloader from "@/components/Loaders/BasicPreloader";
 import CategoryProductCardLoader from "@/components/Loaders/Category/CategoryProductCardLoader";
 import LoadingError from "@/components/LoadingError";
 import { Grid } from "@mui/material";
-import React, { FC } from "react";
+import React, { type FC } from "react";
 import { useGetProducts } from "./hooks/useGetProducts";
 
 export interface ProductsProps {
@@ -10,7 +10,6 @@ export interface ProductsProps {
 }
 
 const Products: FC<ProductsProps> = (props) => {
-
     const { mappedProducts, isError, isFetching, isLoading, refetch } = useGetProducts(props);
 
     return (
@@ -18,6 +17,7 @@ const Products: FC<ProductsProps> = (props) => {
             {mappedProducts}
             {/* <BasicPreloader isLoading={isLoading} isFetching={isFetching} itemsToShow={8}>
                 <CategoryProductCardLoader />
+                // TODO: add preloader
             </BasicPreloader> */}
             {isError && <LoadingError reload={refetch} />}
         </Grid>

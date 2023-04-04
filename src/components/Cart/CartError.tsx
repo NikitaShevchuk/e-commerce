@@ -5,8 +5,10 @@ import { cartSelector } from "../../store/selectors/cart";
 
 const CartError = () => {
     const { errors } = useTypedSelector(cartSelector);
-    let [showAlert, setShowAlert] = React.useState(true);
-    const handleAlertClose = () => setShowAlert(false);
+    const [showAlert, setShowAlert] = React.useState(true);
+    const handleAlertClose = () => {
+        setShowAlert(false);
+    };
     return (
         <div className="alert">
             {showAlert &&

@@ -21,7 +21,7 @@ const RightMenu = () => {
             >
                 Search
             </MaterialLink>
-                <MaterialLink className="link" >Account </MaterialLink>
+            <MaterialLink className="link">Account </MaterialLink>
             <MaterialLink underline="none" className="link" onClick={handleCartClick}>
                 Cart({cartItemsCount})
             </MaterialLink>

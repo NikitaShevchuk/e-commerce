@@ -1,8 +1,8 @@
 import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 import Link from "next/link";
-import React, { FC } from "react";
+import React, { type FC } from "react";
 import ProductSizes from "../../features/ProductSizes";
-import { IProductCard } from "../../types/IProductCard";
+import { type IProductCard } from "../../types/IProductCard";
 import ProductCardHeader from "./ProductCardHeader";
 import { API_URL } from "@/services/productsService";
 

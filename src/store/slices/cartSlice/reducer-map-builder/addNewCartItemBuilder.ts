@@ -1,14 +1,14 @@
-import { ActionReducerMapBuilder } from "@reduxjs/toolkit";
+import { type ActionReducerMapBuilder } from "@reduxjs/toolkit";
 import { addNewCartItem } from "../cart-thunks";
 import { filterByErrorBody, findByErrorBody } from "../helpers";
-import { CartInitialState, ErrorsAlert, RequestStatus, ThunkError } from "../Types";
+import { type CartInitialState, ErrorsAlert, RequestStatus, type ThunkError } from "../Types";
 
 export const addNewCartItemBuilder = (builder: ActionReducerMapBuilder<CartInitialState>) => {
     builder
         .addCase(addNewCartItem.fulfilled, (state, action) => {
             if (action.payload.newCartItem) {
                 ++state.cartItemsCount;
-                if (state.cartItems) state.cartItems.push(action.payload.newCartItem);
+                if (state.cartItems != null) state.cartItems.push(action.payload.newCartItem);
                 else state.cartItems = [action.payload.newCartItem];
                 // remove add to cart error from all errors in state
                 const updatedErrors =
@@ -22,7 +22,7 @@ export const addNewCartItemBuilder = (builder: ActionReducerMapBuilder<CartIniti
             const errorAlreadyExist =
                 state.errors &&
                 state.errors.find((err) => findByErrorBody(err, ErrorsAlert.addToCart));
-            if (!errorAlreadyExist) {
+            if (errorAlreadyExist == null) {
                 const error = {
                     body: ErrorsAlert.addToCart,
                     alertType: "error"

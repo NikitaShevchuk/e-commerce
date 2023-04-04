@@ -1,7 +1,7 @@
-import React, { FC } from "react";
+import React, { type FC } from "react";
 import { Typography } from "@mui/material";
 import ToggleFavorite from "../../features/ToggleFavorite";
-import { IProductCard } from "../../types/IProductCard";
+import { type IProductCard } from "../../types/IProductCard";
 
 interface Props {
     product: IProductCard | undefined;

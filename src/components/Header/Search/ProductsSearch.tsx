@@ -14,11 +14,10 @@ const ProductsSearch = () => {
     const router = useRouter();
     const dispatch = useTypedDispatch();
     const onEnterPress = () => {
-        const categoryId = selectedSearchCategory ? selectedSearchCategory.id : "1";
+        const categoryId = selectedSearchCategory != null ? selectedSearchCategory.id : "1";
         router.replace(
-            `/search/${categoryId}?p=${currentPage}&${itemsLimit}${searchRequestText
-                ? `&search=${searchRequestText}`
-                : ""
+            `/search/${categoryId}?p=${currentPage}&${itemsLimit}${
+                searchRequestText ? `&search=${searchRequestText}` : ""
             }`
         );
         dispatch(setIsSearchActive(false));

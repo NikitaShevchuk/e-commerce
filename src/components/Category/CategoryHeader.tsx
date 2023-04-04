@@ -1,7 +1,7 @@
+import React from "react";
 import { Stack, Typography } from "@mui/material";
 import { skipToken } from "@reduxjs/toolkit/dist/query/react";
 import { useRouter } from "next/router";
-import React, { FC } from "react";
 import useAddDefaultSortType from "../../hooks/useAddDefaultSortType";
 import { useGetSingleCategoryQuery } from "../../services/productsService";
 import {
@@ -13,15 +13,18 @@ import {
 } from "../../store/slices/filterSlice";
 import Filter from "./Filters/Filter";
 
-
 const CategoryHeader = () => {
     const router = useRouter();
-    const categoryId = router.query.categoryId;
-    const queryParam = typeof categoryId === "string" ? categoryId : skipToken;
+    const categoryTitle = router.query.categoryTitle;
+    const queryParam = {
+        categoryTitle: typeof categoryTitle === "string" ? categoryTitle : skipToken
+    };
 
-    const { data: category, isSuccess } = useGetSingleCategoryQuery(queryParam, { skip: router.isFallback });
+    const { data: category, isSuccess } = useGetSingleCategoryQuery(queryParam, {
+        skip: router.isFallback
+    });
 
-    useAddDefaultSortType(categoryId, isSuccess);
+    useAddDefaultSortType(categoryTitle, isSuccess);
 
     return (
         <>

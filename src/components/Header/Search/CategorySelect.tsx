@@ -1,7 +1,7 @@
-import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material";
-import React, { FC } from "react";
+import { FormControl, InputLabel, MenuItem, Select, type SelectChangeEvent } from "@mui/material";
+import React, { type FC } from "react";
 import { useTypedDispatch } from "../../../hooks/redux";
-import { ICategory } from "../../../types/ICategory";
+import { type ICategory } from "../../../types/ICategory";
 import { setSelectedCategory } from "../../../store/slices/searchSlice";
 import { useGetCategories } from "./hooks/useGetCategories";
 
@@ -10,18 +10,18 @@ interface Props {
 }
 
 const CategorySelect: FC<Props> = ({ selectedSearchCategory }) => {
-    const { data: categories, isLoading } = useGetCategories()
+    const { data: categories, isLoading } = useGetCategories();
 
     const dispatch = useTypedDispatch();
     const handleChange = (event: SelectChangeEvent) => {
         const filteredById =
-            categories &&
+            categories != null &&
             categories.data.filter((singleCategory) => singleCategory.title === event.target.value);
-        dispatch(setSelectedCategory(filteredById ? filteredById[0] : null));
+        dispatch(setSelectedCategory(filteredById != null ? filteredById[0] : null));
     };
 
-    const defaultCategory = categories ? categories.data[0].title : "";
-    const value = selectedSearchCategory ? selectedSearchCategory.title : defaultCategory;
+    const defaultCategory = categories != null ? categories.data[0].title : "";
+    const value = selectedSearchCategory != null ? selectedSearchCategory.title : defaultCategory;
 
     return (
         <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
@@ -36,7 +36,7 @@ const CategorySelect: FC<Props> = ({ selectedSearchCategory }) => {
                 defaultValue={value}
             >
                 {isLoading && <MenuItem value={defaultCategory}>{defaultCategory}</MenuItem>}
-                {categories &&
+                {categories != null &&
                     categories.data.map((singleCategory) => (
                         <MenuItem key={singleCategory._id} value={singleCategory.title}>
                             {singleCategory.title}

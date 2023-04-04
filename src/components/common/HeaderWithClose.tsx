@@ -1,8 +1,8 @@
-import React, { FC } from "react";
+import React, { type FC } from "react";
 import { Stack, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useTypedDispatch } from "../../hooks/redux";
-import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
+import { type ActionCreatorWithPayload } from "@reduxjs/toolkit";
 
 interface Props {
     title: string;

@@ -31,7 +31,7 @@ const SearchResults = () => {
 
             {!isError && !isFetching && mappedProducts}
 
-            {products && products.length < 1 && <Typography>Nothing found(</Typography>}
+            {products != null && products.length < 1 && <Typography>Nothing found(</Typography>}
 
             {isError && <LoadingError reload={refetch} />}
         </div>

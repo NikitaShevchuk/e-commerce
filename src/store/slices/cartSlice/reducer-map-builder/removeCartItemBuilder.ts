@@ -1,7 +1,7 @@
-import { ActionReducerMapBuilder } from "@reduxjs/toolkit";
+import { type ActionReducerMapBuilder } from "@reduxjs/toolkit";
 import { removeCartItem } from "../cart-thunks";
 import { filterByErrorBody } from "../helpers";
-import { CartInitialState, ErrorsAlert, ThunkError } from "../Types";
+import { type CartInitialState, ErrorsAlert, type ThunkError } from "../Types";
 
 export const removeCartItemBuilder = (builder: ActionReducerMapBuilder<CartInitialState>) => {
     builder
@@ -30,7 +30,7 @@ export const removeCartItemBuilder = (builder: ActionReducerMapBuilder<CartIniti
                 state.errors = state.errors.filter((err) =>
                     filterByErrorBody(err, ErrorsAlert.removeCartItem)
                 );
-            if (state.cartItems) {
+            if (state.cartItems != null) {
                 state.cartItems = state.cartItems.filter((item) => item.id !== action.meta.arg);
                 --state.cartItemsCount;
             }

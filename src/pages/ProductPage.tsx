@@ -12,16 +12,12 @@ export interface ProductQueryParams {
 }
 
 export function ProductPage() {
-    const router = useRouter()
+    const router = useRouter();
     const { categoryId, productId } = router.query;
     const productQueryParams = { categoryId, productId } as ProductQueryParams;
 
-
     const { data: product, isLoading } = useGetSingleProductQuery(
-        (
-            typeof categoryId === 'string' &&
-            typeof productId === 'string'
-        )
+        typeof categoryId === "string" && typeof productId === "string"
             ? productQueryParams
             : skipToken,
         { skip: router.isFallback }
@@ -31,7 +27,9 @@ export function ProductPage() {
 
     return (
         <Card className="flex transparent-background" sx={{ justifyContent: "flex-start" }}>
-            <Head><title>{product?.name || "Product"}</title></Head>
+            <Head>
+                <title>{product?.name || "Product"}</title>
+            </Head>
             <CardMedia image={product?.image} component="img" className="product-page__image" />
 
             <div className="product-page__description">
@@ -56,4 +54,4 @@ export function ProductPage() {
             </div>
         </Card>
     );
-};
+}

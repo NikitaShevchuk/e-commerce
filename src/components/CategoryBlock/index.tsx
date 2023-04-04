@@ -10,9 +10,12 @@ import LoadingError from "../LoadingError";
 
 const CategoryBlock = () => {
     const router = useRouter();
-    const { data: categories, isLoading, isError, refetch } = useGetCategoriesQuery(
-        router.query ? "" : skipToken, { skip: router.isFallback }
-    );
+    const {
+        data: categories,
+        isLoading,
+        isError,
+        refetch
+    } = useGetCategoriesQuery(router.query ? "" : skipToken, { skip: router.isFallback });
     return (
         <Container maxWidth="xl" className="category-container">
             {isLoading && !isError && (
@@ -20,7 +23,7 @@ const CategoryBlock = () => {
                     <CategoryLoader />
                 </BasicPreloader>
             )}
-            {categories &&
+            {categories != null &&
                 categories.data.map((category) => (
                     <Link
                         key={`${category._id}`}

@@ -1,4 +1,4 @@
-import { ICategory } from "./ICategory";
+import { type ICategory } from "./ICategory";
 
 export interface IProductCard {
     _id: string;

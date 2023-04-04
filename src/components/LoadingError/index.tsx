@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { type FC } from "react";
 import { Container, Typography } from "@mui/material";
 import ReplayIcon from "@mui/icons-material/Replay";
 
@@ -7,7 +7,9 @@ interface Props {
 }
 
 const LoadingError: FC<Props> = ({ reload }) => {
-    const handleClick = () => reload();
+    const handleClick = () => {
+        reload();
+    };
     return (
         <Container className="error-component" maxWidth="md">
             <Typography>Loading error. Please try again later.</Typography>

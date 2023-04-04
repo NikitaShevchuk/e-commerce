@@ -1,7 +1,7 @@
-import { ActionReducerMapBuilder } from "@reduxjs/toolkit";
+import { type ActionReducerMapBuilder } from "@reduxjs/toolkit";
 import { addToCart } from "../cart-thunks";
 import { findByErrorBody } from "../helpers";
-import { CartInitialState, ErrorsAlert, RequestStatus, ThunkError } from "../Types";
+import { type CartInitialState, ErrorsAlert, RequestStatus, type ThunkError } from "../Types";
 
 export const addToCartBuilder = (builder: ActionReducerMapBuilder<CartInitialState>) => {
     builder
@@ -15,7 +15,7 @@ export const addToCartBuilder = (builder: ActionReducerMapBuilder<CartInitialSta
             const errorAlreadyExist =
                 state.errors &&
                 state.errors.find((err) => findByErrorBody(err, ErrorsAlert.addToCart));
-            if (!errorAlreadyExist) {
+            if (errorAlreadyExist == null) {
                 const error = {
                     body: ErrorsAlert.addToCart,
                     alertType: "error"

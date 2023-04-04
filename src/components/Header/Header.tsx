@@ -1,7 +1,7 @@
 import { StorefrontOutlined } from "@mui/icons-material";
 import { AppBar, Toolbar, Typography } from "@mui/material";
 import Link from "next/link";
-import React, { FC } from "react";
+import React, { type FC } from "react";
 import Cart from "../Cart";
 import LeftMenu from "./LeftMenu";
 import RightMenu from "./RightMenu";

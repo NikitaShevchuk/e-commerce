@@ -2,12 +2,12 @@ import FilterPreloader from "@/components/Loaders/Category/Filter/FilterPreloade
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
-import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
+import { type ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import * as React from "react";
-import { FC } from "react";
+import { type FC } from "react";
 import { useTypedSelector } from "../../../hooks/redux";
 import { getFilters } from "../../../store/selectors/filter";
-import { Sort } from "../../../store/slices/filterSlice";
+import { type Sort } from "../../../store/slices/filterSlice";
 import FilterCheckbox from "./FilterCheckbox";
 import SortSelect from "./SortSelect";
 
@@ -30,16 +30,21 @@ const Filter: FC<Props> = ({
 }) => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
-    const handleClick = (event: React.MouseEvent<HTMLElement>) => setAnchorEl(event.currentTarget);
-    const handleClose = () => setAnchorEl(null);
+    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
     const filtersFromState = useTypedSelector(getFilters);
     const checkBoxItems = React.useMemo(() => {
-        const shouldRenderCheckbox = filterItems && filterType === "checkbox";
+        const shouldRenderCheckbox = filterItems != null && filterType === "checkbox";
         if (shouldRenderCheckbox)
             return filterItems.map((checkBoxName) => {
-                let targetFilter = filtersFromState[title] as string[] | undefined;
-                let isCheckedByDefault = Boolean(
-                    targetFilter && targetFilter.find((filterName) => filterName === checkBoxName)
+                const targetFilter = filtersFromState[title] as string[] | undefined;
+                const isCheckedByDefault = Boolean(
+                    targetFilter != null &&
+                        targetFilter.find((filterName) => filterName === checkBoxName)
                 );
                 return (
                     <FilterCheckbox
@@ -90,8 +95,8 @@ const Filter: FC<Props> = ({
             >
                 {checkBoxItems}
                 {selectorItems}
-                {!filterItems && filterType === "checkbox" && <FilterPreloader />}
-                {!selectMenuItems && filterType === "select" && <FilterPreloader />}
+                {filterItems == null && filterType === "checkbox" && <FilterPreloader />}
+                {selectMenuItems == null && filterType === "select" && <FilterPreloader />}
             </Menu>
         </div>
     );

@@ -19,11 +19,12 @@ import { useGetTotal } from "./hooks/useGetTotal";
 const Cart = () => {
     const { cartItems, status, cartItemsCount, isCartModalOpened } = useTypedSelector(cartSelector);
 
-    useFetchCartItems()
+    useFetchCartItems();
 
-    const title = status.getCartItems === RequestStatus.loading
-        ? "Loading your shopping cart"
-        : `${cartItemsCount} items in your cart`
+    const title =
+        status.getCartItems === RequestStatus.loading
+            ? "Loading your shopping cart"
+            : `${cartItemsCount} items in your cart`;
     const total = useGetTotal(cartItems);
     const cartProducts = useGetCartProducts(cartItems);
 

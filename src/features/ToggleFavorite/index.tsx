@@ -1,8 +1,8 @@
-import React, { FC } from "react";
+import React, { type FC } from "react";
 import { Button, IconButton } from "@mui/material";
 import { Favorite, FavoriteBorderOutlined } from "@mui/icons-material";
-import { IProductCard } from "../../types/IProductCard";
-import { ColorVariant } from "../ProductSizes/AddToCartButton";
+import { type IProductCard } from "../../types/IProductCard";
+import { type ColorVariant } from "../ProductSizes/AddToCartButton";
 import { useAddToFavoriteMutation } from "../../services/productsService";
 
 interface Props {

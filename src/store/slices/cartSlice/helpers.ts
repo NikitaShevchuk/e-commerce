@@ -1,4 +1,4 @@
-import { CountAction, ErrorsAlert, ThunkError } from "./Types";
+import { CountAction, type ErrorsAlert, type ThunkError } from "./Types";
 
 export interface CounterToChange {
     id: string;

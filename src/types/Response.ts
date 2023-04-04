@@ -10,7 +10,7 @@ export interface DefaultResponse<T> {
     message?: string;
     token?: string;
     isAuthorized?: boolean;
-    validationErrors?: any[]; //TODO: add validation error interface
+    validationErrors?: any[]; // TODO: add validation error interface
     total?: number;
     pagination?: Pagination;
 }

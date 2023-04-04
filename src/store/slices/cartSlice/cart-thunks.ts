@@ -1,11 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { CartProduct } from "../../../types/CartProduct";
+import { type CartProduct } from "../../../types/CartProduct";
 import { cartApi } from "../../../services/cartService";
 import { cartSelector } from "../../selectors/cart";
-import { RootState } from "../../store";
-import { changeCounter, CounterToChange } from "./helpers";
+import { type RootState } from "../../store";
+import { changeCounter, type CounterToChange } from "./helpers";
 import { setIsCartModalOpened } from "./index";
-import { CountAction, ErrorsAlert, SelectedCartItem } from "./Types";
+import { CountAction, ErrorsAlert, type SelectedCartItem } from "./Types";
 
 export const getCartItems = createAsyncThunk("cart/getCartItems", async (_) => {
     return await cartApi.getCart();
@@ -20,8 +20,9 @@ export const modifyCartItemCount = createAsyncThunk(
     async (counterToChange: CounterToChange, { getState, rejectWithValue }) => {
         const rootState = getState() as RootState;
         const cartItems = cartSelector(rootState).cartItems;
-        const targetItem = cartItems && cartItems.find((item) => item.id === counterToChange.id);
-        if (!targetItem) return rejectWithValue(ErrorsAlert.modifyCartItemCount);
+        const targetItem =
+            cartItems != null && cartItems.find((item) => item.id === counterToChange.id);
+        if (targetItem == null) return rejectWithValue(ErrorsAlert.modifyCartItemCount);
         const updatedCount = changeCounter(targetItem.count, counterToChange);
         if (updatedCount === 0) {
             return rejectWithValue(ErrorsAlert.valueIsNotValid);
@@ -42,7 +43,7 @@ export const addNewCartItem = createAsyncThunk(
     async (itemWithNewCounter: itemWithNewCounter) => {
         let itemsCount = itemWithNewCounter.cartItemsCount;
         // set id by cart item order
-        let idInPayload = itemsCount > 0 ? String(++itemsCount) : "1";
+        const idInPayload = itemsCount > 0 ? String(++itemsCount) : "1";
         const newCartItem: CartProduct = {
             ...itemWithNewCounter.selectedCartItem.newCartItem,
             size: itemWithNewCounter.selectedCartItem.size,
@@ -63,8 +64,9 @@ export const addToCart = createAsyncThunk(
         dispatch(setIsCartModalOpened(true));
         const rootState = getState() as RootState;
         const { cartItems, cartItemsCount } = cartSelector(rootState);
-        const existingProductInCart = cartItems && cartItems.find(findItemInCart(selectedCartItem));
-        if (existingProductInCart) {
+        const existingProductInCart =
+            cartItems != null && cartItems.find(findItemInCart(selectedCartItem));
+        if (existingProductInCart != null) {
             return await dispatch(
                 modifyCartItemCount({
                     id: existingProductInCart.id,

@@ -1,7 +1,7 @@
 import SearchIcon from "@mui/icons-material/Search";
 import { InputAdornment, TextField } from "@mui/material";
-import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
-import React, { FC } from "react";
+import { type ActionCreatorWithPayload } from "@reduxjs/toolkit";
+import React, { type FC } from "react";
 import { useInitializeSearchField } from "./hooks/useInitializeSearchField";
 
 export interface SearchFieldProps {
@@ -12,12 +12,8 @@ export interface SearchFieldProps {
 }
 
 const SearchField: FC<SearchFieldProps> = (props) => {
-    const {
-        searchFieldValue,
-        setSearchFieldValue,
-        textFieldRef,
-        updateSearchValue
-    } = useInitializeSearchField(props)
+    const { searchFieldValue, setSearchFieldValue, textFieldRef, updateSearchValue } =
+        useInitializeSearchField(props);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;

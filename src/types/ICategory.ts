@@ -1,4 +1,4 @@
-import { Sort } from "../store/slices/filterSlice";
+import { type Sort } from "../store/slices/filterSlice";
 
 export interface ICategory {
     _id: string;

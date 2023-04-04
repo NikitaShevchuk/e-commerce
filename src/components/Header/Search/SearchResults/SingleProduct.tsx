@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
 import Link from "next/link";
-import React, { FC } from "react";
+import React, { type FC } from "react";
 import { useTypedDispatch } from "../../../../hooks/redux";
 import { setIsSearchActive } from "../../../../store/slices/searchSlice";
 

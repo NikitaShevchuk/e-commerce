@@ -4,7 +4,7 @@ import { addToCartBuilder } from "./reducer-map-builder/addToCartBuilder";
 import { getCartItemsBuilder } from "./reducer-map-builder/getCartItemsBuilder";
 import { modifyCartItemCountBuilder } from "./reducer-map-builder/modifyCartItemCountBuilder";
 import { removeCartItemBuilder } from "./reducer-map-builder/removeCartItemBuilder";
-import { CartInitialState, RequestStatus } from "./Types";
+import { type CartInitialState, RequestStatus } from "./Types";
 
 export const cartInitialState: CartInitialState = {
     isCartModalOpened: false,

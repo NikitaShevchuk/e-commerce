@@ -8,7 +8,10 @@ export const useGetSizeItems = (
 ) => {
     const handleSizeClick = (e: React.MouseEvent<HTMLDivElement>, size: string) => {
         e.preventDefault();
-        if (size === selectedSize) return setSelectedSize("");
+        if (size === selectedSize) {
+            setSelectedSize("");
+            return;
+        }
         setSelectedSize(size);
     };
 
@@ -19,7 +22,9 @@ export const useGetSizeItems = (
         if (size)
             return (
                 <Paper
-                    onClick={(e) => handleSizeClick(e, size)}
+                    onClick={(e) => {
+                        handleSizeClick(e, size);
+                    }}
                     key={size}
                     className={paperClassName}
                 >
@@ -34,7 +39,7 @@ export const useGetSizeItems = (
             );
     };
     const sizeItems = React.useMemo(
-        () => (sizes ? sizes.map(mapProducts) : []),
+        () => (sizes != null ? sizes.map(mapProducts) : []),
         [sizes, selectedSize]
     );
     return sizeItems;

@@ -1,5 +1,5 @@
 import { Container, Stack, Typography } from "@mui/material";
-import React, { FC } from "react";
+import React, { type FC } from "react";
 import { useGetProductCardsQuery } from "../../services/productsService";
 import ProductCardLoader from "../Loaders/ProductCardLoader";
 import ProductCard from "../ProductCard";
@@ -20,9 +20,14 @@ export interface CategorySliderProps {
 
 const ProductsSlider: FC<CategorySliderProps> = ({ queryParams, blockTitle, categoryLink }) => {
     const router = useRouter();
-    const { data: products, isLoading, error, refetch } = useGetProductCardsQuery(
-        router.query ? queryParams : skipToken, { skip: router.isFallback }
-    );
+    const {
+        data: products,
+        isLoading,
+        error,
+        refetch
+    } = useGetProductCardsQuery(router.query ? queryParams : skipToken, {
+        skip: router.isFallback
+    });
     return (
         <>
             <Container maxWidth="xl">
@@ -33,7 +38,7 @@ const ProductsSlider: FC<CategorySliderProps> = ({ queryParams, blockTitle, cate
                     {categoryLink && <Link href={categoryLink}>View all</Link>}
                 </Stack>
             </Container>
-            {!error && (
+            {error == null && (
                 <Swiper slidesPerView={6} spaceBetween={20} className="custom-swiper">
                     {isLoading &&
                         Array.from(Array(6)).map((_, index) => (
@@ -42,7 +47,7 @@ const ProductsSlider: FC<CategorySliderProps> = ({ queryParams, blockTitle, cate
                             </SwiperSlide>
                         ))}
                     {!isLoading &&
-                        products &&
+                        products != null &&
                         products.data.map((product) => (
                             <SwiperSlide key={product._id}>
                                 <ProductCard product={product} queryParams={queryParams} />
@@ -50,7 +55,7 @@ const ProductsSlider: FC<CategorySliderProps> = ({ queryParams, blockTitle, cate
                         ))}
                 </Swiper>
             )}
-            {error && <LoadingError reload={refetch} />}
+            {error != null && <LoadingError reload={refetch} />}
         </>
     );
 };

@@ -1,8 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { HYDRATE } from "next-redux-wrapper";
-import { ICategory } from "../types/ICategory";
-import { IProductCard } from "../types/IProductCard";
-import { DefaultResponse } from "@/types/Response";
+import { type ICategory } from "../types/ICategory";
+import { type IProductCard } from "../types/IProductCard";
+import { type DefaultResponse } from "@/types/Response";
 
 export const API_URL = "http://localhost:5000/api";
 
@@ -17,6 +17,11 @@ interface SearchParams {
     categoryId: string;
     page: string;
     limit: string;
+}
+
+interface SingleCategoryParams {
+    categoryId?: string | symbol;
+    categoryTitle?: string | symbol;
 }
 
 export const productsAPI = createApi({
@@ -43,10 +48,18 @@ export const productsAPI = createApi({
                 url: `/category${params}`
             })
         }),
-        getSingleCategory: build.query<DefaultResponse<ICategory>, string>({
-            query: (categoryId) => ({
-                url: `/category/${categoryId}`
-            })
+        getSingleCategory: build.query<DefaultResponse<ICategory>, SingleCategoryParams>({
+            query: ({ categoryTitle, categoryId }) => ({
+                url:
+                    categoryId !== undefined
+                        ? `/category/${String(categoryId)}`
+                        : `/category?title=${String(categoryTitle)}`
+            }),
+            transformResponse: (returnValue: DefaultResponse<ICategory | Promise<ICategory>>) => {
+                if (Array.isArray(returnValue.data)) {
+                    return { ...returnValue, data: returnValue.data[0] };
+                } else return returnValue;
+            }
         }),
         getProductsBySearch: build.query<DefaultResponse<IProductCard[]>, SearchParams>({
             query: ({ searchRequestText, page, limit }) => ({

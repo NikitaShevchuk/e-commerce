@@ -1,10 +1,10 @@
 import React from "react";
 import SingleProduct from "../SearchResults/SingleProduct";
-import { IProductCard } from "../../../../types/IProductCard";
+import { type IProductCard } from "../../../../types/IProductCard";
 
 export const useMapSearchResultProducts = (products: IProductCard[] | undefined) =>
     React.useMemo(() => {
-        if (products)
+        if (products != null)
             return products.map((product) => (
                 <SingleProduct
                     key={product.id}

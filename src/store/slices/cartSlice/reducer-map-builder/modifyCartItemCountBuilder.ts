@@ -1,6 +1,6 @@
-import { ActionReducerMapBuilder } from "@reduxjs/toolkit";
+import { type ActionReducerMapBuilder } from "@reduxjs/toolkit";
 import { modifyCartItemCount } from "../cart-thunks";
-import { CartInitialState, ErrorsAlert, ThunkError } from "../Types";
+import { type CartInitialState, ErrorsAlert, type ThunkError } from "../Types";
 
 export const modifyCartItemCountBuilder = (builder: ActionReducerMapBuilder<CartInitialState>) => {
     builder
@@ -27,10 +27,10 @@ export const modifyCartItemCountBuilder = (builder: ActionReducerMapBuilder<Cart
                 );
             }
             const itemIndex =
-                state.cartItems &&
+                state.cartItems != null &&
                 state.cartItems.findIndex((item) => item.id === action.meta.arg.id);
             const shouldUpdateItem = itemIndex !== null && itemIndex !== -1;
-            if (state.cartItems && shouldUpdateItem) {
+            if (state.cartItems != null && shouldUpdateItem) {
                 // remove item modifier error from errors array
                 if (state.errors[0])
                     state.errors = state.errors.filter((err) => {

@@ -1,6 +1,6 @@
 import React from "react";
 import { Grid } from "@mui/material";
-import { IProductCard } from "../../../types/IProductCard";
+import { type IProductCard } from "../../../types/IProductCard";
 import ProductCard from "../../../components/ProductCard";
 
 export const useMapProducts = (

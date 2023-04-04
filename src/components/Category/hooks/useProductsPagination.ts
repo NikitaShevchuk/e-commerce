@@ -22,9 +22,9 @@ export const useProductsPagination = () => {
     });
 
     const dispatch = useTypedDispatch();
-    let [pagesCount, setPagesCount] = React.useState(1);
+    const [pagesCount, setPagesCount] = React.useState(1);
     React.useEffect(() => {
-        let amountOfProducts = productsArray ? productsArray.length : 1;
+        const amountOfProducts = productsArray != null ? productsArray.length : 1;
         const totalPages = Math.ceil(amountOfProducts / itemsLimit);
         if (totalPages > 1) setPagesCount(totalPages);
         dispatch(setItemsCount(amountOfProducts));

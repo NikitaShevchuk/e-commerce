@@ -34,18 +34,20 @@ const filterSlice = createSlice({
     initialState,
     reducers: {
         setSize(state, action) {
-            if (state.sizes) state.sizes.push(action.payload);
+            if (state.sizes != null) state.sizes.push(action.payload);
             else state.sizes = [action.payload];
         },
         removeSize(state, action) {
-            if (state.sizes) state.sizes = state.sizes.filter((item) => item !== action.payload);
+            if (state.sizes != null)
+                state.sizes = state.sizes.filter((item) => item !== action.payload);
         },
         setColor(state, action) {
-            if (state.color) state.color.push(action.payload);
+            if (state.color != null) state.color.push(action.payload);
             else state.color = [action.payload];
         },
         removeColor(state, action) {
-            if (state.color) state.color = state.color.filter((item) => item !== action.payload);
+            if (state.color != null)
+                state.color = state.color.filter((item) => item !== action.payload);
         },
         setSort(state, action) {
             state.sort.property = action.payload.property;
@@ -54,8 +56,8 @@ const filterSlice = createSlice({
         setFilters(state, action) {
             if (action.payload.color) state.color = splitByComma(action.payload.color);
             if (action.payload.sizes) state.sizes = splitByComma(action.payload.sizes);
-            if (action.payload.p) state.currentPage = action.payload.p;
-            if (action.payload.l) state.itemsLimit = action.payload.l;
+            if (action.payload.page) state.currentPage = action.payload.page;
+            if (action.payload.limit) state.itemsLimit = action.payload.limit;
             if (action.payload.sortBy && action.payload.order) {
                 state.sort.property = action.payload.sortBy;
                 state.sort.order = action.payload.order;
