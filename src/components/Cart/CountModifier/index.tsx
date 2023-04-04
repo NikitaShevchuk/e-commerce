@@ -11,11 +11,11 @@ import IncreaseCounter from "./IncreaseCounter";
 
 interface Props {
     count: number;
-    id: string;
+    _id: string;
     deleteInProgress: boolean;
 }
 
-const CountModifier: FC<Props> = ({ id, count, deleteInProgress }) => {
+const CountModifier: FC<Props> = ({ _id, count, deleteInProgress }) => {
     const { itemsIsUpdating: loadingIDs } = useTypedSelector(cartSelector).status;
     const [inputValue, setInputValue] = React.useState<string>(String(count));
     const [counterIsInactive, setIsCounterInactive] = React.useState<boolean>(false);
@@ -23,19 +23,19 @@ const CountModifier: FC<Props> = ({ id, count, deleteInProgress }) => {
     React.useEffect(
         // find out if current cart item id is in the array of items being loaded
         () => {
-            const isLoading = loadingIDs && loadingIDs.find((loadingID) => loadingID === id);
-            isLoading ? setIsCounterInactive(true) : setIsCounterInactive(false);
+            const isLoading = loadingIDs?.find((loadingID) => loadingID === _id);
+            isLoading !== undefined ? setIsCounterInactive(true) : setIsCounterInactive(false);
         },
         [loadingIDs]
     );
     const updateCounter = React.useCallback(
         debounce((value: string) => {
             const counterToChange: CounterToChange = {
-                id,
+                _id,
                 countAction: CountAction.replace,
                 counterInputValue: value
             };
-            dispatch(modifyCartItemCount(counterToChange));
+            void dispatch(modifyCartItemCount(counterToChange));
         }, 250),
         []
     );
@@ -43,19 +43,19 @@ const CountModifier: FC<Props> = ({ id, count, deleteInProgress }) => {
         (countAction: CountAction, value: string | null = null) => {
             const canBeChanged = !counterIsInactive && !deleteInProgress;
             if (canBeChanged) {
-                if (value) {
+                if (value !== null) {
                     setInputValue(value);
                     if (value.length > 0) updateCounter(value);
                     return;
                 }
-                const counterToChange: CounterToChange = { id, countAction };
-                dispatch(modifyCartItemCount(counterToChange));
+                const counterToChange: CounterToChange = { _id, countAction };
+                void dispatch(modifyCartItemCount(counterToChange));
             }
         },
         [counterIsInactive, deleteInProgress]
     );
     const handleItemRemove = () => {
-        !deleteInProgress && !counterIsInactive && dispatch(removeCartItem(id));
+        void (!deleteInProgress && !counterIsInactive && dispatch(removeCartItem(_id)));
     };
     const cartClassName = `flex ${counterIsInactive ? "inactive" : ""}`;
     return (

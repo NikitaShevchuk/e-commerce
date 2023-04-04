@@ -13,8 +13,7 @@ interface Props {
 const CounterInput: FC<Props> = ({ count, modifyCounter, setInputValue, inputValue }) => {
     const errors = useTypedSelector(cartSelector).errors;
     React.useEffect(() => {
-        const counterThunkError =
-            errors && errors.find((item) => item.body === ErrorsAlert.valueIsNotValid);
+        const counterThunkError = errors?.find((item) => item.body === ErrorsAlert.valueIsNotValid);
         if (counterThunkError != null) setInputValue(String(count));
     }, [errors]);
     React.useEffect(() => {

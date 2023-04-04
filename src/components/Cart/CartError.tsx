@@ -12,8 +12,7 @@ const CartError = () => {
     return (
         <div className="alert">
             {showAlert &&
-                errors &&
-                errors[0] &&
+                errors[0] !== undefined &&
                 errors.map((err) => (
                     <Alert
                         className="alert-item"

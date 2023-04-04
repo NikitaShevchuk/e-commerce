@@ -28,7 +28,9 @@ const Cart = () => {
     const total = useGetTotal(cartItems);
     const cartProducts = useGetCartProducts(cartItems);
 
-    const reload = () => dispatch(getCartItems());
+    const reload = async () => {
+        void dispatch(getCartItems());
+    };
     const dispatch = useTypedDispatch();
     const handleClose = () => dispatch(setIsCartModalOpened(false));
 

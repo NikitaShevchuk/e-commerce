@@ -13,7 +13,7 @@ interface AddToFavoriteParams {
 
 interface SearchParams {
     searchRequestText: string | null;
-    categoryId: string;
+    categoryId: string | undefined;
     page: string;
     limit: string;
 }

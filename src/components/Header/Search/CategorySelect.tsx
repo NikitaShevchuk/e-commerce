@@ -14,9 +14,9 @@ const CategorySelect: FC<Props> = ({ selectedSearchCategory }) => {
 
     const dispatch = useTypedDispatch();
     const handleChange = (event: SelectChangeEvent) => {
-        const filteredById =
-            categories != null &&
-            categories.data.filter((singleCategory) => singleCategory.title === event.target.value);
+        const filteredById = categories?.data.filter(
+            (singleCategory) => singleCategory.title === event.target.value
+        );
         dispatch(setSelectedCategory(filteredById != null ? filteredById[0] : null));
     };
 
@@ -36,12 +36,11 @@ const CategorySelect: FC<Props> = ({ selectedSearchCategory }) => {
                 defaultValue={value}
             >
                 {isLoading && <MenuItem value={defaultCategory}>{defaultCategory}</MenuItem>}
-                {categories != null &&
-                    categories.data.map((singleCategory) => (
-                        <MenuItem key={singleCategory._id} value={singleCategory.title}>
-                            {singleCategory.title}
-                        </MenuItem>
-                    ))}
+                {categories?.data.map((singleCategory) => (
+                    <MenuItem key={singleCategory._id} value={singleCategory.title}>
+                        {singleCategory.title}
+                    </MenuItem>
+                ))}
             </Select>
         </FormControl>
     );

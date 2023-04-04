@@ -11,7 +11,7 @@ interface Props {
 const ProductCardHeader: FC<Props> = ({ product, queryParams }) => {
     return (
         <div className="product-card__header">
-            {product?.isNew && (
+            {product?.productIsNew !== undefined && product?.productIsNew && (
                 <Typography className="product-card__header-item __new">New</Typography>
             )}
             <ToggleFavorite product={product} queryParams={queryParams} colorVariant="dark" />

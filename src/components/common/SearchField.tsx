@@ -22,11 +22,11 @@ const SearchField: FC<SearchFieldProps> = (props) => {
     };
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         const shouldMakeRequest =
-            e.key === "Enter" && searchFieldValue && searchFieldValue.length > 1;
+            e.key === "Enter" && searchFieldValue !== null && searchFieldValue.length > 1;
         if (shouldMakeRequest) props.onEnterPress();
     };
     const handleSearchClick = () => {
-        if (searchFieldValue && searchFieldValue.length > 1) props.onEnterPress();
+        if (searchFieldValue !== null && searchFieldValue.length > 1) props.onEnterPress();
     };
     return (
         <TextField

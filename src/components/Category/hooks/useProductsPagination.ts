@@ -9,13 +9,13 @@ import React from "react";
 export const useProductsPagination = () => {
     const router = useRouter();
     const categoryId = router.query.categoryId;
-    const { currentPage, requestQuery, itemsLimit } = useTypedSelector(getFilters);
+    const { page, requestQuery, limit } = useTypedSelector(getFilters);
 
     // change limit to see how many pages to show
     // API doesn't return the amount of products
     const queryParam =
         typeof categoryId === "string"
-            ? requestQuery.replace(`p=${currentPage}&l=${itemsLimit}`, "p=1&l=999")
+            ? requestQuery.replace(`p=${page}&l=${limit}`, "p=1&l=999")
             : skipToken;
     const { data: productsArray } = useGetProductCardsQuery(queryParam, {
         skip: router.isFallback
@@ -24,14 +24,14 @@ export const useProductsPagination = () => {
     const dispatch = useTypedDispatch();
     const [pagesCount, setPagesCount] = React.useState(1);
     React.useEffect(() => {
-        const amountOfProducts = productsArray != null ? productsArray.length : 1;
-        const totalPages = Math.ceil(amountOfProducts / itemsLimit);
+        const amountOfProducts = productsArray != null ? productsArray.data.length : 1;
+        const totalPages = Math.ceil(amountOfProducts / limit);
         if (totalPages > 1) setPagesCount(totalPages);
         dispatch(setItemsCount(amountOfProducts));
-    }, [productsArray, itemsLimit]);
+    }, [productsArray, limit]);
 
     return {
         pagesCount,
-        currentPage
+        page
     };
 };

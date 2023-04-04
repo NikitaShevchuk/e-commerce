@@ -5,6 +5,6 @@ import React from "react";
 export const useFetchCartItems = () => {
     const dispatch = useTypedDispatch();
     React.useEffect(() => {
-        dispatch(getCartItems());
+        void dispatch(getCartItems());
     }, []);
 };

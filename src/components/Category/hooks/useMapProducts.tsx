@@ -10,7 +10,7 @@ export const useMapProducts = (
     queryParams: string
 ) =>
     React.useMemo(() => {
-        const shouldMapProducts = !isFetching && !isError && products;
+        const shouldMapProducts = !isFetching && !isError && products !== undefined;
         if (shouldMapProducts)
             return products.map((product) => (
                 <Grid item xs={2} sm={3} md={3} key={product._id}>

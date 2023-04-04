@@ -9,17 +9,14 @@ import CategorySelect from "./CategorySelect";
 
 const ProductsSearch = () => {
     const { searchRequestText, isSearchActive } = useTypedSelector((state) => state.searchSlice);
-    const { currentPage, itemsLimit } = useTypedSelector(getFilters);
+    const { page, limit } = useTypedSelector(getFilters);
     const { selectedSearchCategory } = useTypedSelector(getSearchSlice);
     const router = useRouter();
     const dispatch = useTypedDispatch();
     const onEnterPress = () => {
-        const categoryId = selectedSearchCategory != null ? selectedSearchCategory.id : "1";
-        router.replace(
-            `/search/${categoryId}?p=${currentPage}&${itemsLimit}${
-                searchRequestText ? `&search=${searchRequestText}` : ""
-            }`
-        );
+        const categoryTitle = selectedSearchCategory != null ? selectedSearchCategory.title : "1";
+        const search = searchRequestText !== null ? `&search=${searchRequestText}` : "";
+        void router.replace(`/category/${categoryTitle}?page=${page}&limit=${limit}${search}`);
         dispatch(setIsSearchActive(false));
     };
     return (

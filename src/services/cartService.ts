@@ -21,7 +21,7 @@ export const cartApi = {
     },
     modifyCartItem: async (cartItem: CartProduct) => {
         return await cartInstance
-            .put(`cart/${cartItem.id}`, cartItem)
+            .put(`cart/${cartItem._id}`, cartItem)
             .then<CartProduct>((response) => response.data);
     }
 };

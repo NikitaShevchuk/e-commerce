@@ -19,7 +19,7 @@ export const useGetSizeItems = (
         const paperClassName =
             size === selectedSize ? "product-sizes__item active" : "product-sizes__item";
 
-        if (size)
+        if (size !== "")
             return (
                 <Paper
                     onClick={(e) => {

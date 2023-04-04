@@ -28,8 +28,8 @@ const Home: FC<Props> = ({ mainPageSliderParams }) => {
 export default Home;
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async () => {
-    store.dispatch(getCategories.initiate(""));
-    store.dispatch(getProductCards.initiate(mainPageSliderParams));
+    void store.dispatch(getCategories.initiate(""));
+    void store.dispatch(getProductCards.initiate(mainPageSliderParams));
 
     await Promise.all(store.dispatch(getRunningQueriesThunk()));
     return { props: { mainPageSliderParams } };

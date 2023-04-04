@@ -19,8 +19,8 @@ const SortSelect: FC<Props> = ({ selectMenuItem, addFilterProperty }) => {
             {sort.property === selectMenuItem.property && sort.order === selectMenuItem.order && (
                 <DoneIcon />
             )}
-            {selectMenuItem.property
-                ? `${selectMenuItem.property} (${selectMenuItem.order})`
+            {selectMenuItem.property !== null
+                ? `${selectMenuItem.property} (${String(selectMenuItem.order)})`
                 : "By default"}
         </MenuItem>
     );

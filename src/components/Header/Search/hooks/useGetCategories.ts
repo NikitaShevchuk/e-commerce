@@ -4,6 +4,6 @@ import { useRouter } from "next/router";
 
 export const useGetCategories = () => {
     const router = useRouter();
-    const queryParam = router.query ? "" : skipToken;
+    const queryParam = router.query !== undefined ? "" : skipToken;
     return useGetCategoriesQuery(queryParam, { skip: router.isFallback });
 };

@@ -43,8 +43,7 @@ const Filter: FC<Props> = ({
             return filterItems.map((checkBoxName) => {
                 const targetFilter = filtersFromState[title] as string[] | undefined;
                 const isCheckedByDefault = Boolean(
-                    targetFilter != null &&
-                        targetFilter.find((filterName) => filterName === checkBoxName)
+                    targetFilter?.find((filterName) => filterName === checkBoxName)
                 );
                 return (
                     <FilterCheckbox
@@ -59,11 +58,11 @@ const Filter: FC<Props> = ({
         else return [];
     }, [filterItems]);
     const selectorItems = React.useMemo(() => {
-        const shouldRenderSelect = filterType === "select" && selectMenuItems;
-        if (shouldRenderSelect)
+        const shouldRenderSelect = filterType === "select" && selectMenuItems !== undefined;
+        if (shouldRenderSelect !== undefined && shouldRenderSelect)
             return selectMenuItems.map((selectMenuItem) => (
                 <SortSelect
-                    key={selectMenuItem.property && selectMenuItem.property + selectMenuItem.order}
+                    key={String(selectMenuItem.property) + String(selectMenuItem.order)}
                     selectMenuItem={selectMenuItem}
                     addFilterProperty={addFilterProperty}
                 />

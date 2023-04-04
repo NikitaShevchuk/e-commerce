@@ -25,7 +25,7 @@ const ProductsSlider: FC<CategorySliderProps> = ({ queryParams, blockTitle, cate
         isLoading,
         error,
         refetch
-    } = useGetProductCardsQuery(router.query ? queryParams : skipToken, {
+    } = useGetProductCardsQuery(router.query !== undefined ? queryParams : skipToken, {
         skip: router.isFallback
     });
     return (
@@ -35,7 +35,7 @@ const ProductsSlider: FC<CategorySliderProps> = ({ queryParams, blockTitle, cate
                     <Typography variant="h4" sx={{ marginTop: 4 }}>
                         {blockTitle}
                     </Typography>
-                    {categoryLink && <Link href={categoryLink}>View all</Link>}
+                    {categoryLink !== undefined && <Link href={categoryLink}>View all</Link>}
                 </Stack>
             </Container>
             {error == null && (

@@ -15,7 +15,9 @@ const CategoryBlock = () => {
         isLoading,
         isError,
         refetch
-    } = useGetCategoriesQuery(router.query ? "" : skipToken, { skip: router.isFallback });
+    } = useGetCategoriesQuery(router.query !== undefined ? "" : skipToken, {
+        skip: router.isFallback
+    });
     return (
         <Container maxWidth="xl" className="category-container">
             {isLoading && !isError && (
@@ -23,21 +25,20 @@ const CategoryBlock = () => {
                     <CategoryLoader />
                 </BasicPreloader>
             )}
-            {categories != null &&
-                categories.data.map((category) => (
-                    <Link
-                        key={`${category._id}`}
-                        className="category-link"
-                        href={`/category/${category.title}`}
-                        style={{
-                            background: `center / contain no-repeat url(${API_URL}${category.image})`
-                        }}
-                    >
-                        <Typography variant="h5" component="span">
-                            {category.title}
-                        </Typography>
-                    </Link>
-                ))}
+            {categories?.data.map((category) => (
+                <Link
+                    key={`${category._id}`}
+                    className="category-link"
+                    href={`/category/${category.title}`}
+                    style={{
+                        background: `center / contain no-repeat url(${API_URL}${category.image})`
+                    }}
+                >
+                    <Typography variant="h5" component="span">
+                        {category.title}
+                    </Typography>
+                </Link>
+            ))}
             {isError && <LoadingError reload={refetch} />}
         </Container>
     );
