@@ -23,20 +23,19 @@ const ProductSizes: FC<Props> = ({ sizesPosition, colorVariant, product, queryPa
     const dispatch = useTypedDispatch();
     const addToCartOnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        if (product == null || !selectedSize) return;
+        if (product == null || selectedSize === "") return;
         const selectedCartItem: SelectedCartItem = {
             newCartItem: {
-                name: product.name,
+                name: product.title,
                 price: product.price,
                 image: product.image,
                 color: product.color,
-                createdAt: product.createdAt,
-                productId: product.id,
-                categoryId: product.categoryId
+                productId: product._id,
+                category: product.category
             },
             size: selectedSize
         };
-        dispatch(addToCart(selectedCartItem));
+        void dispatch(addToCart(selectedCartItem));
     };
     const sizeItems = useGetSizeItems(product?.sizes, selectedSize, setSelectedSize);
 
@@ -49,7 +48,7 @@ const ProductSizes: FC<Props> = ({ sizesPosition, colorVariant, product, queryPa
                 <>{product?.sizes != null ? sizeItems : "No sizes available"}</>
             </Stack>
             <div className="flex">
-                {selectedSize ? (
+                {selectedSize !== "" ? (
                     <AddToCartButton addToCart={addToCartOnClick} colorVariant={colorVariant} />
                 ) : (
                     <Typography variant="caption" sx={{ textAlign: "center" }} component="div">
@@ -59,7 +58,7 @@ const ProductSizes: FC<Props> = ({ sizesPosition, colorVariant, product, queryPa
                 {colorVariant === "gold" && (
                     <ToggleFavorite
                         product={product}
-                        colorVariant={selectedSize ? colorVariant : "dark"}
+                        colorVariant={selectedSize !== "" ? colorVariant : "dark"}
                         queryParams={queryParams}
                     />
                 )}

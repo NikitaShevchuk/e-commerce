@@ -1,8 +1,9 @@
+import { type ICategory } from "./ICategory";
+
 export interface CartProduct {
-    id: string;
-    categoryId: string;
+    _id: string;
+    category: ICategory;
     productId: string;
-    createdAt: string;
     name: string;
     color: string;
     image: string;

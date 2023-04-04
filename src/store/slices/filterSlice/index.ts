@@ -6,27 +6,19 @@ export interface Sort {
     order: "asc" | "desc" | null;
 }
 
-interface InitialState {
-    requestQuery: string;
-    currentPage: number;
-    itemsLimit: number;
-    itemsCount: number;
-    sizes: string[] | null;
-    color: string[] | null;
-    sort: Sort;
-}
-
-const initialState: InitialState = {
-    requestQuery: "",
-    itemsLimit: 8,
-    currentPage: 1,
-    sizes: null,
-    color: null,
-    itemsCount: 0,
+const initialState = {
+    requestQuery: "" as string,
+    limit: 8 as number,
+    page: 1 as number,
+    categoryId: null as string | null,
+    sizes: null as string[] | null,
+    color: null as string[] | null,
+    itemsCount: 0 as number,
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     sort: {
         property: null,
         order: null
-    }
+    } as Sort
 };
 
 const filterSlice = createSlice({
@@ -54,23 +46,29 @@ const filterSlice = createSlice({
             state.sort.order = action.payload.order;
         },
         setFilters(state, action) {
-            if (action.payload.color) state.color = splitByComma(action.payload.color);
-            if (action.payload.sizes) state.sizes = splitByComma(action.payload.sizes);
-            if (action.payload.page) state.currentPage = action.payload.page;
-            if (action.payload.limit) state.itemsLimit = action.payload.limit;
-            if (action.payload.sortBy && action.payload.order) {
+            if (action.payload.color !== undefined)
+                state.color = splitByComma(action.payload.color);
+            if (action.payload.sizes !== undefined)
+                state.sizes = splitByComma(action.payload.sizes);
+            if (action.payload.page !== undefined) state.page = action.payload.page;
+            if (action.payload.limit !== undefined) state.limit = action.payload.limit;
+            if (action.payload.categoryId !== undefined) state.limit = action.payload.categoryId;
+            if (action.payload.sortBy !== undefined && action.payload.order !== undefined) {
                 state.sort.property = action.payload.sortBy;
                 state.sort.order = action.payload.order;
             }
         },
         setCurrentPage(state, action) {
-            state.currentPage = action.payload;
+            state.page = action.payload;
+        },
+        setCategoryId(state, action) {
+            state.categoryId = action.payload;
         },
         setQueryRequest(state, action) {
             state.requestQuery = action.payload;
         },
         setItemsLimit(state, action) {
-            state.itemsLimit = action.payload;
+            state.limit = action.payload;
         },
         setItemsCount(state, action) {
             state.itemsCount = action.payload;
@@ -88,6 +86,9 @@ export const {
     setCurrentPage,
     setQueryRequest,
     setItemsCount,
-    setItemsLimit
+    setItemsLimit,
+    setCategoryId
 } = filterSlice.actions;
 export default filterSlice.reducer;
+
+export type FilterSliceInitialState = typeof initialState;

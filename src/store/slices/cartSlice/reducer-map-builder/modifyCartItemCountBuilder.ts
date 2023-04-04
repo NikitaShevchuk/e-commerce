@@ -9,30 +9,29 @@ export const modifyCartItemCountBuilder = (builder: ActionReducerMapBuilder<Cart
             state.status.itemsIsUpdating.push(cartItemId);
         })
         .addCase(modifyCartItemCount.rejected, (state, action) => {
-            if (state.status.itemsIsUpdating[0]) {
+            if (state.status.itemsIsUpdating[0] !== undefined) {
                 state.status.itemsIsUpdating = state.status.itemsIsUpdating.filter(
                     (id) => id !== action.meta.arg.id
                 );
             }
-            const newError: ThunkError = action.payload
-                ? { body: action.payload as ErrorsAlert, alertType: "warning" }
-                : { body: ErrorsAlert.modifyCartItemCount, alertType: "warning" };
-            if (state.errors) state.errors.push(newError);
+            const newError: ThunkError =
+                action.payload !== undefined
+                    ? { body: action.payload as ErrorsAlert, alertType: "warning" }
+                    : { body: ErrorsAlert.modifyCartItemCount, alertType: "warning" };
+            if (state.errors.length > 0) state.errors.push(newError);
             else state.errors = [newError];
         })
         .addCase(modifyCartItemCount.fulfilled, (state, action) => {
-            if (state.status.itemsIsUpdating[0]) {
+            if (state.status.itemsIsUpdating[0] !== undefined) {
                 state.status.itemsIsUpdating = state.status.itemsIsUpdating.filter(
                     (id) => id !== action.meta.arg.id
                 );
             }
-            const itemIndex =
-                state.cartItems != null &&
-                state.cartItems.findIndex((item) => item.id === action.meta.arg.id);
-            const shouldUpdateItem = itemIndex !== null && itemIndex !== -1;
+            const itemIndex = state.cartItems?.findIndex((item) => item.id === action.meta.arg.id);
+            const shouldUpdateItem = itemIndex !== undefined && itemIndex !== -1;
             if (state.cartItems != null && shouldUpdateItem) {
                 // remove item modifier error from errors array
-                if (state.errors[0])
+                if (state.errors[0] !== undefined)
                     state.errors = state.errors.filter((err) => {
                         return (
                             err.body !== ErrorsAlert.modifyCartItemCount &&

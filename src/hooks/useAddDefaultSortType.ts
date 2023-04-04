@@ -10,14 +10,18 @@ const useAddDefaultSortType = (
     useEffect(() => {
         if (isSuccess && typeof categoryTitle === "string") {
             dispatch(
-                productsAPI.util.updateQueryData("getSingleCategory", categoryTitle, (draft) => {
-                    const defaultSortType =
-                        draft.data.sortBy.find((sort) => sort.property === null) == null;
-                    if (defaultSortType) {
-                        // Adding first menu item with default sort type
-                        draft.data.sortBy.unshift({ property: null, order: null });
+                productsAPI.util.updateQueryData(
+                    "getSingleCategory",
+                    { categoryTitle },
+                    (draft) => {
+                        const defaultSortType =
+                            draft.data.sortBy.find((sort) => sort.property === null) == null;
+                        if (defaultSortType) {
+                            // Adding first menu item with default sort type
+                            draft.data.sortBy.unshift({ property: null, order: null });
+                        }
                     }
-                })
+                )
             );
         }
     }, [isSuccess]);

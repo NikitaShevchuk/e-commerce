@@ -12,15 +12,15 @@ export const addToCartBuilder = (builder: ActionReducerMapBuilder<CartInitialSta
             state.status.addCartItem = RequestStatus.fulfilled;
         })
         .addCase(addToCart.rejected, (state) => {
-            const errorAlreadyExist =
-                state.errors &&
-                state.errors.find((err) => findByErrorBody(err, ErrorsAlert.addToCart));
+            const errorAlreadyExist = state.errors?.find((err) =>
+                findByErrorBody(err, ErrorsAlert.addToCart)
+            );
             if (errorAlreadyExist == null) {
                 const error = {
                     body: ErrorsAlert.addToCart,
                     alertType: "error"
                 } as ThunkError;
-                if (state.errors) state.errors.push(error);
+                if (state.errors.length > 0) state.errors.push(error);
                 else state.errors = [error];
             }
             state.status.addCartItem = RequestStatus.error;

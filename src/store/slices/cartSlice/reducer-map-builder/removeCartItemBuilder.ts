@@ -9,7 +9,7 @@ export const removeCartItemBuilder = (builder: ActionReducerMapBuilder<CartIniti
             state.status.itemsIsRemoving.push(action.meta.arg);
         })
         .addCase(removeCartItem.rejected, (state, action) => {
-            if (state.status.itemsIsRemoving[0]) {
+            if (state.status.itemsIsRemoving[0] !== undefined) {
                 state.status.itemsIsRemoving = state.status.itemsIsRemoving.filter(
                     (id) => id !== action.meta.arg // remove item id from array if removing items IDs
                 );
@@ -21,12 +21,12 @@ export const removeCartItemBuilder = (builder: ActionReducerMapBuilder<CartIniti
             state.errors.push(newError);
         })
         .addCase(removeCartItem.fulfilled, (state, action) => {
-            if (state.status.itemsIsRemoving[0]) {
+            if (state.status.itemsIsRemoving[0] !== undefined) {
                 state.status.itemsIsRemoving = state.status.itemsIsRemoving.filter(
                     (id) => id !== action.meta.arg // remove item id from array of items currently being removed
                 );
             }
-            if (state.errors[0])
+            if (state.errors[0] !== undefined)
                 state.errors = state.errors.filter((err) =>
                     filterByErrorBody(err, ErrorsAlert.removeCartItem)
                 );

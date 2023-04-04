@@ -5,42 +5,53 @@ import {
     getRunningQueriesThunk,
     getSingleCategory
 } from "@/services/productsService";
-import { setFilters, setQueryRequest } from "@/store/slices/filterSlice";
+import { setCategoryId, setFilters, setQueryRequest } from "@/store/slices/filterSlice";
 import { setSearchRequest } from "@/store/slices/searchSlice";
-import { wrapper } from "@/store/store";
+import { type AppStore, wrapper } from "@/store/store";
 import { type ICategory } from "@/types/ICategory";
 import { type DefaultResponse } from "@/types/Response";
 import qs from "qs";
+import { type ParsedUrlQuery } from "querystring";
 
 export default CategoryPage;
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async (context) => {
-    const categoryTitleParam = context.query?.categoryTitle;
-    store.dispatch(getCategories.initiate(""));
+    const categoryTitleParam = context.params?.categoryTitle as string | string[];
+    if (typeof categoryTitleParam !== "string") return { props: {} };
 
-    if (typeof categoryTitleParam === "string") {
-        store.dispatch(setFilters(context.query));
+    await initiateCategories(store, categoryTitleParam);
 
-        if (context.query?.title) store.dispatch(setSearchRequest(context.query?.title as string));
-        if (!context.query?.page)
-            context.query.page = String(store.getState().filterSlice.currentPage);
-        if (!context.query?.limit)
-            context.query.limit = String(store.getState().filterSlice.itemsLimit);
+    // Extract category ID to load products from the category with this ID
+    const selectedCategory = store.getState().productsAPI.queries[
+        `getSingleCategory({"categoryTitle":"${categoryTitleParam}"})`
+    ]?.data as DefaultResponse<ICategory>;
+    const categoryId = selectedCategory?.data?._id;
 
-        await Promise.all(store.dispatch(getRunningQueriesThunk()));
+    setQueryParamsToState(store, context.query, categoryId);
+    await loadProductsByCategoryId(store, categoryId, context.query);
 
-        const categories = store.getState().productsAPI.queries['getCategories("")']
-            ?.data as DefaultResponse<ICategory[]>;
-        const selectedCategory = categories?.data?.find(
-            (category) => category.title === categoryTitleParam
-        );
-
-        const queryParams = qs.stringify({ ...context.query, categoryId: selectedCategory?._id });
-
-        store.dispatch(setQueryRequest(`product?${queryParams}`));
-        store.dispatch(getProductCards.initiate(`?${queryParams}`));
-    }
-
-    await Promise.all(store.dispatch(getRunningQueriesThunk()));
     return { props: {} };
 });
+
+async function loadProductsByCategoryId(
+    store: AppStore,
+    categoryId: string,
+    query: ParsedUrlQuery
+) {
+    const queryParams = qs.stringify({ ...query, categoryId });
+    store.dispatch(setQueryRequest(`product?${queryParams}`));
+    void store.dispatch(getProductCards.initiate(`?${queryParams}`));
+    return await Promise.all(store.dispatch(getRunningQueriesThunk()));
+}
+
+async function initiateCategories(store: AppStore, categoryTitleParam: string | string[]) {
+    void store.dispatch(getCategories.initiate(""));
+    void store.dispatch(getSingleCategory.initiate({ categoryTitle: String(categoryTitleParam) }));
+    return await Promise.all(store.dispatch(getRunningQueriesThunk()));
+}
+
+function setQueryParamsToState(store: AppStore, query: ParsedUrlQuery, categoryId: string) {
+    store.dispatch(setFilters(query));
+    store.dispatch(setCategoryId(categoryId));
+    if (typeof query?.title === "string") store.dispatch(setSearchRequest(query?.title));
+}

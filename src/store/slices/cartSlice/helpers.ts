@@ -1,7 +1,7 @@
 import { CountAction, type ErrorsAlert, type ThunkError } from "./Types";
 
 export interface CounterToChange {
-    id: string;
+    _id: string;
     countAction: CountAction;
     counterInputValue?: string;
 }
@@ -17,7 +17,7 @@ export const changeCounter = (count: number, counterToChange: CounterToChange): 
     else if (counterToChange.countAction === CountAction.decrease) return --itemCount;
     else if (counterToChange.countAction === CountAction.replace) {
         const value = counterToChange.counterInputValue;
-        if (value) {
+        if (value !== undefined) {
             const isValueNumeric = /^\d+$/.test(value);
             if (!isValueNumeric) return 0;
             const numericValue = Number(value);

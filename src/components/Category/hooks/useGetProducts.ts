@@ -10,12 +10,13 @@ import { useMapProducts } from "./useMapProducts";
 
 export const useGetProducts = ({ clearSearchRequest = false }: ProductsProps) => {
     const router = useRouter();
-    const categoryId = router.query.categoryId;
+    const categoryTitle = router.query.categoryTitle;
     const { requestQuery } = useTypedSelector(getFilters);
-    const queryParam = typeof categoryId === "string" ? requestQuery : skipToken;
+    console.log(requestQuery);
+    const queryParam = typeof categoryTitle === "string" ? requestQuery : skipToken;
 
     const isMounted = React.useRef(false);
-    useUpdateQuery(categoryId, isMounted, clearSearchRequest);
+    useUpdateQuery(categoryTitle, isMounted, clearSearchRequest);
 
     const {
         data: products,

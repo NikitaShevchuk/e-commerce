@@ -8,7 +8,6 @@ export const API_URL = "http://localhost:5000/api";
 
 interface AddToFavoriteParams {
     updatedProduct: IProductCard;
-    categoryId: string;
     filters: string;
 }
 
@@ -63,12 +62,14 @@ export const productsAPI = createApi({
         }),
         getProductsBySearch: build.query<DefaultResponse<IProductCard[]>, SearchParams>({
             query: ({ searchRequestText, page, limit }) => ({
-                url: `/product?page=${page}&limit=${limit}&title=${searchRequestText}`
+                url: `/product?page=${page}&limit=${limit}${
+                    searchRequestText !== null ? `&title=${searchRequestText}` : ""
+                }`
             })
         }),
         addToFavorite: build.mutation<IProductCard, AddToFavoriteParams>({
-            query: ({ categoryId, updatedProduct }) => ({
-                url: `/category/${categoryId}/${categoryId}/${updatedProduct._id}`,
+            query: ({ updatedProduct }) => ({
+                url: `/category/${updatedProduct._id}`,
                 method: "PUT",
                 body: updatedProduct
             }),

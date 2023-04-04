@@ -1,3 +1,4 @@
+import { type ICategory } from "@/types/ICategory";
 import { type CartProduct } from "../../../types/CartProduct";
 
 export enum RequestStatus {
@@ -44,11 +45,10 @@ export interface SelectedCartItem {
     newCartItem: {
         name: string;
         image: string;
-        createdAt: string;
         price: string;
         color: string;
         productId: string;
-        categoryId: string;
+        category: ICategory;
     };
     size: string;
 }

@@ -20,8 +20,7 @@ export const modifyCartItemCount = createAsyncThunk(
     async (counterToChange: CounterToChange, { getState, rejectWithValue }) => {
         const rootState = getState() as RootState;
         const cartItems = cartSelector(rootState).cartItems;
-        const targetItem =
-            cartItems != null && cartItems.find((item) => item.id === counterToChange.id);
+        const targetItem = cartItems?.find((item) => item._id === counterToChange._id);
         if (targetItem == null) return rejectWithValue(ErrorsAlert.modifyCartItemCount);
         const updatedCount = changeCounter(targetItem.count, counterToChange);
         if (updatedCount === 0) {
@@ -47,7 +46,7 @@ export const addNewCartItem = createAsyncThunk(
         const newCartItem: CartProduct = {
             ...itemWithNewCounter.selectedCartItem.newCartItem,
             size: itemWithNewCounter.selectedCartItem.size,
-            id: idInPayload,
+            _id: idInPayload,
             count: 1
         };
         const response = await cartApi.addCartItem(newCartItem);
@@ -64,12 +63,11 @@ export const addToCart = createAsyncThunk(
         dispatch(setIsCartModalOpened(true));
         const rootState = getState() as RootState;
         const { cartItems, cartItemsCount } = cartSelector(rootState);
-        const existingProductInCart =
-            cartItems != null && cartItems.find(findItemInCart(selectedCartItem));
+        const existingProductInCart = cartItems?.find(findItemInCart(selectedCartItem));
         if (existingProductInCart != null) {
             return await dispatch(
                 modifyCartItemCount({
-                    id: existingProductInCart.id,
+                    _id: existingProductInCart._id,
                     countAction: CountAction.increase
                 })
             );

@@ -28,25 +28,29 @@ export function ProductPage() {
     return (
         <Card className="flex transparent-background" sx={{ justifyContent: "flex-start" }}>
             <Head>
-                <title>{product?.name || "Product"}</title>
+                <title>{product?.data.title}</title>
             </Head>
-            <CardMedia image={product?.image} component="img" className="product-page__image" />
+            <CardMedia
+                image={product?.data.image}
+                component="img"
+                className="product-page__image"
+            />
 
             <div className="product-page__description">
                 <div className="flex mb-20">
                     <Typography component="div" variant="h4" sx={{ maxWidth: "80%" }}>
-                        {product?.name}
+                        {product?.data.title}
                     </Typography>
                     <Typography component="div" variant="h3">
-                        ${product?.price}
+                        ${product?.data.price}
                     </Typography>
                 </div>
                 <Divider />
                 <Typography mt={1} gutterBottom fontSize="small" textAlign="left">
-                    {product?.description}
+                    {product?.data.description}
                 </Typography>
                 <ProductSizes
-                    product={product}
+                    product={product?.data}
                     sizesPosition="static"
                     colorVariant="gold"
                     queryParams=""
