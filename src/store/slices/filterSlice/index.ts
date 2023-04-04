@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { splitByComma } from "./helpers/splitByComma";
+import { HYDRATE } from "next-redux-wrapper";
 
 export interface Sort {
     property: string | null;
@@ -8,8 +9,8 @@ export interface Sort {
 
 const initialState = {
     requestQuery: "" as string,
-    limit: 8 as number,
-    page: 1 as number,
+    limit: "8" as string,
+    page: "1" as string,
     categoryId: null as string | null,
     sizes: null as string[] | null,
     color: null as string[] | null,
@@ -18,7 +19,7 @@ const initialState = {
     sort: {
         property: null,
         order: null
-    } as Sort
+    } as any
 };
 
 const filterSlice = createSlice({
@@ -42,8 +43,8 @@ const filterSlice = createSlice({
                 state.color = state.color.filter((item) => item !== action.payload);
         },
         setSort(state, action) {
-            state.sort.property = action.payload.property;
-            state.sort.order = action.payload.order;
+            // state.sort.property = action.payload.property;
+            // state.sort.order = action.payload.order;
         },
         setFilters(state, action) {
             if (action.payload.color !== undefined)
@@ -52,26 +53,39 @@ const filterSlice = createSlice({
                 state.sizes = splitByComma(action.payload.sizes);
             if (action.payload.page !== undefined) state.page = action.payload.page;
             if (action.payload.limit !== undefined) state.limit = action.payload.limit;
-            if (action.payload.categoryId !== undefined) state.limit = action.payload.categoryId;
             if (action.payload.sortBy !== undefined && action.payload.order !== undefined) {
                 state.sort.property = action.payload.sortBy;
                 state.sort.order = action.payload.order;
             }
         },
-        setCurrentPage(state, action) {
+        setCurrentPage(state, action: { payload: string }) {
             state.page = action.payload;
         },
-        setCategoryId(state, action) {
+        setCategoryId(state, action: { payload: string }) {
             state.categoryId = action.payload;
         },
-        setQueryRequest(state, action) {
-            state.requestQuery = action.payload;
+        setQueryRequest(state, action: { payload: string }) {
+            let newRequestQuery = action.payload;
+            if (state.categoryId !== null) {
+                newRequestQuery.includes("?")
+                    ? (newRequestQuery += `&categoryId=${state.categoryId}`)
+                    : (newRequestQuery = `?categoryId=${state.categoryId}`);
+            }
+            state.requestQuery = newRequestQuery;
         },
         setItemsLimit(state, action) {
             state.limit = action.payload;
         },
         setItemsCount(state, action) {
             state.itemsCount = action.payload;
+        }
+    },
+    extraReducers: {
+        [HYDRATE]: (state, action) => {
+            return {
+                ...state,
+                ...action.payload.filterSlice
+            };
         }
     }
 });

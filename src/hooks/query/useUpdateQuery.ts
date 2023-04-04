@@ -20,10 +20,17 @@ const useUpdateQuery = (
 
     React.useEffect(() => {
         const query = clearSearch(clearSearchRequest, getQuery(filters));
-        if (isMounted.current && window.location.search !== filters.requestQuery) {
+        const categoryIdQuery = `categoryId=${String(filters.categoryId)}`;
+        if (
+            isMounted.current &&
+            window.location.search !==
+                filters.requestQuery
+                    .replace(`&${categoryIdQuery}`, "")
+                    .replace(`?${categoryIdQuery}`, "")
+        ) {
             void router.push({
-                pathname: `/category/[categoryTitle]?${String(query)}`,
-                query: { categoryTitle }
+                pathname: "/category/[categoryTitle]?page=[page]&limit=[limit]",
+                query: { categoryTitle, page: filters.page, limit: filters.limit }
             });
         }
         dispatch(setQueryRequest(`?${query}`));

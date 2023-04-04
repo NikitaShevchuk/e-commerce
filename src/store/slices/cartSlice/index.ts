@@ -5,6 +5,7 @@ import { getCartItemsBuilder } from "./reducer-map-builder/getCartItemsBuilder";
 import { modifyCartItemCountBuilder } from "./reducer-map-builder/modifyCartItemCountBuilder";
 import { removeCartItemBuilder } from "./reducer-map-builder/removeCartItemBuilder";
 import { type CartInitialState, RequestStatus } from "./Types";
+import { HYDRATE } from "next-redux-wrapper";
 
 export const cartInitialState: CartInitialState = {
     isCartModalOpened: false,
@@ -33,6 +34,13 @@ const cartSlice = createSlice({
         modifyCartItemCountBuilder(builder);
         removeCartItemBuilder(builder);
         getCartItemsBuilder(builder);
+
+        builder.addCase(HYDRATE, (state, action: any) => {
+            return {
+                ...state,
+                ...action.payload.searchSlice
+            };
+        });
     }
 });
 

@@ -5,7 +5,12 @@ import {
     getRunningQueriesThunk,
     getSingleCategory
 } from "@/services/productsService";
-import { setCategoryId, setFilters, setQueryRequest } from "@/store/slices/filterSlice";
+import {
+    type FilterSliceInitialState,
+    setCategoryId,
+    setFilters,
+    setQueryRequest
+} from "@/store/slices/filterSlice";
 import { setSearchRequest } from "@/store/slices/searchSlice";
 import { type AppStore, wrapper } from "@/store/store";
 import { type ICategory } from "@/types/ICategory";
@@ -27,16 +32,10 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (c
     const categoryTitleParam = context.params?.categoryTitle;
     if (typeof categoryTitleParam !== "string") return redirectToCategory;
 
+    // Redirect if there is no page and limit in request query
     const { page, limit } = context.query;
     if (typeof page !== "string" || typeof limit !== "string") {
-        const pageFromState = String(store.getState().filterSlice.page);
-        const limitFromState = String(store.getState().filterSlice.limit);
-        return {
-            props: {},
-            redirect: {
-                destination: `/category/${categoryTitleParam}?page=${pageFromState}&limit=${limitFromState}`
-            }
-        };
+        return redirectWithParams(store.getState().filterSlice, categoryTitleParam);
     }
 
     await initiateCategories(store, categoryTitleParam);
@@ -47,21 +46,31 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (c
     ]?.data as DefaultResponse<ICategory>;
     const categoryId = selectedCategory?.data?._id;
 
-    if (categoryId === undefined) return { props: {} };
+    if (categoryId === undefined) return redirectToCategory;
 
     setQueryParamsToState(store, context, categoryId);
-    await loadProductsByCategoryId(store, categoryId, context.query);
+    await loadProductsByCategoryId(store, context.query);
 
     return { props: {} };
 });
 
-async function loadProductsByCategoryId(
-    store: AppStore,
-    categoryId: string,
-    query: ParsedUrlQuery
-) {
-    const queryParams = qs.stringify({ ...query });
-    store.dispatch(setQueryRequest(`product?categoryId=${categoryId}&${queryParams}`));
+function redirectWithParams(filterSlice: FilterSliceInitialState, categoryTitleParam: string) {
+    const pageFromState = String(filterSlice.page);
+    const limitFromState = String(filterSlice.limit);
+    return {
+        props: {},
+        redirect: {
+            destination: `/category/${categoryTitleParam}?page=${pageFromState}&limit=${limitFromState}`
+        }
+    };
+}
+
+async function loadProductsByCategoryId(store: AppStore, query: ParsedUrlQuery) {
+    const queryParams = qs
+        .stringify({ ...query })
+        .replace(`categoryTitle=${String(query.categoryTitle)}`, "")
+        .replace(`categoryId=${String(query.categoryId)}`, "");
+    store.dispatch(setQueryRequest(`?${queryParams}`));
     void store.dispatch(getProductCards.initiate(`?${queryParams}`));
     await Promise.all(store.dispatch(getRunningQueriesThunk()));
 }

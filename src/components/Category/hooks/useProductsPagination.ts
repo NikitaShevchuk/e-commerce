@@ -11,7 +11,7 @@ export const useProductsPagination = () => {
     const categoryId = router.query.categoryId;
     const { page, requestQuery, limit } = useTypedSelector(getFilters);
 
-    // change limit to see how many pages to show
+    // TODO change limit to see how many pages to show
     // API doesn't return the amount of products
     const queryParam =
         typeof categoryId === "string"

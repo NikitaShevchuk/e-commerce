@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { type ICategory } from "../../../types/ICategory";
+import { HYDRATE } from "next-redux-wrapper";
 
 interface InitialState {
     isSearchActive: boolean;
@@ -25,6 +26,14 @@ export const searchSlice = createSlice({
         },
         setSelectedCategory(state, action: { payload: ICategory | null }) {
             state.selectedSearchCategory = action.payload;
+        }
+    },
+    extraReducers: {
+        [HYDRATE]: (state, action) => {
+            return {
+                ...state,
+                ...action.payload.searchSlice
+            };
         }
     }
 });

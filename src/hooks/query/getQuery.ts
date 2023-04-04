@@ -8,8 +8,7 @@ export const getQuery = (filters: FilterSliceInitialState): string => {
         page: filters.page,
         limit: filters.limit,
         sortBy: filters.sort.property,
-        order: filters.sort.order,
-        categoryId: filters.categoryId
+        order: filters.sort.order
     };
     return qs.stringify(query, { skipNulls: true, arrayFormat: "comma" });
 };
