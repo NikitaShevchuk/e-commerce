@@ -10,6 +10,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
 import LoadingError from "../LoadingError";
+import { useResponsiveSlider } from "./hooks/useResponsiveSlider";
 
 export interface CategorySliderProps {
     queryParams: string;
@@ -27,7 +28,7 @@ const ProductsSlider: FC<CategorySliderProps> = ({ queryParams, blockTitle, cate
     } = useGetProductCardsQuery(router.query !== undefined ? queryParams : skipToken, {
         skip: router.isFallback
     });
-    const slidesPerView = typeof window !== "undefined" ? Math.round(window.innerWidth / 320) : 6;
+    const slidesPerView = useResponsiveSlider();
     return (
         <>
             <Container maxWidth="xl">
@@ -37,25 +38,30 @@ const ProductsSlider: FC<CategorySliderProps> = ({ queryParams, blockTitle, cate
                     </Typography>
                     {categoryLink !== undefined && <Link href={categoryLink}>View all</Link>}
                 </Stack>
+                {error === undefined && (
+                    <Swiper
+                        slidesPerView={slidesPerView}
+                        spaceBetween={20}
+                        className="custom-swiper"
+                    >
+                        {isLoading &&
+                            Array.from(Array(6)).map((_, index) => (
+                                <SwiperSlide key={index}>
+                                    <ProductCardLoader />
+                                </SwiperSlide>
+                            ))}
+                        {!isLoading &&
+                            products !== undefined &&
+                            products.data.map((product) => (
+                                <SwiperSlide key={product._id}>
+                                    <ProductCard product={product} queryParams={queryParams} />
+                                </SwiperSlide>
+                            ))}
+                    </Swiper>
+                )}
             </Container>
-            {error === null && (
-                <Swiper slidesPerView={slidesPerView} spaceBetween={20} className="custom-swiper">
-                    {isLoading &&
-                        Array.from(Array(6)).map((_, index) => (
-                            <SwiperSlide key={index}>
-                                <ProductCardLoader />
-                            </SwiperSlide>
-                        ))}
-                    {!isLoading &&
-                        products !== undefined &&
-                        products.data.map((product) => (
-                            <SwiperSlide key={product._id}>
-                                <ProductCard product={product} queryParams={queryParams} />
-                            </SwiperSlide>
-                        ))}
-                </Swiper>
-            )}
-            {error !== null && <LoadingError allowReload={true} reload={refetch} />}
+
+            {error !== undefined && <LoadingError allowReload={true} reload={refetch} />}
         </>
     );
 };

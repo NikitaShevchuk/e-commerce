@@ -10,6 +10,7 @@ import { Provider } from "react-redux";
 // styles
 import "@/styles/globals.css";
 import "@/styles/index.css";
+import "@/styles/responsive.css";
 import "react-loading-skeleton/dist/skeleton.css";
 
 export default function App({ Component, ...rest }: AppProps) {
