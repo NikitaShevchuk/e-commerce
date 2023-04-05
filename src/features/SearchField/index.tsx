@@ -2,7 +2,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { InputAdornment, TextField } from "@mui/material";
 import { type ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import React, { type FC } from "react";
-import { useInitializeSearchField } from "./hooks/useInitializeSearchField";
+import { useInitializeSearchField } from "../../hooks/search";
 
 export interface SearchFieldProps {
     onEnterPress: () => void;

@@ -2,7 +2,7 @@ import React from "react";
 import { Stack, Typography } from "@mui/material";
 import { skipToken } from "@reduxjs/toolkit/dist/query/react";
 import { useRouter } from "next/router";
-import useAddDefaultSortType from "../../hooks/useAddDefaultSortType";
+import useAddDefaultSortType from "../../hooks/sort";
 import { useGetSingleCategoryQuery } from "../../services/productsService";
 import { removeColor, removeSize, setColor, setSize } from "../../store/slices/filterSlice";
 import Filter from "./Filters/Filter";

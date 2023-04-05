@@ -1,12 +1,12 @@
-import { useEffect } from "react";
-import { productsAPI } from "../services/productsService";
-import { useTypedDispatch } from "./redux";
+// import { useEffect } from "react";
+// import { productsAPI } from "../../services/productsService";
+// import { useTypedDispatch } from "../redux";
 
 const useAddDefaultSortType = (
     categoryTitle: string | string[] | undefined,
     isSuccess: boolean
 ) => {
-    const dispatch = useTypedDispatch();
+    // const dispatch = useTypedDispatch();
     // TODO: add sort type useEffect(() => {
     //     if (isSuccess && typeof categoryTitle === "string") {
     //         dispatch(

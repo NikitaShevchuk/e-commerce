@@ -4,7 +4,7 @@ import { useTypedDispatch, useTypedSelector } from "../../../hooks/redux";
 import { getFilters } from "../../../store/selectors/filter";
 import { getSearchSlice } from "../../../store/selectors/search";
 import { setIsSearchActive, setSearchRequest } from "../../../store/slices/searchSlice";
-import SearchField from "../../common/SearchField";
+import SearchField from "../../../features/SearchField";
 import CategorySelect from "./CategorySelect";
 
 const ProductsSearch = () => {

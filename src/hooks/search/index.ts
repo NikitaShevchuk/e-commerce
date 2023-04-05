@@ -1,7 +1,7 @@
 import { useTypedDispatch } from "@/hooks/redux";
 import debounce from "lodash.debounce";
 import React from "react";
-import { type SearchFieldProps } from "../SearchField";
+import { type SearchFieldProps } from "../../features/SearchField";
 
 export const useInitializeSearchField = ({
     searchFieldTextInState,
