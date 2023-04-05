@@ -1,4 +1,4 @@
-import { useGetCategoriesQuery } from "@/services/productsService";
+import { useGetCategoriesQuery } from "@/services/products";
 import { skipToken } from "@reduxjs/toolkit/dist/query/react";
 import { useRouter } from "next/router";
 

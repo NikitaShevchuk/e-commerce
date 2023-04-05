@@ -4,7 +4,7 @@ import React, { type FC } from "react";
 import ProductSizes from "../../features/ProductSizes";
 import { type IProductCard } from "../../types/IProductCard";
 import ProductCardHeader from "./ProductCardHeader";
-import { API_URL } from "@/services/productsService";
+import { API_URL } from "@/services/products";
 import noImage from "@/assets/img/products/no-image.svg";
 import Skeleton from "react-loading-skeleton";
 

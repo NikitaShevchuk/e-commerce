@@ -1,7 +1,7 @@
 import Banner from "@/components/Banner";
 import CategoryBlock from "@/components/CategoryBlock";
 import ProductsSlider from "@/components/ProductsSlider";
-import { getCategories, getProductCards, getRunningQueriesThunk } from "@/services/productsService";
+import { getCategories, getProductCards, getRunningQueriesThunk } from "@/services/products";
 import { wrapper } from "@/store/store";
 import Head from "next/head";
 import { type FC } from "react";

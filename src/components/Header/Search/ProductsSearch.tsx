@@ -1,10 +1,10 @@
 import { useRouter } from "next/router";
 import React from "react";
-import { useTypedDispatch, useTypedSelector } from "../../../hooks/redux";
-import { getFilters } from "../../../store/selectors/filter";
-import { getSearchSlice } from "../../../store/selectors/search";
-import { setIsSearchActive, setSearchRequest } from "../../../store/slices/searchSlice";
-import SearchField from "../../../features/SearchField";
+import { useTypedDispatch, useTypedSelector } from "@/hooks/redux";
+import { getFilters } from "@/store/selectors/filter";
+import { getSearchSlice } from "@/store/selectors/search";
+import { setIsSearchActive, setSearchRequest } from "@/store/slices/searchSlice";
+import SearchField from "@/features/SearchField";
 import CategorySelect from "./CategorySelect";
 
 const ProductsSearch = () => {
