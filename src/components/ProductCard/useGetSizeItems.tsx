@@ -10,9 +10,9 @@ export const useGetSizeItems = (
         e.preventDefault();
         if (size === selectedSize) {
             setSelectedSize("");
-            return;
+        } else {
+            setSelectedSize(size);
         }
-        setSelectedSize(size);
     };
 
     const mapProducts = (size: string, i: number) => {

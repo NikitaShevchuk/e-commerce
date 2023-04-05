@@ -40,13 +40,15 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (c
 
     await initiateCategories(store, categoryTitleParam);
 
-    // Extract category ID to load products from the category with this ID
+    // Extract a category ID to load products from a category with this ID
     const selectedCategory = store.getState().productsAPI.queries[
         `getSingleCategory({"categoryTitle":"${categoryTitleParam}"})`
     ]?.data as DefaultResponse<ICategory>;
     const categoryId = selectedCategory?.data?._id;
 
-    if (categoryId === undefined) return redirectToCategory;
+    if (categoryId === undefined) {
+        return redirectWithParams(store.getState().filterSlice, categoryTitleParam);
+    }
 
     setQueryParamsToState(store, context, categoryId);
     await loadProductsByCategoryId(store, context.query);

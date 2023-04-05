@@ -71,10 +71,13 @@ a:hover {
     opacity: 0.8;
 }
 .image-wrapper {
-    max-width: 16.6vw;
-    max-height: 20.8vw;
+    width: 16.6vw;
+    height: 20.8vw;
     position: relative;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 #root .product-card {
     max-width: 16.6vw;

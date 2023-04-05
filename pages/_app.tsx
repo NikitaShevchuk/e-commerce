@@ -2,6 +2,7 @@ import Header from "@/components/Header/Header";
 import SaleBlock from "@/components/Header/SaleBlock";
 import { wrapper } from "@/store/store";
 import "@/styles/globals.css";
+import "@/styles/index.css";
 import theme from "@/theme";
 import { ThemeProvider } from "@mui/material";
 import type { AppProps } from "next/app";

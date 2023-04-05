@@ -5,6 +5,7 @@ import ProductSizes from "../../features/ProductSizes";
 import { type IProductCard } from "../../types/IProductCard";
 import ProductCardHeader from "./ProductCardHeader";
 import { API_URL } from "@/services/productsService";
+import noImage from "@/assets/img/products/no-image.svg";
 
 interface Props {
     product: IProductCard;
@@ -12,12 +13,13 @@ interface Props {
 }
 
 const ProductCard: FC<Props> = ({ product, queryParams }) => {
+    const image = typeof product.image === "string" ? API_URL + product.image : noImage.src;
     return (
         <Card className="product-card">
             <ProductCardHeader product={product} queryParams={queryParams} />
             <Link href={`/product/${product._id}`}>
                 <div className="image-wrapper">
-                    <CardMedia component="img" image={API_URL + product.image} alt="product card" />
+                    <CardMedia component="img" image={image} alt="product card" />
                     <ProductSizes
                         sizesPosition="absolute"
                         colorVariant="dark"
