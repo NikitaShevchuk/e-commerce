@@ -28,6 +28,7 @@ const ProductsSlider: FC<CategorySliderProps> = ({ queryParams, blockTitle, cate
     } = useGetProductCardsQuery(router.query !== undefined ? queryParams : skipToken, {
         skip: router.isFallback
     });
+    const slidesPerView = typeof window !== "undefined" ? Math.round(window.innerWidth / 320) : 6;
     return (
         <>
             <Container maxWidth="xl">
@@ -39,7 +40,7 @@ const ProductsSlider: FC<CategorySliderProps> = ({ queryParams, blockTitle, cate
                 </Stack>
             </Container>
             {error == null && (
-                <Swiper slidesPerView={6} spaceBetween={20} className="custom-swiper">
+                <Swiper slidesPerView={slidesPerView} spaceBetween={20} className="custom-swiper">
                     {isLoading &&
                         Array.from(Array(6)).map((_, index) => (
                             <SwiperSlide key={index}>
