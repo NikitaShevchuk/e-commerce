@@ -1,0 +1,5 @@
+.footer__toolbar {
+    background-color: white;
+    display: flex;
+    justify-content: space-around;
+}

@@ -1,4 +1,5 @@
-import Header from "@/components/Header/Header";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import SaleBlock from "@/components/Header/SaleBlock";
 import { wrapper } from "@/store/store";
 import theme from "@/theme";
@@ -23,6 +24,7 @@ export default function App({ Component, ...rest }: AppProps) {
                         <Header />
                         <SaleBlock />
                         <Component {...props.pageProps} />
+                        <Footer />
                     </div>
                 </SkeletonTheme>
             </ThemeProvider>

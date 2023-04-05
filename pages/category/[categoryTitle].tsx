@@ -4,7 +4,7 @@ import {
     getProductCards,
     getRunningQueriesThunk,
     getSingleCategory
-} from "@/services/productsService";
+} from "@/services/products";
 import {
     type FilterSliceInitialState,
     setCategoryId,
