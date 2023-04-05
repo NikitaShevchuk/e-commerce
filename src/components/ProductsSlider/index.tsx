@@ -3,7 +3,6 @@ import React, { type FC } from "react";
 import { useGetProductCardsQuery } from "../../services/productsService";
 import ProductCardLoader from "../Loaders/ProductCardLoader";
 import ProductCard from "../ProductCard";
-// Import Swiper
 import { skipToken } from "@reduxjs/toolkit/dist/query/react";
 import Link from "next/link";
 import { useRouter } from "next/router";

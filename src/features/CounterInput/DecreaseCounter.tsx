@@ -1,6 +1,6 @@
 import IndeterminateCheckBoxIcon from "@mui/icons-material/IndeterminateCheckBox";
 import React, { type FC } from "react";
-import { CountAction } from "../../../store/slices/cartSlice/Types";
+import { CountAction } from "../../store/slices/cartSlice/Types";
 
 interface Props {
     modifyCounter: (countAction: CountAction) => void;
