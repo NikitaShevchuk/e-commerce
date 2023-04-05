@@ -10,6 +10,6 @@ export interface IProductCard {
     productIsNew: boolean;
     sizes: string[];
     isFavorite: boolean;
-    category: ICategory;
+    category: ICategory | null;
     type: string;
 }

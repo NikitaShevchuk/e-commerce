@@ -75,6 +75,9 @@ a:hover {
     height: 400px;
     position: relative;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 #root .product-card {
     max-width: 16.6vw;

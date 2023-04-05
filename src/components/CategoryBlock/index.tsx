@@ -42,7 +42,7 @@ const CategoryBlock = () => {
                     </Typography>
                 </Link>
             ))}
-            {isError && <LoadingError reload={refetch} />}
+            {isError && <LoadingError allowReload={true} reload={refetch} />}
         </Container>
     );
 };

@@ -55,7 +55,7 @@ const ProductsSlider: FC<CategorySliderProps> = ({ queryParams, blockTitle, cate
                         ))}
                 </Swiper>
             )}
-            {error != null && <LoadingError reload={refetch} />}
+            {error != null && <LoadingError allowReload={true} reload={refetch} />}
         </>
     );
 };

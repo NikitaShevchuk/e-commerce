@@ -21,7 +21,6 @@ const useUpdateQuery = (
     React.useEffect(() => {
         const query = clearSearch(clearSearchRequest, getQuery(filters));
         const categoryIdQuery = `categoryId=${String(filters.categoryId)}`;
-        console.log(filters.requestQuery);
         if (
             isMounted.current &&
             window.location.search !==
