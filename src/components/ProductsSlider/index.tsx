@@ -38,7 +38,7 @@ const ProductsSlider: FC<CategorySliderProps> = ({ queryParams, blockTitle, cate
                     {categoryLink !== undefined && <Link href={categoryLink}>View all</Link>}
                 </Stack>
             </Container>
-            {error == null && (
+            {error === null && (
                 <Swiper slidesPerView={slidesPerView} spaceBetween={20} className="custom-swiper">
                     {isLoading &&
                         Array.from(Array(6)).map((_, index) => (
@@ -47,7 +47,7 @@ const ProductsSlider: FC<CategorySliderProps> = ({ queryParams, blockTitle, cate
                             </SwiperSlide>
                         ))}
                     {!isLoading &&
-                        products != null &&
+                        products !== undefined &&
                         products.data.map((product) => (
                             <SwiperSlide key={product._id}>
                                 <ProductCard product={product} queryParams={queryParams} />
@@ -55,7 +55,7 @@ const ProductsSlider: FC<CategorySliderProps> = ({ queryParams, blockTitle, cate
                         ))}
                 </Swiper>
             )}
-            {error != null && <LoadingError allowReload={true} reload={refetch} />}
+            {error !== null && <LoadingError allowReload={true} reload={refetch} />}
         </>
     );
 };
