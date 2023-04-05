@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { type CartProduct } from "../../../types/CartProduct";
-import { cartApi } from "../../../services/cartService";
+import { cartApi } from "../../../services/cart";
 import { cartSelector } from "../../selectors/cart";
 import { type RootState } from "../../store";
 import { changeCounter, type CounterToChange } from "./helpers";

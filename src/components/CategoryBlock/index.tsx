@@ -3,7 +3,7 @@ import { skipToken } from "@reduxjs/toolkit/dist/query/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
-import { API_URL, useGetCategoriesQuery } from "../../services/productsService";
+import { API_URL, useGetCategoriesQuery } from "../../services/products";
 import BasicPreloader from "../Loaders/BasicPreloader";
 import CategoryLoader from "../Loaders/Category/CategoryLoader";
 import LoadingError from "../LoadingError";

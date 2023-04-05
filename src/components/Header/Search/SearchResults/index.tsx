@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material";
 import React from "react";
 import { useTypedSelector } from "../../../../hooks/redux";
-import { useGetProductsBySearchQuery } from "../../../../services/productsService";
+import { useGetProductsBySearchQuery } from "../../../../services/products";
 import { getSearchSlice } from "../../../../store/selectors/search";
 import BasicPreloader from "../../../Loaders/BasicPreloader";
 import SearchResultPreloader from "../../../Loaders/SearchResultPreloader";

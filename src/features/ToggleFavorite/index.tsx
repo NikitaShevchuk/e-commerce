@@ -3,7 +3,7 @@ import { Button, IconButton } from "@mui/material";
 import { Favorite, FavoriteBorderOutlined } from "@mui/icons-material";
 import { type IProductCard } from "../../types/IProductCard";
 import { type ColorVariant } from "../ProductSizes/AddToCartButton";
-import { useAddToFavoriteMutation } from "../../services/productsService";
+import { useAddToFavoriteMutation } from "../../services/products";
 
 interface Props {
     product: IProductCard | undefined;

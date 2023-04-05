@@ -1,6 +1,6 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { createWrapper } from "next-redux-wrapper";
-import { productsAPI } from "../services/productsService";
+import { productsAPI } from "../services/products";
 import cartSlice from "./slices/cartSlice";
 import filterSlice from "./slices/filterSlice";
 import searchSlice from "./slices/searchSlice";

@@ -1,6 +1,6 @@
 import { Container, Stack, Typography } from "@mui/material";
 import React, { type FC } from "react";
-import { useGetProductCardsQuery } from "../../services/productsService";
+import { useGetProductCardsQuery } from "../../services/products";
 import ProductCardLoader from "../Loaders/ProductCardLoader";
 import ProductCard from "../ProductCard";
 import { skipToken } from "@reduxjs/toolkit/dist/query/react";
