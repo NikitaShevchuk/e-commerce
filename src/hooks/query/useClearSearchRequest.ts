@@ -12,7 +12,7 @@ export const useClearSearchRequest = () => {
             dispatch(setSearchRequest(null));
         }
 
-        if (search !== null && !shouldClear) newQuery += `&title=${search}`;
+        if (search !== null && search !== "" && !shouldClear) newQuery += `&title=${search}`;
         if (shouldClear) newQuery = newQuery.replace(`&title=${String(search)}`, "");
 
         return newQuery;

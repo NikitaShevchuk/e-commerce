@@ -2,7 +2,7 @@ import type { FilterSliceInitialState } from "@/store/slices/filterSlice";
 import qs from "qs";
 
 export const getQuery = (filters: FilterSliceInitialState): string => {
-    const query = {
+    const query: any = {
         sizes: filters.sizes,
         color: filters.color,
         page: filters.page,

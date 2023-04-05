@@ -1,4 +1,4 @@
-import CategoryPage from "@/pages/CategoryPage";
+import CategoryPage, { type CategoryPageProps } from "@/pages/CategoryPage";
 import {
     getCategories,
     getProductCards,
@@ -15,54 +15,67 @@ import { setSearchRequest } from "@/store/slices/searchSlice";
 import { type AppStore, wrapper } from "@/store/store";
 import { type ICategory } from "@/types/ICategory";
 import { type DefaultResponse } from "@/types/Response";
-import type { GetServerSidePropsContext, PreviewData } from "next/types";
+import type { GetServerSidePropsContext, GetServerSidePropsResult, PreviewData } from "next/types";
 import qs from "qs";
 import type { ParsedUrlQuery } from "querystring";
 
 export default CategoryPage;
 
-const redirectToCategory = {
+type PageProps = GetServerSidePropsResult<CategoryPageProps>;
+
+const redirectToCategory: PageProps = {
     props: {},
     redirect: {
-        destination: "/category/Men"
+        destination: "/category/Men",
+        permanent: true
     }
 };
 
-export const getServerSideProps = wrapper.getServerSideProps((store) => async (context) => {
-    const categoryTitleParam = context.params?.categoryTitle;
-    if (typeof categoryTitleParam !== "string") return redirectToCategory;
+export const getServerSideProps = wrapper.getServerSideProps(
+    (store) =>
+        async (context): Promise<PageProps> => {
+            const categoryTitleParam = context.params?.categoryTitle;
+            const clearSearchQuery = context.params?.clearSearch;
+            if (typeof categoryTitleParam !== "string") return redirectToCategory;
 
-    // Redirect if there is no page and limit in request query
-    const { page, limit } = context.query;
-    if (typeof page !== "string" || typeof limit !== "string") {
-        return redirectWithParams(store.getState().filterSlice, categoryTitleParam);
-    }
+            // Redirect if there is no page and limit in request query
+            const { page, limit } = context.query;
+            if (typeof page !== "string" || typeof limit !== "string") {
+                return redirectWithParams(store.getState().filterSlice, categoryTitleParam);
+            }
 
-    await initiateCategories(store, categoryTitleParam);
+            await initiateCategories(store, categoryTitleParam);
 
-    // Extract a category ID to load products from a category with this ID
-    const selectedCategory = store.getState().productsAPI.queries[
-        `getSingleCategory({"categoryTitle":"${categoryTitleParam}"})`
-    ]?.data as DefaultResponse<ICategory>;
-    const categoryId = selectedCategory?.data?._id;
+            // Extract a category ID to load products from a category with this ID
+            const selectedCategory = store.getState().productsAPI.queries[
+                `getSingleCategory({"categoryTitle":"${categoryTitleParam}"})`
+            ]?.data as DefaultResponse<ICategory>;
+            const categoryId = selectedCategory?.data?._id;
 
-    if (categoryId === undefined) {
-        return redirectWithParams(store.getState().filterSlice, categoryTitleParam);
-    }
+            if (categoryId === undefined) {
+                return redirectWithParams(store.getState().filterSlice, categoryTitleParam);
+            }
 
-    setQueryParamsToState(store, context, categoryId);
-    await loadProductsByCategoryId(store, context.query);
+            setQueryParamsToState(store, context, categoryId);
+            await loadProductsByCategoryId(store, context.query);
 
-    return { props: {} };
-});
+            const clearSearch =
+                typeof clearSearchQuery === "string" ? clearSearchQuery === "true" : false;
+            return { props: { clearSearch } };
+        }
+);
 
-function redirectWithParams(filterSlice: FilterSliceInitialState, categoryTitleParam: string) {
+function redirectWithParams(
+    filterSlice: FilterSliceInitialState,
+    categoryTitleParam: string
+): PageProps {
     const pageFromState = String(filterSlice.page);
     const limitFromState = String(filterSlice.limit);
     return {
         props: {},
         redirect: {
-            destination: `/category/${categoryTitleParam}?page=${pageFromState}&limit=${limitFromState}`
+            destination: `/category/${categoryTitleParam}?page=${pageFromState}&limit=${limitFromState}`,
+            permanent: true
         }
     };
 }

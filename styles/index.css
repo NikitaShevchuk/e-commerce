@@ -96,7 +96,7 @@ a:hover {
 }
 .product-card__header {
     position: absolute;
-    top: 5px;
+    top: 10px;
     left: 15px;
     right: 10px;
     margin: auto;
