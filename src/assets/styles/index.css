@@ -348,6 +348,8 @@ body .banner-box {
 body .category-container {
     justify-content: space-between;
     display: flex;
+    padding-top: 70px;
+    padding-bottom: 70px;
 }
 body .filters-stack {
     display: flex;

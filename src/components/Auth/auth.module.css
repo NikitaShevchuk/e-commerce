@@ -1,0 +1,13 @@
+.auth {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    max-width: 40vw;
+    max-height: 60vh;
+    background-color: white !important;
+    border: 2px solid #000;
+    padding: 50px;
+    margin: auto;
+}

@@ -1,8 +1,8 @@
 import { FormControl, InputLabel, MenuItem, Select, type SelectChangeEvent } from "@mui/material";
 import React, { type FC } from "react";
-import { useTypedDispatch } from "../../../hooks/redux";
-import { type ICategory } from "../../../types/ICategory";
-import { setSelectedCategory } from "../../../store/slices/searchSlice";
+import { useTypedDispatch } from "@/hooks/redux";
+import { type ICategory } from "@/types/ICategory";
+import { setSelectedCategory } from "@/store/slices/searchSlice";
 import { useGetCategories } from "./hooks/useGetCategories";
 
 interface Props {

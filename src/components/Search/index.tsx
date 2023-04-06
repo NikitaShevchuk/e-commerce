@@ -1,9 +1,9 @@
 import { Container, Paper } from "@mui/material";
 import React from "react";
-import { useTypedSelector } from "../../../hooks/redux";
-import { getSearchSlice } from "../../../store/selectors/search";
-import { setIsSearchActive } from "../../../store/slices/searchSlice";
-import HeaderWithClose from "../../common/HeaderWithClose";
+import { useTypedSelector } from "../../hooks/redux";
+import { getSearchSlice } from "@/store/selectors/search";
+import { setIsSearchActive } from "@/store/slices/searchSlice";
+import HeaderWithClose from "@/components/common/HeaderWithClose";
 import ProductsSearch from "./ProductsSearch";
 import SearchResults from "./SearchResults";
 

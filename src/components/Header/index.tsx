@@ -4,7 +4,7 @@ import Link from "next/link";
 import React, { type FC } from "react";
 import LeftMenu from "./LeftMenu";
 import RightMenu from "./RightMenu";
-import HeaderSearch from "./Search";
+import HeaderSearch from "../Search";
 
 const Header: FC = () => {
     return (
