@@ -10,8 +10,8 @@ import {
     setCategoryId,
     setFilters,
     setQueryRequest
-} from "@/store/slices/filterSlice";
-import { setSearchRequest } from "@/store/slices/searchSlice";
+} from "@/store/slices/filter";
+import { setSearchRequest } from "@/store/slices/search";
 import { type AppStore, wrapper } from "@/store/store";
 import { type ICategory } from "@/types/ICategory";
 import { type DefaultResponse } from "@/types/Response";

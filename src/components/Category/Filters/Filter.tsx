@@ -7,7 +7,7 @@ import * as React from "react";
 import { type FC } from "react";
 import { useTypedSelector } from "../../../hooks/redux";
 import { getFilters } from "../../../store/selectors/filter";
-import { type Sort } from "../../../store/slices/filterSlice";
+import { type Sort } from "../../../store/slices/filter";
 import FilterCheckbox from "./FilterCheckbox";
 import SortSelect from "./SortSelect";
 

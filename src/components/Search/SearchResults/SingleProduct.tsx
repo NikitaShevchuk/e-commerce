@@ -2,7 +2,7 @@ import { Typography } from "@mui/material";
 import Link from "next/link";
 import React, { type FC } from "react";
 import { useTypedDispatch } from "@/hooks/redux";
-import { setIsSearchActive } from "@/store/slices/searchSlice";
+import { setIsSearchActive } from "@/store/slices/search";
 
 interface Props {
     productName: string;

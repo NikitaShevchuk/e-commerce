@@ -3,10 +3,10 @@ import React from "react";
 import { useTypedDispatch, useTypedSelector } from "@/hooks/redux";
 import { getFilters } from "@/store/selectors/filter";
 import { getSearchSlice } from "@/store/selectors/search";
-import { setIsSearchActive, setSearchRequest } from "@/store/slices/searchSlice";
+import { setIsSearchActive, setSearchRequest } from "@/store/slices/search";
 import SearchField from "@/features/SearchField";
 import CategorySelect from "./CategorySelect";
-import { setCurrentPage } from "@/store/slices/filterSlice";
+import { setCurrentPage } from "@/store/slices/filter";
 
 const ProductsSearch = () => {
     const { searchRequestText, isSearchActive } = useTypedSelector((state) => state.searchSlice);

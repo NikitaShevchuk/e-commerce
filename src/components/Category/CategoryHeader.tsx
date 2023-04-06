@@ -4,7 +4,7 @@ import { skipToken } from "@reduxjs/toolkit/dist/query/react";
 import { useRouter } from "next/router";
 import useAddDefaultSortType from "../../hooks/sort";
 import { useGetSingleCategoryQuery } from "../../services/products";
-import { removeColor, removeSize, setColor, setSize } from "../../store/slices/filterSlice";
+import { removeColor, removeSize, setColor, setSize } from "../../store/slices/filter";
 import Filter from "./Filters/Filter";
 
 const CategoryHeader = () => {

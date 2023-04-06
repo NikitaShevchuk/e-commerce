@@ -1,7 +1,7 @@
 import { useTypedDispatch, useTypedSelector } from "@/hooks/redux";
 import { useGetProductCardsQuery } from "@/services/productsService";
 import { getFilters } from "@/store/selectors/filter";
-import { setItemsCount } from "@/store/slices/filterSlice";
+import { setItemsCount } from "@/store/slices/filter";
 import { skipToken } from "@reduxjs/toolkit/dist/query/react";
 import { useRouter } from "next/router";
 import React from "react";

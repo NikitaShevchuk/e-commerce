@@ -3,7 +3,7 @@ import { HYDRATE } from "next-redux-wrapper";
 import { type ICategory } from "../types/ICategory";
 import { type IProductCard } from "../types/IProductCard";
 import { type DefaultResponse } from "@/types/Response";
-import { setSelectedCategory } from "@/store/slices/searchSlice";
+import { setSelectedCategory } from "@/store/slices/search";
 
 export const API_URL = "http://localhost:5000/api";
 

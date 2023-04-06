@@ -1,7 +1,7 @@
 import { Pagination } from "@mui/material";
 import React from "react";
 import { useTypedDispatch } from "../../hooks/redux";
-import { setCurrentPage } from "../../store/slices/filterSlice";
+import { setCurrentPage } from "../../store/slices/filter";
 import { useProductsPagination } from "./hooks/useProductsPagination";
 
 const ProductsPagination = () => {

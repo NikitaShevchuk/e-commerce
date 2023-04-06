@@ -2,7 +2,7 @@ import { FormControl, InputLabel, MenuItem, Select, type SelectChangeEvent } fro
 import React, { type FC } from "react";
 import { useTypedDispatch } from "@/hooks/redux";
 import { type ICategory } from "@/types/ICategory";
-import { setSelectedCategory } from "@/store/slices/searchSlice";
+import { setSelectedCategory } from "@/store/slices/search";
 import { useGetCategories } from "./hooks/useGetCategories";
 
 interface Props {

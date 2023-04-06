@@ -1,7 +1,7 @@
 import React, { type FC } from "react";
 import { type ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import MenuItem from "@mui/material/MenuItem";
-import { type Sort } from "../../../store/slices/filterSlice";
+import { type Sort } from "../../../store/slices/filter";
 import DoneIcon from "@mui/icons-material/Done";
 import { useTypedDispatch, useTypedSelector } from "../../../hooks/redux";
 

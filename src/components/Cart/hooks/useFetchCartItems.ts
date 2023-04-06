@@ -1,5 +1,5 @@
 import { useTypedDispatch } from "@/hooks/redux";
-import { getCartItems } from "@/store/slices/cartSlice/cart-thunks";
+import { getCartItems } from "@/store/slices/cart/cart-thunks";
 import React from "react";
 
 export const useFetchCartItems = () => {

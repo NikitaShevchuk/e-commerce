@@ -1,9 +1,9 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { createWrapper } from "next-redux-wrapper";
 import { productsAPI } from "../services/products";
-import cartSlice from "./slices/cartSlice";
-import filterSlice from "./slices/filterSlice";
-import searchSlice from "./slices/searchSlice";
+import cartSlice from "./slices/cart";
+import filterSlice from "./slices/filter";
+import searchSlice from "./slices/search";
 
 const rootReducer = combineReducers({
     filterSlice,

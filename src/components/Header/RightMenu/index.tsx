@@ -1,7 +1,7 @@
 import { Box, Link as MaterialLink } from "@mui/material";
 import React from "react";
 import { useTypedDispatch, useTypedSelector } from "../../../hooks/redux";
-import { setIsSearchActive } from "../../../store/slices/searchSlice";
+import { setIsSearchActive } from "../../../store/slices/search";
 import CartLink from "./CartLink";
 import AuthLink from "./AuthLink";
 

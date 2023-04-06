@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import { getFilters } from "../../store/selectors/filter";
 import { getSearchRequest } from "../../store/selectors/search";
-import { setQueryRequest } from "../../store/slices/filterSlice";
+import { setQueryRequest } from "../../store/slices/filter";
 import { useTypedDispatch, useTypedSelector } from "../redux";
 import { getQuery } from "./getQuery";
 import { useClearSearchRequest } from "./useClearSearchRequest";

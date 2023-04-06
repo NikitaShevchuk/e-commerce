@@ -1,5 +1,5 @@
 import { getSearchRequest } from "@/store/selectors/search";
-import { setSearchRequest } from "@/store/slices/searchSlice";
+import { setSearchRequest } from "@/store/slices/search";
 import { useTypedDispatch, useTypedSelector } from "../redux";
 
 export const useClearSearchRequest = () => {

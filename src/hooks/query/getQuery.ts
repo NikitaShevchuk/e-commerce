@@ -1,4 +1,4 @@
-import type { FilterSliceInitialState } from "@/store/slices/filterSlice";
+import type { FilterSliceInitialState } from "@/store/slices/filter";
 import qs from "qs";
 
 export const getQuery = (filters: FilterSliceInitialState): string => {

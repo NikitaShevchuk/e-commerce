@@ -1,8 +1,8 @@
 import React from "react";
 import qs from "qs";
-import { setFilters } from "../../store/slices/filterSlice";
+import { setFilters } from "../../store/slices/filter";
 import { useTypedDispatch } from "../redux";
-import { setSearchRequest } from "../../store/slices/searchSlice";
+import { setSearchRequest } from "../../store/slices/search";
 
 const useParseQueryParamsToState = () => {
     const dispatch = useTypedDispatch();
