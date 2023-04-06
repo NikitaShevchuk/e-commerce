@@ -2,7 +2,6 @@ import { StorefrontOutlined } from "@mui/icons-material";
 import { AppBar, Toolbar, Typography } from "@mui/material";
 import Link from "next/link";
 import React, { type FC } from "react";
-import Cart from "../Cart";
 import LeftMenu from "./LeftMenu";
 import RightMenu from "./RightMenu";
 import HeaderSearch from "./Search";
@@ -21,7 +20,6 @@ const Header: FC = () => {
                 <RightMenu />
             </Toolbar>
             <HeaderSearch />
-            <Cart />
         </AppBar>
     );
 };

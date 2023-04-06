@@ -1,8 +1,7 @@
 import { Modal, Paper } from "@mui/material";
-import React from "react";
+import React, { type FC } from "react";
 import { useTypedDispatch, useTypedSelector } from "../../hooks/redux";
 import { cartSelector } from "../../store/selectors/cart";
-import { setIsCartModalOpened } from "../../store/slices/cartSlice";
 import { getCartItems } from "../../store/slices/cartSlice/cart-thunks";
 import { RequestStatus } from "../../store/slices/cartSlice/Types";
 import HeaderWithClose from "../common/HeaderWithClose";
@@ -16,8 +15,13 @@ import { useFetchCartItems } from "./hooks/useFetchCartItems";
 import { useGetCartProducts } from "./hooks/useGetCartProducts";
 import { useGetTotal } from "./hooks/useGetTotal";
 
-const Cart = () => {
-    const { cartItems, status, cartItemsCount, isCartModalOpened } = useTypedSelector(cartSelector);
+interface Props {
+    isOpened: boolean;
+    close: () => void;
+}
+
+const Cart: FC<Props> = ({ isOpened, close }) => {
+    const { cartItems, status, cartItemsCount } = useTypedSelector(cartSelector);
 
     useFetchCartItems();
 
@@ -32,12 +36,11 @@ const Cart = () => {
         void dispatch(getCartItems());
     };
     const dispatch = useTypedDispatch();
-    const handleClose = () => dispatch(setIsCartModalOpened(false));
 
     return (
-        <Modal open={isCartModalOpened} onClose={handleClose} keepMounted>
+        <Modal open={isOpened} onClose={close} keepMounted>
             <Paper className="modal-window">
-                <HeaderWithClose title={title} handleClose={setIsCartModalOpened} />
+                <HeaderWithClose title={title} close={close} />
 
                 <div className="cart-items-wrapper">
                     {status.getCartItems === RequestStatus.fulfilled && <>{cartProducts}</>}
@@ -55,7 +58,7 @@ const Cart = () => {
                     )}
                 </div>
                 <CartError />
-                <CartFooter handleClose={handleClose} total={total} />
+                <CartFooter handleClose={close} total={total} />
             </Paper>
         </Modal>
     );

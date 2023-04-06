@@ -6,12 +6,16 @@ import { type ActionCreatorWithPayload } from "@reduxjs/toolkit";
 
 interface Props {
     title: string;
-    handleClose: ActionCreatorWithPayload<any, any>;
+    handleClose?: ActionCreatorWithPayload<any, any>;
+    close?: () => void;
 }
 
-const HeaderWithClose: FC<Props> = ({ title, handleClose }) => {
+const HeaderWithClose: FC<Props> = ({ title, handleClose, close }) => {
     const dispatch = useTypedDispatch();
-    const handleClick = () => dispatch(handleClose(false));
+    const handleClick = () => {
+        if (handleClose !== undefined) dispatch(handleClose(false));
+        if (close !== undefined) close();
+    };
     return (
         <Stack justifyContent="space-between" direction="row">
             <Typography>{title}</Typography>

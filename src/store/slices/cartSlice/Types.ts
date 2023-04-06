@@ -1,5 +1,4 @@
 import { type ICategory } from "@/types/ICategory";
-import { type CartProduct } from "../../../types/CartProduct";
 
 export enum RequestStatus {
     loading = "loading",
@@ -21,19 +20,6 @@ export enum ErrorsAlert {
 }
 
 export type LoadingIDs = string[];
-
-export interface CartInitialState {
-    isCartModalOpened: boolean;
-    cartItemsCount: number;
-    cartItems: CartProduct[] | null;
-    status: {
-        getCartItems: RequestStatus;
-        addCartItem: RequestStatus;
-        itemsIsRemoving: LoadingIDs;
-        itemsIsUpdating: LoadingIDs;
-    };
-    errors: ThunkError[];
-}
 
 export enum CountAction {
     increase = "increase",

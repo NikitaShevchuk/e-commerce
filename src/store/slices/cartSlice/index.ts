@@ -4,30 +4,26 @@ import { addToCartBuilder } from "./reducer-map-builder/addToCartBuilder";
 import { getCartItemsBuilder } from "./reducer-map-builder/getCartItemsBuilder";
 import { modifyCartItemCountBuilder } from "./reducer-map-builder/modifyCartItemCountBuilder";
 import { removeCartItemBuilder } from "./reducer-map-builder/removeCartItemBuilder";
-import { type CartInitialState, RequestStatus } from "./Types";
+import { type LoadingIDs, RequestStatus, type ThunkError } from "./Types";
 import { HYDRATE } from "next-redux-wrapper";
+import { type CartProduct } from "@/types/CartProduct";
 
-export const cartInitialState: CartInitialState = {
-    isCartModalOpened: false,
-    cartItemsCount: 0,
-    cartItems: null,
+export const cartInitialState = {
+    cartItemsCount: 0 as number,
+    cartItems: null as CartProduct[] | null,
     status: {
-        getCartItems: RequestStatus.loading,
-        addCartItem: RequestStatus.fulfilled,
-        itemsIsUpdating: [],
-        itemsIsRemoving: []
+        getCartItems: RequestStatus.loading as RequestStatus,
+        addCartItem: RequestStatus.fulfilled as RequestStatus,
+        itemsIsUpdating: [] as LoadingIDs,
+        itemsIsRemoving: [] as LoadingIDs
     },
-    errors: []
+    errors: [] as ThunkError[]
 };
 
 const cartSlice = createSlice({
     name: "cartSlice",
     initialState: cartInitialState,
-    reducers: {
-        setIsCartModalOpened(state, action: { type: string; payload: boolean }) {
-            state.isCartModalOpened = action.payload;
-        }
-    },
+    reducers: {},
     extraReducers: (builder) => {
         addNewCartItemBuilder(builder);
         addToCartBuilder(builder);
@@ -36,13 +32,15 @@ const cartSlice = createSlice({
         getCartItemsBuilder(builder);
 
         builder.addCase(HYDRATE, (state, action: any) => {
+            if (action.payload.cartSlice === undefined) return state;
             return {
                 ...state,
-                ...action.payload.searchSlice
+                ...action.payload.cartSlice
             };
         });
     }
 });
 
-export const { setIsCartModalOpened } = cartSlice.actions;
+export type CartInitialState = typeof cartInitialState;
+
 export default cartSlice.reducer;
