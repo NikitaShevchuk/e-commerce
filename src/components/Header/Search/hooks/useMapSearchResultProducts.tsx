@@ -7,11 +7,10 @@ export const useMapSearchResultProducts = (products: IProductCard[] | undefined)
         if (products != null)
             return products.map((product) => (
                 <SingleProduct
-                    key={product.id}
-                    productName={product.name}
+                    key={product._id}
+                    productName={product.title}
                     productColor={product.color}
-                    productId={product.id}
-                    categoryId={product.categoryId}
+                    productId={product._id}
                 />
             ));
         else return [];

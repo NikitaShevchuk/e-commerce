@@ -1,6 +1,6 @@
 import { useTypedSelector } from "@/hooks/redux";
 import useUpdateQuery from "@/hooks/query/useUpdateQuery";
-import { useGetProductCardsQuery } from "@/services/productsService";
+import { useGetProductCardsQuery } from "@/services/products";
 import { getFilters } from "@/store/selectors/filter";
 import { skipToken } from "@reduxjs/toolkit/dist/query/react";
 import { useRouter } from "next/router";

@@ -2,16 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 import { type ICategory } from "../../../types/ICategory";
 import { HYDRATE } from "next-redux-wrapper";
 
-interface InitialState {
-    isSearchActive: boolean;
-    searchRequestText: string | null;
-    selectedSearchCategory: ICategory | null;
-}
-
-const initialState: InitialState = {
-    isSearchActive: false,
-    searchRequestText: "",
-    selectedSearchCategory: null
+const initialState = {
+    isSearchActive: false as boolean,
+    searchRequestText: "" as string | null,
+    selectedSearchCategory: null as ICategory | null
 };
 
 export const searchSlice = createSlice({

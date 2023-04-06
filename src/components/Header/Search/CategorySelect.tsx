@@ -17,11 +17,12 @@ const CategorySelect: FC<Props> = ({ selectedSearchCategory }) => {
         const filteredById = categories?.data.filter(
             (singleCategory) => singleCategory.title === event.target.value
         );
-        dispatch(setSelectedCategory(filteredById != null ? filteredById[0] : null));
+        if (filteredById === undefined) return;
+        dispatch(setSelectedCategory(filteredById[0]));
     };
 
-    const defaultCategory = categories != null ? categories.data[0].title : "";
-    const value = selectedSearchCategory != null ? selectedSearchCategory.title : defaultCategory;
+    const defaultCategory = categories !== undefined ? categories.data[0].title : "";
+    const value = selectedSearchCategory !== null ? selectedSearchCategory.title : defaultCategory;
 
     return (
         <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>

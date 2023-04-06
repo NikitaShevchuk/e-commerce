@@ -3,6 +3,7 @@ import { HYDRATE } from "next-redux-wrapper";
 import { type ICategory } from "../types/ICategory";
 import { type IProductCard } from "../types/IProductCard";
 import { type DefaultResponse } from "@/types/Response";
+import { setSelectedCategory } from "@/store/slices/searchSlice";
 
 export const API_URL = "http://localhost:5000/api";
 
@@ -45,7 +46,12 @@ export const productsAPI = createApi({
         getCategories: build.query<DefaultResponse<ICategory[]>, string>({
             query: (params) => ({
                 url: `/category${params}`
-            })
+            }),
+            onCacheEntryAdded: async (params, { cacheDataLoaded, dispatch }) => {
+                const { data } = await cacheDataLoaded;
+                if (!data?.success || data.data[0] === undefined) return;
+                dispatch(setSelectedCategory(data.data[0]));
+            }
         }),
         getSingleCategory: build.query<DefaultResponse<ICategory>, SingleCategoryParams>({
             query: ({ categoryTitle, categoryId }) => ({
@@ -61,10 +67,10 @@ export const productsAPI = createApi({
             }
         }),
         getProductsBySearch: build.query<DefaultResponse<IProductCard[]>, SearchParams>({
-            query: ({ searchRequestText, page, limit }) => ({
+            query: ({ searchRequestText, page, limit, categoryId }) => ({
                 url: `/product?page=${page}&limit=${limit}${
                     searchRequestText !== null ? `&title=${searchRequestText}` : ""
-                }`
+                }${categoryId !== undefined ? `&categoryId=${categoryId}` : ""}`
             })
         }),
         addToFavorite: build.mutation<IProductCard, AddToFavoriteParams>({

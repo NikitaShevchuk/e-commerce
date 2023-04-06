@@ -1,7 +1,7 @@
 import CategoryHeader from "@/components/Category/CategoryHeader";
 import Products from "@/components/Category/Products";
 // import ProductsPagination from "@/components/Category/ProductsPagination";
-import useParseQueryParamsToState from "@/hooks/useParseQueryParamsToState";
+import useParseQueryParamsToState from "@/hooks/query/useParseQueryParamsToState";
 import { Container } from "@mui/material";
 import React, { type FC } from "react";
 

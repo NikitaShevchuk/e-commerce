@@ -7,11 +7,9 @@ import BasicPreloader from "../../../Loaders/BasicPreloader";
 import SearchResultPreloader from "../../../Loaders/SearchResultPreloader";
 import LoadingError from "../../../LoadingError";
 import { useMapSearchResultProducts } from "../hooks/useMapSearchResultProducts";
-import { getFilters } from "@/store/selectors/filter";
 
 const SearchResults = () => {
     const { searchRequestText, selectedSearchCategory } = useTypedSelector(getSearchSlice);
-    const { limit, page } = useTypedSelector(getFilters);
 
     const skipRequest = searchRequestText !== null ? searchRequestText.length < 2 : true;
     const {
@@ -24,8 +22,8 @@ const SearchResults = () => {
         {
             searchRequestText,
             categoryId: selectedSearchCategory?._id,
-            limit: String(limit),
-            page: String(page)
+            limit: "5",
+            page: "1"
         },
         { skip: skipRequest }
     );
@@ -38,7 +36,7 @@ const SearchResults = () => {
 
             {!isError && !isFetching && mappedProducts}
 
-            {products != null && products?.data.length < 1 && (
+            {products !== undefined && products?.data.length < 1 && (
                 <Typography>Nothing found</Typography>
             )}
 

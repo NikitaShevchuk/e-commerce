@@ -33,7 +33,7 @@ const ProductsSlider: FC<CategorySliderProps> = ({ queryParams, blockTitle, cate
         <>
             <Container maxWidth="xl">
                 <Stack direction="row" justifyContent="space-between">
-                    <Typography variant="h4" sx={{ marginTop: 4 }}>
+                    <Typography variant="h4" sx={{ marginTop: 10 }}>
                         {blockTitle}
                     </Typography>
                     {categoryLink !== undefined && <Link href={categoryLink}>View all</Link>}
