@@ -15,7 +15,7 @@ export const useGetProducts = ({ clearSearchRequest = false }: ProductsProps) =>
     const queryParam = typeof categoryTitle === "string" ? requestQuery : skipToken;
 
     const isMounted = React.useRef(false);
-    useUpdateQuery(categoryTitle, isMounted, clearSearchRequest);
+    useUpdateQuery(isMounted, clearSearchRequest);
 
     const {
         data: products,

@@ -8,7 +8,6 @@ import { getQuery } from "./getQuery";
 import { useClearSearchRequest } from "./useClearSearchRequest";
 
 const useUpdateQuery = (
-    categoryTitle: string | string[] | undefined,
     isMounted: { current: boolean } = { current: false },
     clearSearchRequest: boolean = false
 ) => {
@@ -23,18 +22,24 @@ const useUpdateQuery = (
         const categoryIdQuery = `categoryId=${String(filters.categoryId)}`;
         if (
             isMounted.current &&
+            window.location.search !== "" &&
             window.location.search !==
                 filters.requestQuery
                     .replace(`&${categoryIdQuery}`, "")
                     .replace(`?${categoryIdQuery}`, "")
+                    .replace(/&&/g, "")
         ) {
-            void router.push({
-                pathname: "/category/[categoryTitle]?page=[page]&limit=[limit]",
-                query: { categoryTitle, page: filters.page, limit: filters.limit }
-            });
+            const path = insertCategoryTitle(query, router.query.categoryTitle);
+            void router.push(path, undefined, { shallow: true });
         }
         dispatch(setQueryRequest(`?${query}`));
-        if (typeof categoryTitle === "string") isMounted.current = true;
-    }, [filters, categoryTitle, search]);
+        if (typeof router.query.categoryTitle === "string") isMounted.current = true;
+    }, [filters, search]);
 };
+
+function insertCategoryTitle(query: string, categoryTitle: string | string[] | undefined) {
+    if (typeof categoryTitle !== "string") return `/category/Men?${query}`;
+    return `/category/${categoryTitle}?${query}`;
+}
+
 export default useUpdateQuery;

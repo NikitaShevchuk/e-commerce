@@ -13,7 +13,7 @@ const Header: FC = () => {
             <Toolbar disableGutters className="toolbar">
                 <LeftMenu />
                 <Typography sx={{ flex: 1 }}>
-                    <Link href="/" className="home-link">
+                    <Link replace href="/" className="home-link">
                         <StorefrontOutlined sx={{ mr: 1, fontSize: 20 }} />
                         E-commerce
                     </Link>

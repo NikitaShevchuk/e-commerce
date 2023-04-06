@@ -35,7 +35,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     (store) =>
         async (context): Promise<PageProps> => {
             const categoryTitleParam = context.params?.categoryTitle;
-            const clearSearchQuery = context.params?.clearSearch;
+            const keepSearch = context.params?.keepSearch;
             if (typeof categoryTitleParam !== "string") return redirectToCategory;
 
             // Redirect if there is no page and limit in request query
@@ -59,9 +59,11 @@ export const getServerSideProps = wrapper.getServerSideProps(
             setQueryParamsToState(store, context, categoryId);
             await loadProductsByCategoryId(store, context.query);
 
-            const clearSearch =
-                typeof clearSearchQuery === "string" ? clearSearchQuery === "true" : false;
-            return { props: { clearSearch } };
+            const shouldKeepSearchRequest =
+                typeof keepSearch === "string" ? keepSearch === "true" : false;
+            const hasTitleQueryParam = typeof context.query?.title === "string";
+            const includesSearch = shouldKeepSearchRequest && hasTitleQueryParam;
+            return { props: { includesSearch } };
         }
 );
 
@@ -81,10 +83,14 @@ function redirectWithParams(
 }
 
 async function loadProductsByCategoryId(store: AppStore, query: ParsedUrlQuery) {
+    const categoryTitle = `categoryTitle=${String(query.categoryTitle)}`;
+    const categoryId = `categoryId=${String(query.categoryId)}`;
     const queryParams = qs
         .stringify({ ...query })
-        .replace(`categoryTitle=${String(query.categoryTitle)}`, "")
-        .replace(`categoryId=${String(query.categoryId)}`, "");
+        .replace(`?${categoryTitle}`, "")
+        .replace(`&${categoryTitle}`, "")
+        .replace(`?${categoryId}`, "")
+        .replace(`&${categoryId}`, "");
     store.dispatch(setQueryRequest(`?${queryParams}`));
     void store.dispatch(getProductCards.initiate(`?${queryParams}`));
     await Promise.all(store.dispatch(getRunningQueriesThunk()));

@@ -14,12 +14,12 @@ const Banner = () => {
                     Out now!
                 </Typography>
                 <Button variant="contained" sx={{ mr: 2 }} color="secondary" size="large">
-                    <Link style={{ fontSize: "12px" }} href={`/category/1`}>
+                    <Link style={{ fontSize: "12px" }} href={`/category/Men`}>
                         Shop men&apos;s
                     </Link>
                 </Button>
                 <Button variant="contained" color="secondary" size="large">
-                    <Link style={{ fontSize: "12px" }} href={`/category/2`}>
+                    <Link style={{ fontSize: "12px" }} href={`/category/Women`}>
                         Shop women&apos;s
                     </Link>
                 </Button>

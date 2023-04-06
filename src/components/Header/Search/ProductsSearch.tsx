@@ -6,18 +6,34 @@ import { getSearchSlice } from "@/store/selectors/search";
 import { setIsSearchActive, setSearchRequest } from "@/store/slices/searchSlice";
 import SearchField from "@/features/SearchField";
 import CategorySelect from "./CategorySelect";
+import { setCurrentPage } from "@/store/slices/filterSlice";
 
 const ProductsSearch = () => {
     const { searchRequestText, isSearchActive } = useTypedSelector((state) => state.searchSlice);
-    const { page, limit } = useTypedSelector(getFilters);
+    const { limit } = useTypedSelector(getFilters);
     const { selectedSearchCategory } = useTypedSelector(getSearchSlice);
     const router = useRouter();
     const dispatch = useTypedDispatch();
-    const onEnterPress = () => {
-        const categoryTitle = selectedSearchCategory != null ? selectedSearchCategory.title : "1";
-        const search = searchRequestText !== null ? `&search=${searchRequestText}` : "";
-        void router.replace(`/category/${categoryTitle}?page=${page}&limit=${limit}${search}`);
+    const onEnterPress = async () => {
+        const categoryTitle =
+            selectedSearchCategory !== null ? selectedSearchCategory.title : "Men";
+        const shallow = router.pathname.includes("category");
+        await router.replace(
+            {
+                pathname: `/category/[categoryTitle]`,
+                query: {
+                    categoryTitle,
+                    page: "1",
+                    limit,
+                    title: searchRequestText,
+                    keepSearch: "true"
+                }
+            },
+            undefined,
+            { shallow }
+        );
         dispatch(setIsSearchActive(false));
+        dispatch(setCurrentPage("1"));
     };
     return (
         <div className="search-wrapper">

@@ -1,4 +1,5 @@
-import { Box, Link } from "@mui/material";
+import { Box } from "@mui/material";
+import Link from "next/link";
 import React from "react";
 
 const LeftMenu = () => {

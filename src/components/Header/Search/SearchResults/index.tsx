@@ -1,11 +1,11 @@
 import { Typography } from "@mui/material";
 import React from "react";
-import { useTypedSelector } from "../../../../hooks/redux";
-import { useGetProductsBySearchQuery } from "../../../../services/products";
-import { getSearchSlice } from "../../../../store/selectors/search";
-import BasicPreloader from "../../../Loaders/BasicPreloader";
-import SearchResultPreloader from "../../../Loaders/SearchResultPreloader";
-import LoadingError from "../../../LoadingError";
+import { useTypedSelector } from "@/hooks/redux";
+import { useGetProductsBySearchQuery } from "@/services/products";
+import { getSearchSlice } from "@/store/selectors/search";
+import BasicPreloader from "@/components/Loaders/BasicPreloader";
+import SearchResultPreloader from "@/components/Loaders/SearchResultPreloader";
+import LoadingError from "@/components/LoadingError";
 import { useMapSearchResultProducts } from "../hooks/useMapSearchResultProducts";
 
 const SearchResults = () => {
