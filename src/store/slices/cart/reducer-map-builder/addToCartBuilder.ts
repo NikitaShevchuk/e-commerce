@@ -1,5 +1,5 @@
 import { type ActionReducerMapBuilder } from "@reduxjs/toolkit";
-import { addToCart } from "../cart-thunks";
+import { addToCart } from "../thunks";
 import { findByErrorBody } from "../helpers";
 import { type CartInitialState, ErrorsAlert, RequestStatus, type ThunkError } from "../Types";
 

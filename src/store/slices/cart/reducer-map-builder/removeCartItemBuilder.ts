@@ -1,5 +1,5 @@
 import { type ActionReducerMapBuilder } from "@reduxjs/toolkit";
-import { removeCartItem } from "../cart-thunks";
+import { removeCartItem } from "../thunks";
 import { filterByErrorBody } from "../helpers";
 import { type CartInitialState, ErrorsAlert, type ThunkError } from "../Types";
 

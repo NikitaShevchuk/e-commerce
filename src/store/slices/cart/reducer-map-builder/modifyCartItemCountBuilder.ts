@@ -1,5 +1,5 @@
 import { type ActionReducerMapBuilder } from "@reduxjs/toolkit";
-import { modifyCartItemCount } from "../cart-thunks";
+import { modifyCartItemCount } from "../thunks";
 import { type CartInitialState, ErrorsAlert, type ThunkError } from "../Types";
 
 export const modifyCartItemCountBuilder = (builder: ActionReducerMapBuilder<CartInitialState>) => {

@@ -2,7 +2,7 @@ import debounce from "lodash.debounce";
 import React, { type FC } from "react";
 import { useTypedDispatch, useTypedSelector } from "@/hooks/redux";
 import { cartSelector } from "@/store/selectors/cart";
-import { modifyCartItemCount, removeCartItem } from "@/store/slices/cart/cart-thunks";
+import { modifyCartItemCount, removeCartItem } from "@/store/slices/cart/thunks";
 import { type CounterToChange } from "@/store/slices/cart/helpers";
 import { CountAction } from "@/store/slices/cart/Types";
 import CounterInput from "@/features/CounterInput/CounterInput";

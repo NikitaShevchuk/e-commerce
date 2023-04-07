@@ -4,7 +4,6 @@ import { cartApi } from "../../../services/cart";
 import { cartSelector } from "../../selectors/cart";
 import { type RootState } from "../../store";
 import { changeCounter, type CounterToChange } from "./helpers";
-import { setIsCartModalOpened } from "./index";
 import { CountAction, ErrorsAlert, type SelectedCartItem } from "./Types";
 
 export const getCartItems = createAsyncThunk("cart/getCartItems", async (_) => {
@@ -60,7 +59,6 @@ const findItemInCart = (selectedCartItem: SelectedCartItem) => (item: CartProduc
 export const addToCart = createAsyncThunk(
     "cart/addToCart",
     async (selectedCartItem: SelectedCartItem, { getState, dispatch }) => {
-        dispatch(setIsCartModalOpened(true));
         const rootState = getState() as RootState;
         const { cartItems, cartItemsCount } = cartSelector(rootState);
         const existingProductInCart = cartItems?.find(findItemInCart(selectedCartItem));

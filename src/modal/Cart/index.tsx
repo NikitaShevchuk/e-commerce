@@ -2,7 +2,7 @@ import { Modal, Paper } from "@mui/material";
 import React, { type FC } from "react";
 import { useTypedDispatch, useTypedSelector } from "../../hooks/redux";
 import { cartSelector } from "../../store/selectors/cart";
-import { getCartItems } from "../../store/slices/cart/cart-thunks";
+import { getCartItems } from "../../store/slices/cart/thunks";
 import { RequestStatus } from "../../store/slices/cart/Types";
 import HeaderWithClose from "../../components/common/HeaderWithClose";
 import BasicPreloader from "../../components/Loaders/BasicPreloader";

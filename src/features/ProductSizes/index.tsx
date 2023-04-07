@@ -5,7 +5,7 @@ import React, { type FC } from "react";
 import { useGetSizeItems } from "../../components/ProductCard/useGetSizeItems";
 import { useTypedDispatch } from "../../hooks/redux";
 import { type IProductCard } from "../../types/IProductCard";
-import { addToCart } from "../../store/slices/cart/cart-thunks";
+import { addToCart } from "../../store/slices/cart/thunks";
 import ToggleFavorite from "../ToggleFavorite";
 import AddToCartButton, { type ColorVariant } from "./AddToCartButton";
 
