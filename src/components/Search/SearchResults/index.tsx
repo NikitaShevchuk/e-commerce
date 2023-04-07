@@ -4,9 +4,9 @@ import { useTypedSelector } from "@/hooks/redux";
 import { useGetProductsBySearchQuery } from "@/services/products";
 import { getSearchSlice } from "@/store/selectors/search";
 import BasicPreloader from "@/components/Loaders/BasicPreloader";
-import SearchResultPreloader from "@/components/Loaders/SearchResultPreloader";
 import LoadingError from "@/components/LoadingError";
 import { useMapSearchResultProducts } from "../hooks/useMapSearchResultProducts";
+import SingleProduct from "./SingleProduct";
 
 const SearchResults = () => {
     const { searchRequestText, selectedSearchCategory } = useTypedSelector(getSearchSlice);
@@ -31,7 +31,7 @@ const SearchResults = () => {
     return (
         <div>
             <BasicPreloader isLoading={isLoading} isFetching={isFetching} itemsToShow={2}>
-                <SearchResultPreloader />
+                <SingleProduct />
             </BasicPreloader>
 
             {!isError && !isFetching && mappedProducts}

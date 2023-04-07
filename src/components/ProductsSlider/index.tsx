@@ -1,7 +1,6 @@
 import { Container, Stack, Typography } from "@mui/material";
 import React, { type FC } from "react";
 import { useGetProductCardsQuery } from "../../services/products";
-import ProductCardLoader from "../Loaders/ProductCardLoader";
 import ProductCard from "../ProductCard";
 import { skipToken } from "@reduxjs/toolkit/dist/query/react";
 import Link from "next/link";
@@ -23,6 +22,7 @@ const ProductsSlider: FC<CategorySliderProps> = ({ queryParams, blockTitle, cate
     const {
         data: products,
         isLoading,
+        isFetching,
         error,
         refetch
     } = useGetProductCardsQuery(router.query !== undefined ? queryParams : skipToken, {
@@ -44,12 +44,14 @@ const ProductsSlider: FC<CategorySliderProps> = ({ queryParams, blockTitle, cate
                         spaceBetween={20}
                         className="custom-swiper"
                     >
-                        {isLoading &&
-                            Array.from(Array(6)).map((_, index) => (
-                                <SwiperSlide key={index}>
-                                    <ProductCardLoader />
-                                </SwiperSlide>
-                            ))}
+                        {isLoading || isFetching
+                            ? Array.from(Array(6)).map((_, index) => (
+                                  <SwiperSlide key={index}>
+                                      <ProductCard queryParams="" />;
+                                  </SwiperSlide>
+                              ))
+                            : null}
+
                         {!isLoading &&
                             products !== undefined &&
                             products.data.map((product) => (

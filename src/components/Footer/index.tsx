@@ -1,10 +1,10 @@
-import { AppBar, Toolbar, Typography } from "@mui/material";
+import { Toolbar, Typography } from "@mui/material";
 import React, { type FC } from "react";
 import style from "./footer.module.css";
 
 const Footer: FC = () => {
     return (
-        <AppBar position="static">
+        <footer>
             <Toolbar disableGutters className={style.footer__toolbar}>
                 <Typography
                     color="black"
@@ -31,7 +31,7 @@ const Footer: FC = () => {
                     +1111111111
                 </Typography>
             </Toolbar>
-        </AppBar>
+        </footer>
     );
 };
 

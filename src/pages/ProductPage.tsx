@@ -1,4 +1,3 @@
-import ProductPageLoader from "@/components/Loaders/ProductPageLoader";
 import ProductSizes from "@/features/ProductSizes";
 import { API_URL, useGetSingleProductQuery } from "@/services/products";
 import { Card, CardMedia, Divider, Typography } from "@mui/material";
@@ -17,15 +16,13 @@ export function ProductPage() {
     const router = useRouter();
     const { productId } = router.query;
 
-    const { data: product, isLoading } = useGetSingleProductQuery(
+    const { data: product } = useGetSingleProductQuery(
         typeof productId === "string" ? { productId } : skipToken,
         { skip: router.isFallback }
     );
 
     const image =
         typeof product?.data.image === "string" ? API_URL + product?.data.image : noImage.src;
-
-    if (isLoading || router.isFallback) return <ProductPageLoader />;
 
     return (
         <Card className="flex transparent-background product-page__wrapper">
