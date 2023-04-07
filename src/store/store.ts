@@ -4,11 +4,13 @@ import { productsAPI } from "../services/products";
 import cartSlice from "./slices/cart";
 import filterSlice from "./slices/filter";
 import searchSlice from "./slices/search";
+import profileSlice from "./slices/profile";
 
 const rootReducer = combineReducers({
     filterSlice,
     searchSlice,
     cartSlice,
+    profileSlice,
     [productsAPI.reducerPath]: productsAPI.reducer
 });
 

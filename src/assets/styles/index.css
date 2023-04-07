@@ -288,7 +288,6 @@ body .link {
 .MuiModal-root .cart-card__wrapper {
     display: flex;
     box-shadow: none;
-    background-color: white;
     transition: all 0.3s ease-in-out;
 }
 .MuiModal-hidden.MuiModal-root .cart-card__wrapper {
