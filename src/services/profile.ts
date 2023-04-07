@@ -30,7 +30,9 @@ export const profileApi = {
         return await profileInstance.get<DefaultResponse<Profile>>(`me`).then(extractData);
     },
     async logout() {
-        return await profileInstance.delete<DefaultResponse<Profile>>(`logout`).then(extractData);
+        return await profileInstance
+            .delete<DefaultResponse<undefined>>(`logout`)
+            .then((res) => res.data);
     },
     async signup(signupData: SignUpData) {
         return await profileInstance

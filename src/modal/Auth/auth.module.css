@@ -11,3 +11,11 @@
     padding: 50px;
     margin: auto;
 }
+
+.error {
+    color: var(--error);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}

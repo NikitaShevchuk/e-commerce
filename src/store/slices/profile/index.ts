@@ -22,7 +22,12 @@ const profileSlice = createSlice({
         authorizationError(state) {
             state.isLoading = false;
             state.isAuthorized = false;
-            state.loginError = "Please check your internet connection.";
+            state.loginError = "Authorization failed.";
+            state.profile = profile;
+        },
+        setUnauthorized(state) {
+            state.isLoading = false;
+            state.isAuthorized = false;
             state.profile = profile;
         },
         setPendingState(state) {
@@ -32,11 +37,7 @@ const profileSlice = createSlice({
         successAuthorization(state, action: { payload: DefaultResponse<Profile> }) {
             state.isLoading = false;
 
-            const authorizationFailed =
-                !action.payload.success ||
-                action.payload.isAuthorized === undefined ||
-                !action.payload.isAuthorized;
-            if (authorizationFailed) {
+            if (!action.payload.success) {
                 state.isAuthorized = false;
                 state.loginError = action.payload.message ?? "Login failed";
                 state.profile = profile;
@@ -46,11 +47,25 @@ const profileSlice = createSlice({
             state.isAuthorized = true;
             state.loginError = null;
             state.profile = action.payload.data;
+        },
+        logout(state, action: { payload: DefaultResponse<undefined> }) {
+            state.isLoading = false;
+            if (!action.payload.success || action.payload.isAuthorized === true) {
+                state.loginError = "Can not log out";
+            }
+            state.isAuthorized = false;
+            state.profile = profile;
         }
     }
 });
 
-export const { authorizationError, setPendingState, successAuthorization } = profileSlice.actions;
+export const {
+    authorizationError,
+    setPendingState,
+    successAuthorization,
+    logout,
+    setUnauthorized
+} = profileSlice.actions;
 export default profileSlice.reducer;
 
 export type ProfileSliceInitialState = typeof initialState;
