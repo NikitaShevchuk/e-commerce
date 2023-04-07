@@ -6,6 +6,8 @@ import Login from "@/forms/login/";
 import { useTypedSelector } from "@/hooks/redux";
 import { getIsAuthorized, getIsLoading } from "@/store/selectors/profile";
 import UserProfile from "@/features/Profile";
+import Spinner from "@/components/Loaders/Spinner";
+import { useAuthorize } from "./hooks/useAuthorize";
 
 interface Props {
     isOpened: boolean;
@@ -15,6 +17,7 @@ interface Props {
 const Auth: FC<Props> = ({ close, isOpened }) => {
     const isAuthorized = useTypedSelector(getIsAuthorized);
     const isLoading = useTypedSelector(getIsLoading);
+    useAuthorize();
     return (
         <Modal open={isOpened} onClose={close} keepMounted>
             <Paper className={style.auth}>
@@ -22,7 +25,7 @@ const Auth: FC<Props> = ({ close, isOpened }) => {
                     title={isAuthorized ? "Your profile" : "Authorize"}
                     close={close}
                 />
-                {isAuthorized ? <UserProfile /> : isLoading ? "Loading" : <Login />}
+                {isAuthorized ? <UserProfile /> : isLoading ? <Spinner fill /> : <Login />}
             </Paper>
         </Modal>
     );

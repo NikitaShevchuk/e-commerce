@@ -36,6 +36,7 @@ const Filter: FC<Props> = ({
     const handleClose = () => {
         setAnchorEl(null);
     };
+    // TODO: refactor
     const filtersFromState = useTypedSelector(getFilters);
     const checkBoxItems = React.useMemo(() => {
         const shouldRenderCheckbox = filterItems != null && filterType === "checkbox";
