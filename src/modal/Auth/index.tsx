@@ -1,7 +1,7 @@
 import React, { type FC } from "react";
 import style from "./auth.module.css";
 import { Modal, Paper } from "@mui/material";
-import HeaderWithClose from "../common/HeaderWithClose";
+import HeaderWithClose from "@/components/common/HeaderWithClose";
 import Login from "./form/Login";
 
 interface Props {

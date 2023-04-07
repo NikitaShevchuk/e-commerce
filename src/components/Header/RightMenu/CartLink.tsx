@@ -1,4 +1,4 @@
-import Cart from "@/components/Cart";
+import Cart from "@/modal/Cart";
 import { useTypedSelector } from "@/hooks/redux";
 import React from "react";
 import { Link as MaterialLink } from "@mui/material";
