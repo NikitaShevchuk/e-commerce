@@ -26,3 +26,27 @@ body a:hover,
 body a.link:hover {
     font-weight: 700;
 }
+
+/* Animations */
+
+.opacity {
+    animation-name: opacityAnimation;
+    animation-duration: 0.3s;
+    animation-timing-function: ease-in-out;
+    animation-delay: 0s;
+    animation-iteration-count: 1;
+    animation-direction: normal;
+    animation-fill-mode: both;
+    animation-play-state: running;
+    transition: opacity 0.3s ease-in-out;
+}
+
+@keyframes opacityAnimation {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}

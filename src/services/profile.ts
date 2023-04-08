@@ -11,6 +11,7 @@ export interface LoginData {
 export interface SignUpData extends LoginData {
     name: string;
     image?: string;
+    confirmPassword: string;
 }
 
 const profileInstance = axios.create({

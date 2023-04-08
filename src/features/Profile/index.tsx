@@ -29,10 +29,10 @@ const UserProfile = () => {
                 {profile.name ?? <Skeleton width="40%" inline />}
             </Typography>
             <Typography>{profile.email ?? <Skeleton width="20%" inline />}</Typography>
-            <Button startIcon={<Edit />} sx={{ mt: 6, mr: 2 }} variant="contained">
+            <Button startIcon={<Edit />} sx={{ mt: 6, mr: 2 }} variant="outlined">
                 Edit
             </Button>
-            <Button onClick={logout} startIcon={<Logout />} sx={{ mt: 6 }} variant="outlined">
+            <Button onClick={logout} startIcon={<Logout />} sx={{ mt: 6 }} variant="contained">
                 Logout
             </Button>
         </Paper>
