@@ -55,6 +55,10 @@ const profileSlice = createSlice({
             }
             state.isAuthorized = false;
             state.profile = profile;
+        },
+        singUp(state) {
+            state.isLoading = false;
+            state.loginError = null;
         }
     }
 });
@@ -64,7 +68,8 @@ export const {
     setPendingState,
     successAuthorization,
     logout,
-    setUnauthorized
+    setUnauthorized,
+    singUp
 } = profileSlice.actions;
 export default profileSlice.reducer;
 

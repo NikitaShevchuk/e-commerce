@@ -1,10 +1,11 @@
-import { type LoginData, profileApi } from "@/services/profile";
+import { type LoginData, profileApi, type SignUpData } from "@/services/profile";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
     authorizationError,
     logout,
     setPendingState,
     setUnauthorized,
+    singUp,
     successAuthorization
 } from ".";
 
@@ -40,3 +41,16 @@ export const logoutThunk = createAsyncThunk("profile/logout", async (_, { dispat
         dispatch(authorizationError());
     }
 });
+
+export const signUpThunk = createAsyncThunk(
+    "profile/signup",
+    async (singUpData: SignUpData, { dispatch }) => {
+        try {
+            dispatch(setPendingState());
+            await profileApi.signup(singUpData);
+            dispatch(singUp());
+        } catch (error) {
+            dispatch(authorizationError());
+        }
+    }
+);

@@ -4,7 +4,7 @@ import React, { type FC } from "react";
 import { type SubmitHandler, useForm } from "react-hook-form";
 import { useTypedDispatch } from "@/hooks/redux";
 import { type SignUpData } from "@/services/profile";
-import { loginThunk } from "@/store/slices/profile/thunks";
+import { signUpThunk } from "@/store/slices/profile/thunks";
 import { resolver } from "./validation";
 import PasswordField from "../PasswordField";
 import EmailField from "../EmailField";
@@ -23,7 +23,7 @@ const SignUp: FC<Props> = ({ goToLogin }) => {
     const dispatch = useTypedDispatch();
 
     const onSubmit: SubmitHandler<SignUpData> = (formData) => {
-        void dispatch(loginThunk(formData));
+        void dispatch(signUpThunk(formData));
         goToLogin();
     };
     return (
@@ -37,7 +37,7 @@ const SignUp: FC<Props> = ({ goToLogin }) => {
             <PasswordField
                 inputProps={register("confirmPassword")}
                 overwriteLabel="Confirm password"
-                fieldError={errors.password}
+                fieldError={errors.confirmPassword}
             />
 
             <Button
