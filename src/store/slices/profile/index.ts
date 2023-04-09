@@ -11,31 +11,41 @@ export const profile = {
 const initialState = {
     profile,
     isAuthorized: false as boolean,
-    isLoading: false as boolean,
-    loginError: null as string | null
+    isAuthorizing: false as boolean,
+    loginError: null as string | null,
+    infoMessage: null as string | null
 };
 
 const profileSlice = createSlice({
     name: "profile",
     initialState,
     reducers: {
-        authorizationError(state) {
-            state.isLoading = false;
+        authorizationError(state, action: { payload: DefaultResponse<undefined> | undefined }) {
+            state.isAuthorizing = false;
             state.isAuthorized = false;
-            state.loginError = "Authorization failed.";
+            const errors = action.payload?.validationErrors;
+            if (errors !== undefined) {
+                let errorMessage = "";
+                errors.forEach(
+                    (error) => (errorMessage += `Incorrect data: ${error.value}. ${error.msg}\n`)
+                );
+                state.loginError = errorMessage;
+            } else {
+                state.loginError = "Authorization failed.";
+            }
             state.profile = profile;
         },
         setUnauthorized(state) {
-            state.isLoading = false;
+            state.isAuthorizing = false;
             state.isAuthorized = false;
             state.profile = profile;
         },
         setPendingState(state) {
-            state.isLoading = true;
+            state.isAuthorizing = true;
             state.loginError = null;
         },
         successAuthorization(state, action: { payload: DefaultResponse<Profile> }) {
-            state.isLoading = false;
+            state.isAuthorizing = false;
 
             if (!action.payload.success) {
                 state.isAuthorized = false;
@@ -49,7 +59,7 @@ const profileSlice = createSlice({
             state.profile = action.payload.data;
         },
         logout(state, action: { payload: DefaultResponse<undefined> }) {
-            state.isLoading = false;
+            state.isAuthorizing = false;
             if (!action.payload.success || action.payload.isAuthorized === true) {
                 state.loginError = "Can not log out";
             }
@@ -57,8 +67,9 @@ const profileSlice = createSlice({
             state.profile = profile;
         },
         singUp(state) {
-            state.isLoading = false;
+            state.isAuthorizing = false;
             state.loginError = null;
+            state.infoMessage = "Successfully registered new account.";
         }
     }
 });

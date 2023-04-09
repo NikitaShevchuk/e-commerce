@@ -8,6 +8,10 @@ import {
     singUp,
     successAuthorization
 } from ".";
+import { type AxiosError } from "axios";
+import { type DefaultResponse } from "@/types/Response";
+
+type ProfileError = AxiosError<DefaultResponse<undefined>>;
 
 export const loginThunk = createAsyncThunk(
     "profile/login",
@@ -17,7 +21,8 @@ export const loginThunk = createAsyncThunk(
             const response = await profileApi.login(loginData);
             dispatch(successAuthorization(response));
         } catch (error) {
-            dispatch(authorizationError());
+            const axiosError = error as ProfileError;
+            dispatch(authorizationError(axiosError.response?.data));
         }
     }
 );
@@ -38,7 +43,8 @@ export const logoutThunk = createAsyncThunk("profile/logout", async (_, { dispat
         const response = await profileApi.logout();
         dispatch(logout(response));
     } catch (error) {
-        dispatch(authorizationError());
+        const axiosError = error as ProfileError;
+        dispatch(authorizationError(axiosError.response?.data));
     }
 });
 
@@ -50,7 +56,8 @@ export const signUpThunk = createAsyncThunk(
             await profileApi.signup(singUpData);
             dispatch(singUp());
         } catch (error) {
-            dispatch(authorizationError());
+            const axiosError = error as ProfileError;
+            dispatch(authorizationError(axiosError.response?.data));
         }
     }
 );
