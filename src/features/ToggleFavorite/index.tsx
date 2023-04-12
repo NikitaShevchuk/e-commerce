@@ -1,9 +1,9 @@
-import React, { FC } from "react";
+import React, { type FC } from "react";
 import { Button, IconButton } from "@mui/material";
 import { Favorite, FavoriteBorderOutlined } from "@mui/icons-material";
-import { IProductCard } from "../../models/IProductCard";
-import { ColorVariant } from "../ProductSizes/AddToCartButton";
-import { useAddToFavoriteMutation } from "../../services/productsService";
+import { type IProductCard } from "../../types/IProductCard";
+import { type ColorVariant } from "../ProductSizes/AddToCartButton";
+import { useAddToFavoriteMutation } from "../../services/products";
 
 interface Props {
     product: IProductCard | undefined;
@@ -14,17 +14,16 @@ interface Props {
 const ToggleFavorite: FC<Props> = ({ product, colorVariant, queryParams }) => {
     const [addToFavorite, { isLoading }] = useAddToFavoriteMutation();
     const toggleFavorite = () => {
-        if (!product?.categoryId) return;
+        if (product?.category === undefined) return;
         const updatedProduct: IProductCard = {
             ...product,
             isFavorite: !product?.isFavorite
         };
         const modifierArgs = {
             filters: queryParams,
-            categoryId: product?.categoryId,
             updatedProduct
         };
-        if (!isLoading) addToFavorite(modifierArgs);
+        if (!isLoading) void addToFavorite(modifierArgs);
     };
     return (
         <div>
@@ -40,14 +39,22 @@ const ToggleFavorite: FC<Props> = ({ product, colorVariant, queryParams }) => {
                     variant="contained"
                     size="small"
                 >
-                    {product?.isFavorite ? <Favorite /> : <FavoriteBorderOutlined />}
+                    {product?.isFavorite !== undefined && product?.isFavorite ? (
+                        <Favorite />
+                    ) : (
+                        <FavoriteBorderOutlined />
+                    )}
                 </Button>
             )}
 
             {colorVariant === "dark" && (
                 <IconButton onClick={toggleFavorite} className="product-card__header-item">
-                    {product?.isFavorite && <Favorite fontSize="small" />}
-                    {!product?.isFavorite && <FavoriteBorderOutlined fontSize="small" />}
+                    {product?.isFavorite !== undefined && product?.isFavorite && (
+                        <Favorite fontSize="small" />
+                    )}
+                    {product !== undefined && !product?.isFavorite && (
+                        <FavoriteBorderOutlined fontSize="small" />
+                    )}
                 </IconButton>
             )}
         </div>

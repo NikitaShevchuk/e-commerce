@@ -7,6 +7,7 @@
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
     "@fontsource/roboto": "^4.5.7",
+    "@hookform/resolvers": "^3.0.1",
     "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.9.1",
     "@next/font": "^13.1.6",
@@ -26,27 +27,29 @@
     "@types/swiper": "^6.0.0",
     "axios": "^0.27.2",
     "classnames": "^2.3.2",
-    "eslint": "8.33.0",
     "eslint-config-next": "13.1.6",
     "lodash.debounce": "^4.0.8",
     "next": "13.1.6",
     "next-redux-wrapper": "^8.1.0",
-    "prettier": "^2.8.3",
     "qs": "^6.11.0",
     "react": "^18.2.0",
     "react-content-loader": "^6.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.43.9",
+    "react-loading-skeleton": "^3.2.0",
     "react-redux": "^8.0.2",
     "react-scripts": "5.0.1",
     "swiper": "^8.3.1",
     "typescript": "4.9.5",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yup": "^1.0.2"
   },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "lint:fix": "next lint --fix",
     "predeploy": "yarn build",
     "deploy": "gh-pages -d build"
   },
@@ -69,7 +72,16 @@
     ]
   },
   "devDependencies": {
+    "@types/yup": "^0.32.0",
+    "@typescript-eslint/eslint-plugin": "^5.57.1",
+    "eslint": "^8.37.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-config-standard-with-typescript": "^34.0.1",
+    "eslint-plugin-n": "^15.7.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-promise": "^6.1.1",
     "gh-pages": "^4.0.0",
+    "prettier": "^2.8.7",
     "ts-loader": "^9.3.1"
   }
 }

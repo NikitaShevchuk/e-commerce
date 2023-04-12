@@ -1,7 +1,7 @@
-import React, { FC } from "react";
+import React, { type FC } from "react";
 import { Typography } from "@mui/material";
 import ToggleFavorite from "../../features/ToggleFavorite";
-import { IProductCard } from "../../models/IProductCard";
+import { type IProductCard } from "../../types/IProductCard";
 
 interface Props {
     product: IProductCard | undefined;
@@ -11,7 +11,7 @@ interface Props {
 const ProductCardHeader: FC<Props> = ({ product, queryParams }) => {
     return (
         <div className="product-card__header">
-            {product?.isNew && (
+            {product?.productIsNew !== undefined && product?.productIsNew && (
                 <Typography className="product-card__header-item __new">New</Typography>
             )}
             <ToggleFavorite product={product} queryParams={queryParams} colorVariant="dark" />

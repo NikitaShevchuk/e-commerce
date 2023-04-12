@@ -24,7 +24,7 @@
         "./src/*"
       ],
       "@/styles/*": [
-        "./styles/*"
+        "./src/assets/styles/*"
       ]
     },
     "plugins": [

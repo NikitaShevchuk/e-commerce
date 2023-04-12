@@ -1,0 +1,20 @@
+.auth {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    max-width: 500px;
+    max-height: max-content;
+    background-color: white !important;
+    border: 2px solid #000;
+    padding: 50px;
+    margin: auto;
+}
+
+.message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}

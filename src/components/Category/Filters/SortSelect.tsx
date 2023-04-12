@@ -1,7 +1,7 @@
-import React, { FC } from "react";
-import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
+import React, { type FC } from "react";
+import { type ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import MenuItem from "@mui/material/MenuItem";
-import { Sort } from "../../../store/slices/filterSlice";
+import { type Sort } from "../../../store/slices/filter";
 import DoneIcon from "@mui/icons-material/Done";
 import { useTypedDispatch, useTypedSelector } from "../../../hooks/redux";
 
@@ -11,7 +11,7 @@ interface Props {
 }
 
 const SortSelect: FC<Props> = ({ selectMenuItem, addFilterProperty }) => {
-    let sort = useTypedSelector((state) => state.filterSlice.sort);
+    const sort = useTypedSelector((state) => state.filterSlice.sort);
     const dispatch = useTypedDispatch();
     const handleClick = () => dispatch(addFilterProperty(selectMenuItem));
     return (
@@ -19,8 +19,8 @@ const SortSelect: FC<Props> = ({ selectMenuItem, addFilterProperty }) => {
             {sort.property === selectMenuItem.property && sort.order === selectMenuItem.order && (
                 <DoneIcon />
             )}
-            {selectMenuItem.property
-                ? `${selectMenuItem.property} (${selectMenuItem.order})`
+            {selectMenuItem.property !== null
+                ? `${selectMenuItem.property} (${String(selectMenuItem.order)})`
                 : "By default"}
         </MenuItem>
     );

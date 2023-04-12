@@ -22,6 +22,12 @@ export const theme = createTheme({
         fontFamily: "Space Mono",
         htmlFontSize: 14,
         fontSize: 14,
+        h2: {
+            fontWeight: 700,
+            fontSize: 20,
+            textAlign: "center",
+            marginBottom: "20px"
+        },
         h3: {
             fontWeight: 700,
             fontSize: 14,
@@ -41,6 +47,16 @@ export const theme = createTheme({
             fontWeight: 300,
             fontSize: 14,
             textAlign: "left"
+        }
+    },
+    components: {
+        MuiPaper: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: "#fff",
+                    boxShadow: "none"
+                }
+            }
         }
     },
     shape: {

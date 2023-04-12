@@ -1,0 +1,52 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
+:root {
+    --error: #d32f2f;
+}
+
+body {
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    font-weight: 300;
+    max-width: 100vw;
+    text-align: center;
+}
+body a,
+body a.link {
+    color: inherit;
+    text-decoration: none;
+    font-size: 14px;
+    font-family: "Space Mono", sans-serif;
+    transition: all 0.2s ease-in-out;
+    font-weight: 300;
+}
+body a:hover,
+body a.link:hover {
+    font-weight: 700;
+}
+
+/* Animations */
+
+.opacity {
+    animation-name: opacityAnimation;
+    animation-duration: 0.3s;
+    animation-timing-function: ease-in-out;
+    animation-delay: 0s;
+    animation-iteration-count: 1;
+    animation-direction: normal;
+    animation-fill-mode: both;
+    animation-play-state: running;
+    transition: opacity 0.3s ease-in-out;
+}
+
+@keyframes opacityAnimation {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}

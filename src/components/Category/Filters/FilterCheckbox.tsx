@@ -1,8 +1,8 @@
-import React, { FC, useState } from "react";
+import React, { type FC, useState } from "react";
 import CheckBox from "@mui/material/Checkbox";
 import MenuItem from "@mui/material/MenuItem";
 import { useTypedDispatch } from "../../../hooks/redux";
-import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
+import { type ActionCreatorWithPayload } from "@reduxjs/toolkit";
 
 interface Props {
     checkBoxName: string;
@@ -17,10 +17,10 @@ const FilterCheckbox: FC<Props> = ({
     removeFilterProperty,
     addFilterProperty
 }) => {
-    let [isChecked, setIsChecked] = useState(isCheckedByDefault);
+    const [isChecked, setIsChecked] = useState(isCheckedByDefault);
     const dispatch = useTypedDispatch();
     const handleClick = () => {
-        isChecked && removeFilterProperty
+        isChecked && removeFilterProperty != null
             ? dispatch(removeFilterProperty(checkBoxName))
             : dispatch(addFilterProperty(checkBoxName));
         setIsChecked(!isChecked);
