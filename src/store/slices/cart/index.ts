@@ -7,7 +7,7 @@ import {
 } from "./reducer-map-builder";
 import { RequestStatus, type ThunkError } from "./Types";
 import { HYDRATE } from "next-redux-wrapper";
-import { type IProductCard } from "@/types/IProductCard";
+import { type ICartItem } from "@/types/ICartItem";
 
 const defaultStatus = {
     getCartItems: RequestStatus.loading as RequestStatus,
@@ -17,7 +17,7 @@ const defaultStatus = {
 };
 
 export const cartInitialState = {
-    cartItems: null as IProductCard[] | null,
+    cartItems: null as ICartItem[] | null,
     status: defaultStatus,
     errors: [] as ThunkError[]
 };
@@ -26,7 +26,11 @@ const cartSlice = createSlice({
     name: "cartSlice",
     initialState: cartInitialState,
     reducers: {
-        setCartItems(state, action: { payload: IProductCard[] }) {
+        setCartItems(state, action: { payload: ICartItem[] }) {
+            state.errors = [];
+            state.status.getCartItems = RequestStatus.fulfilled;
+            state.status.itemsIsRemoving = [];
+            state.status.itemsIsUpdating = [];
             state.cartItems = action.payload;
         },
         clearCart(state) {
@@ -51,7 +55,7 @@ const cartSlice = createSlice({
     }
 });
 
-export const { setCartItems } = cartSlice.actions;
+export const { setCartItems, clearCart } = cartSlice.actions;
 
 export type CartInitialState = typeof cartInitialState;
 

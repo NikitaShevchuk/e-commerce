@@ -21,14 +21,14 @@ interface Props {
 }
 
 const Cart: FC<Props> = ({ isOpened, close }) => {
-    const { cartItems, status, cartItemsCount } = useTypedSelector(cartSelector);
+    const { cartItems, status } = useTypedSelector(cartSelector);
 
     useFetchCartItems();
 
     const title =
         status.getCartItems === RequestStatus.loading
             ? "Loading your shopping cart"
-            : `${cartItemsCount} items in your cart`;
+            : `${cartItems?.length ?? "0"} items in your cart`;
     const total = useGetTotal(cartItems);
     const cartProducts = useGetCartProducts(cartItems);
 
@@ -53,9 +53,10 @@ const Cart: FC<Props> = ({ isOpened, close }) => {
                         </BasicPreloader>
                     )}
                     {status.addCartItem === RequestStatus.loading && <CartItemLoader />}
-                    {status.getCartItems !== RequestStatus.error && cartItemsCount < 1 && (
+                    {status.getCartItems !== RequestStatus.error &&
+                    (cartItems === null || cartItems?.length < 1) ? (
                         <CartIsEmpty />
-                    )}
+                    ) : null}
                 </div>
                 <CartError />
                 <CartFooter handleClose={close} total={total} />

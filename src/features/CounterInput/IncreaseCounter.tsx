@@ -4,14 +4,14 @@ import { CountAction } from "../../store/slices/cart/Types";
 
 interface Props {
     modifyCounter: (countAction: CountAction) => void;
-    count: number;
+    quantity: number;
 }
 
-const IncreaseCounter: FC<Props> = ({ modifyCounter, count }) => {
+const IncreaseCounter: FC<Props> = ({ modifyCounter, quantity }) => {
     const handleIncrease = () => {
-        count < 10 && modifyCounter(CountAction.increase);
+        quantity < 10 && modifyCounter(CountAction.increase);
     };
-    const btnOpacity = React.useMemo<0.4 | 1>(() => (count < 10 ? 1 : 0.4), [count]);
+    const btnOpacity = React.useMemo<0.4 | 1>(() => (quantity < 10 ? 1 : 0.4), [quantity]);
     return (
         <AddBox
             onClick={handleIncrease}

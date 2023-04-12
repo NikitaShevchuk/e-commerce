@@ -2,12 +2,12 @@ import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 import Link from "next/link";
 import React, { type FC } from "react";
 import { useTypedSelector } from "../../hooks/redux";
-import { type CartProduct } from "../../types/CartProduct";
+import { type ICartItem } from "../../types/ICartItem";
 import { cartSelector } from "../../store/selectors/cart";
 import CountModifier from "./CountModifier";
 
 interface Props {
-    cartItem: CartProduct;
+    cartItem: ICartItem;
 }
 
 enum CardClassName {
@@ -22,7 +22,9 @@ const CartSingleItem: FC<Props> = ({ cartItem }) => {
     React.useEffect(
         // find out if current cart item id is in the array of items being in delete process
         () => {
-            const inProgress = removingIDs?.find((removingID) => removingID === cartItem._id);
+            const inProgress = removingIDs?.find(
+                (removingID) => removingID === cartItem.product._id
+            );
             if (inProgress !== undefined) {
                 setIsDeleteInProgress(true);
                 setCardClassName(CardClassName.translucent);
@@ -35,22 +37,28 @@ const CartSingleItem: FC<Props> = ({ cartItem }) => {
     );
     return (
         <Card className={`cart-card__wrapper ${cardClassName}`}>
-            <Link href={`/product/${cartItem.productId}`} className="cart-img__wrapper">
-                <CardMedia component="img" image={cartItem.image} alt="product card" />
+            <Link href={`/product/${cartItem.product._id}`} className="cart-img__wrapper">
+                <CardMedia component="img" image={cartItem.product.image} alt="product card" />
             </Link>
             <CardContent className="cart-card">
                 <Typography component="div" fontSize={13}>
                     <span className="flex">
-                        <Link href={`/product/${cartItem.productId}`}>{cartItem.name}</Link>
-                        <span>${cartItem.price}</span>
+                        <Link href={`/product/${cartItem.product._id}`}>
+                            {cartItem.product.title}
+                        </Link>
+                        <span>${cartItem.product.price}</span>
                     </span>
                     <span className="cart-features">
-                        Size: <span className="bold">{cartItem.size}</span>
+                        Size: <span className="bold">{cartItem.selectedSize}</span>
                     </span>
                     <span className="cart-features">
-                        Color: <span className="bold">{cartItem.color}</span>
+                        Color: <span className="bold">{cartItem.product.color}</span>
                     </span>
-                    <CountModifier {...cartItem} deleteInProgress={deleteInProgress} />
+                    <CountModifier
+                        {...cartItem}
+                        _id={cartItem.product._id}
+                        deleteInProgress={deleteInProgress}
+                    />
                 </Typography>
             </CardContent>
         </Card>

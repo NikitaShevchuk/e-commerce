@@ -10,14 +10,14 @@ import DecreaseCounter from "@/features/CounterInput/DecreaseCounter";
 import IncreaseCounter from "@/features/CounterInput/IncreaseCounter";
 
 interface Props {
-    count: number;
+    quantity: number;
     _id: string;
     deleteInProgress: boolean;
 }
 
-const CountModifier: FC<Props> = ({ _id, count, deleteInProgress }) => {
+const CountModifier: FC<Props> = ({ _id, quantity, deleteInProgress }) => {
     const { itemsIsUpdating: loadingIDs } = useTypedSelector(cartSelector).status;
-    const [inputValue, setInputValue] = React.useState<string>(String(count));
+    const [inputValue, setInputValue] = React.useState<string>(String(quantity));
     const [counterIsInactive, setIsCounterInactive] = React.useState<boolean>(false);
     const dispatch = useTypedDispatch();
     React.useEffect(
@@ -62,14 +62,14 @@ const CountModifier: FC<Props> = ({ _id, count, deleteInProgress }) => {
         <>
             <div className={cartClassName}>
                 <div className="cart-features">
-                    <DecreaseCounter modifyCounter={modifyCounter} count={count} />
+                    <DecreaseCounter modifyCounter={modifyCounter} quantity={quantity} />
                     <CounterInput
                         modifyCounter={modifyCounter}
-                        count={count}
+                        quantity={quantity}
                         setInputValue={setInputValue}
                         inputValue={inputValue}
                     />
-                    <IncreaseCounter modifyCounter={modifyCounter} count={count} />
+                    <IncreaseCounter modifyCounter={modifyCounter} quantity={quantity} />
                 </div>
                 <div className="link-style" onClick={handleItemRemove}>
                     remove

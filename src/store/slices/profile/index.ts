@@ -1,3 +1,4 @@
+import { type ICartItem } from "@/types/ICartItem";
 import { type DefaultResponse } from "@/types/Response";
 import { type ActionReducerMapBuilder, createSlice } from "@reduxjs/toolkit";
 
@@ -95,3 +96,8 @@ export default profileSlice.reducer;
 export type ProfileSliceInitialState = typeof initialState;
 export type Profile = typeof profile;
 export type Builder = ActionReducerMapBuilder<ProfileSliceInitialState>;
+export interface ProfileResponse extends Profile {
+    cart: {
+        items: ICartItem[];
+    };
+}

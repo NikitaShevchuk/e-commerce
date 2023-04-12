@@ -1,7 +1,7 @@
 import axios, { type AxiosResponse } from "axios";
 import { API_URL } from "./products";
 import { type DefaultResponse } from "@/types/Response";
-import { type Profile } from "@/store/slices/profile";
+import { type ProfileResponse } from "@/store/slices/profile";
 
 export interface LoginData {
     email: string;
@@ -19,16 +19,17 @@ const profileInstance = axios.create({
     withCredentials: true
 });
 
-const extractData = async (response: AxiosResponse<DefaultResponse<Profile>>) => response.data;
+const extractData = async (response: AxiosResponse<DefaultResponse<ProfileResponse>>) =>
+    response.data;
 
 export const profileApi = {
     async login(loginData: LoginData) {
         return await profileInstance
-            .post<DefaultResponse<Profile>>(`login`, loginData)
+            .post<DefaultResponse<ProfileResponse>>(`login`, loginData)
             .then(extractData);
     },
     async me() {
-        return await profileInstance.get<DefaultResponse<Profile>>(`me`).then(extractData);
+        return await profileInstance.get<DefaultResponse<ProfileResponse>>(`me`).then(extractData);
     },
     async logout() {
         return await profileInstance
@@ -37,7 +38,7 @@ export const profileApi = {
     },
     async signup(signupData: SignUpData) {
         return await profileInstance
-            .post<DefaultResponse<Profile>>(`signup`, signupData)
+            .post<DefaultResponse<ProfileResponse>>(`signup`, signupData)
             .then(extractData);
     }
 };

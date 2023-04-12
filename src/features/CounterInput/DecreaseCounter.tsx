@@ -4,14 +4,14 @@ import { CountAction } from "../../store/slices/cart/Types";
 
 interface Props {
     modifyCounter: (countAction: CountAction) => void;
-    count: number;
+    quantity: number;
 }
 
-const DecreaseCounter: FC<Props> = ({ modifyCounter, count }) => {
+const DecreaseCounter: FC<Props> = ({ modifyCounter, quantity }) => {
     const handleDecrease = () => {
-        count > 1 && modifyCounter(CountAction.decrease);
+        quantity > 1 && modifyCounter(CountAction.decrease);
     };
-    const btnOpacity = React.useMemo<0.4 | 1>(() => (count > 1 ? 1 : 0.4), [count]);
+    const btnOpacity = React.useMemo<0.4 | 1>(() => (quantity > 1 ? 1 : 0.4), [quantity]);
     return (
         <IndeterminateCheckBoxIcon
             fontSize="small"
