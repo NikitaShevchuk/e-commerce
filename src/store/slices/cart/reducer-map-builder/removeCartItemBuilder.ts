@@ -1,7 +1,8 @@
 import { type ActionReducerMapBuilder } from "@reduxjs/toolkit";
 import { removeCartItem } from "../thunks";
 import { filterByErrorBody } from "../helpers";
-import { type CartInitialState, ErrorsAlert, type ThunkError } from "../Types";
+import { ErrorsAlert, type ThunkError } from "../Types";
+import { type CartInitialState } from "../.";
 
 export const removeCartItemBuilder = (builder: ActionReducerMapBuilder<CartInitialState>) => {
     builder
@@ -31,8 +32,7 @@ export const removeCartItemBuilder = (builder: ActionReducerMapBuilder<CartIniti
                     filterByErrorBody(err, ErrorsAlert.removeCartItem)
                 );
             if (state.cartItems != null) {
-                state.cartItems = state.cartItems.filter((item) => item.id !== action.meta.arg);
-                --state.cartItemsCount;
+                state.cartItems = state.cartItems.filter((item) => item._id !== action.meta.arg);
             }
         });
 };

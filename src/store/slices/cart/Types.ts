@@ -1,5 +1,3 @@
-import { type ICategory } from "@/types/ICategory";
-
 export enum RequestStatus {
     loading = "loading",
     error = "error",
@@ -28,13 +26,6 @@ export enum CountAction {
 }
 
 export interface SelectedCartItem {
-    newCartItem: {
-        name: string;
-        image: string;
-        price: string;
-        color: string;
-        productId: string;
-        category: ICategory;
-    };
+    productId: string;
     size: string;
 }

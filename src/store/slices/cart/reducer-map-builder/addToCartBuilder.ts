@@ -1,7 +1,8 @@
 import { type ActionReducerMapBuilder } from "@reduxjs/toolkit";
 import { addToCart } from "../thunks";
 import { findByErrorBody } from "../helpers";
-import { type CartInitialState, ErrorsAlert, RequestStatus, type ThunkError } from "../Types";
+import { ErrorsAlert, RequestStatus, type ThunkError } from "../Types";
+import { type CartInitialState } from "../.";
 
 export const addToCartBuilder = (builder: ActionReducerMapBuilder<CartInitialState>) => {
     builder

@@ -20,7 +20,7 @@ export const modifyCartItemCount = createAsyncThunk(
         const rootState = getState() as RootState;
         const cartItems = cartSelector(rootState).cartItems;
         const targetItem = cartItems?.find((item) => item._id === counterToChange._id);
-        if (targetItem == null) return rejectWithValue(ErrorsAlert.modifyCartItemCount);
+        if (targetItem === undefined) return rejectWithValue(ErrorsAlert.modifyCartItemCount);
         const updatedCount = changeCounter(targetItem.count, counterToChange);
         if (updatedCount === 0) {
             return rejectWithValue(ErrorsAlert.valueIsNotValid);

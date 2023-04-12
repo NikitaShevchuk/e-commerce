@@ -34,15 +34,18 @@ const profileSlice = createSlice({
                 state.loginError = "Authorization failed.";
             }
             state.profile = profile;
+            state.infoMessage = null;
         },
         setUnauthorized(state) {
             state.isAuthorizing = false;
             state.isAuthorized = false;
             state.profile = profile;
+            state.infoMessage = null;
         },
         setPendingState(state) {
             state.isAuthorizing = true;
             state.loginError = null;
+            state.infoMessage = null;
         },
         successAuthorization(state, action: { payload: DefaultResponse<Profile> }) {
             state.isAuthorizing = false;
@@ -56,7 +59,11 @@ const profileSlice = createSlice({
 
             state.isAuthorized = true;
             state.loginError = null;
-            state.profile = action.payload.data;
+            state.profile.email = action.payload.data.email;
+            state.profile.image = action.payload.data.image;
+            state.profile.name = action.payload.data.name;
+            state.profile.role = action.payload.data.role;
+            state.infoMessage = null;
         },
         logout(state, action: { payload: DefaultResponse<undefined> }) {
             state.isAuthorizing = false;
@@ -65,6 +72,7 @@ const profileSlice = createSlice({
             }
             state.isAuthorized = false;
             state.profile = profile;
+            state.infoMessage = null;
         },
         singUp(state) {
             state.isAuthorizing = false;

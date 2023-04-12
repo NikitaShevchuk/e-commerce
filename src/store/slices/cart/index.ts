@@ -1,35 +1,45 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addNewCartItemBuilder } from "./reducer-map-builder/addNewCartItemBuilder";
-import { addToCartBuilder } from "./reducer-map-builder/addToCartBuilder";
-import { getCartItemsBuilder } from "./reducer-map-builder/getCartItemsBuilder";
-import { modifyCartItemCountBuilder } from "./reducer-map-builder/modifyCartItemCountBuilder";
-import { removeCartItemBuilder } from "./reducer-map-builder/removeCartItemBuilder";
-import { type LoadingIDs, RequestStatus, type ThunkError } from "./Types";
+import {
+    addNewCartItemBuilder,
+    addToCartBuilder,
+    modifyCartItemCountBuilder,
+    removeCartItemBuilder
+} from "./reducer-map-builder";
+import { RequestStatus, type ThunkError } from "./Types";
 import { HYDRATE } from "next-redux-wrapper";
-import { type CartProduct } from "@/types/CartProduct";
+import { type IProductCard } from "@/types/IProductCard";
+
+const defaultStatus = {
+    getCartItems: RequestStatus.loading as RequestStatus,
+    addCartItem: RequestStatus.fulfilled as RequestStatus,
+    itemsIsUpdating: [] as string[],
+    itemsIsRemoving: [] as string[]
+};
 
 export const cartInitialState = {
-    cartItemsCount: 0 as number,
-    cartItems: null as CartProduct[] | null,
-    status: {
-        getCartItems: RequestStatus.loading as RequestStatus,
-        addCartItem: RequestStatus.fulfilled as RequestStatus,
-        itemsIsUpdating: [] as LoadingIDs,
-        itemsIsRemoving: [] as LoadingIDs
-    },
+    cartItems: null as IProductCard[] | null,
+    status: defaultStatus,
     errors: [] as ThunkError[]
 };
 
 const cartSlice = createSlice({
     name: "cartSlice",
     initialState: cartInitialState,
-    reducers: {},
+    reducers: {
+        setCartItems(state, action: { payload: IProductCard[] }) {
+            state.cartItems = action.payload;
+        },
+        clearCart(state) {
+            state.cartItems = null;
+            state.status = defaultStatus;
+            state.errors = [];
+        }
+    },
     extraReducers: (builder) => {
         addNewCartItemBuilder(builder);
         addToCartBuilder(builder);
         modifyCartItemCountBuilder(builder);
         removeCartItemBuilder(builder);
-        getCartItemsBuilder(builder);
 
         builder.addCase(HYDRATE, (state, action: any) => {
             if (action.payload.cartSlice === undefined) return state;
@@ -40,6 +50,8 @@ const cartSlice = createSlice({
         });
     }
 });
+
+export const { setCartItems } = cartSlice.actions;
 
 export type CartInitialState = typeof cartInitialState;
 

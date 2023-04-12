@@ -20,6 +20,7 @@ export const loginThunk = createAsyncThunk(
             dispatch(setPendingState());
             const response = await profileApi.login(loginData);
             dispatch(successAuthorization(response));
+            dispatch(setCartItems(response.data));
         } catch (error) {
             const axiosError = error as ProfileError;
             dispatch(authorizationError(axiosError.response?.data));
